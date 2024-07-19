@@ -1,5 +1,7 @@
+import CategoryBtn from '../components/CategoryBtn';
+
 const Home = () => {
-  return <div>hi</div>;
+  return <CategoryBtn />;
 };
 
 export default Home;
