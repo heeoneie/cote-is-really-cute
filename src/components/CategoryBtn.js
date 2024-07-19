@@ -4,7 +4,7 @@ const CategoryBtn = () => {
   return (
     <div>
       {CATEGORIES.map((category, idx) => {
-        <button key={idx}>{category}</button>;
+        return <button key={idx}>{category}</button>;
       })}
     </div>
   );
