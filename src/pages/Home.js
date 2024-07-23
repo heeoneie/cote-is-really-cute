@@ -1,5 +1,12 @@
+import React from 'react';
+import CategoryBtn from '../components/CategoryBtn';
+
 const Home = () => {
-  return <div>hi</div>;
+  return (
+    <React.Fragment>
+      <CategoryBtn />
+    </React.Fragment>
+  );
 };
 
 export default Home;
