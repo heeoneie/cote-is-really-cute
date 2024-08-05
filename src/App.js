@@ -4,7 +4,9 @@ import router from './router/router';
 
 export const AppContext = React.createContext();
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    !!localStorage.getItem('token'),
+  );
 
   return (
     <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
