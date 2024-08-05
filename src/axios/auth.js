@@ -13,3 +13,7 @@ export const signUp = async (userData) => {
     throw new Error(errorMessage);
   }
 };
+
+export const logoutUser = () => {
+  localStorage.removeItem('token');
+};

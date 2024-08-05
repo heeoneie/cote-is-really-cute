@@ -1,21 +1,33 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CategoryBtn from '../components/CategoryBtn';
+import LogoutBtn from '../components/LogoutBtn';
+import AuthLinks from '../components/AuthLinks';
+import { logoutUser } from '../axios/auth';
 
 const Home = () => {
-  const { isLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  return <div>{isLoggedIn ? <CategoryBtn /> : <AuthLinks />}</div>;
+  const handleLogout = () => {
+    logoutUser();
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
+  return (
+    <div>
+      {isLoggedIn ? (
+        <>
+          <CategoryBtn />
+          <LogoutBtn onLogout={handleLogout} />
+        </>
+      ) : (
+        <AuthLinks />
+      )}
+    </div>
+  );
 };
-
-const AuthLinks = () => (
-  <div>
-    <Link to="/login" style={{ marginRight: '10px' }}>
-      Login
-    </Link>
-    <Link to="/signup">Sign Up</Link>
-  </div>
-);
 
 export default Home;
