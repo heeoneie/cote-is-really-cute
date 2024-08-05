@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-      <RouterProvider router={router} context={{ isLoggedIn, setIsLoggedIn }} />
+      <RouterProvider router={router} />
     </AppContext.Provider>
   );
 };

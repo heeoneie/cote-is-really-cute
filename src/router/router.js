@@ -3,6 +3,8 @@ import DefaultLayout from '../layout/DefaultLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
+import CategoryBtn from '../components/CategoryBtn';
+import ProtectedRoute from '../router/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />,
+      },
+      {
+        path: '/categories',
+        element: (
+          <ProtectedRoute>
+            <CategoryBtn />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

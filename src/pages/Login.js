@@ -9,6 +9,7 @@ import {
   Alert,
 } from '@mui/material';
 import { AppContext } from '../App';
+import { loginUser } from '../axios/auth';
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
@@ -44,8 +45,9 @@ const Login = () => {
     }
 
     try {
-      // 여기서 실제 로그인 API 호출 및 검증 로직을 구현합니다.
-      // 예를 들어, 성공적으로 로그인하면 setIsLoggedIn(true) 호출
+      const response = await loginUser(formData);
+      const { token } = response.data;
+      localStorage.setItem('token', token);
       setIsLoggedIn(true);
       navigate('/');
     } catch (error) {
