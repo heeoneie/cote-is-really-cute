@@ -1,5 +1,5 @@
-import axios from './axios';
+import request from './axios';
 
 export const getAlgorithmCourse = async (category) => {
-  return await axios.post('/recommendation', { category });
+  return request.post('/recommendation', { category });
 };
