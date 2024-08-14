@@ -56,8 +56,12 @@ const CategoryBtn = () => {
           .filter(Boolean);
 
         problemsList.forEach((item) => {
-          const [problemNumber, ...titleParts] = item.split(' - ');
+          let [problemNumber, ...titleParts] = item.split(' - ');
           const title = titleParts.join(' - ');
+
+          if (problemNumber.includes('.') || problemNumber.includes('-')) {
+            problemNumber = problemNumber.split(' ')[1].trim();
+          }
 
           if (problemNumber && title) {
             problems[currentLevel].push({
