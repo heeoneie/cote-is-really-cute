@@ -34,28 +34,39 @@ const CategoryBtn = () => {
       advanced: [],
     };
 
-    const lines = data.split('\n').filter((line) => line.trim() !== '');
+    const sections = data.split('\n').filter((line) => line.trim() !== '');
     let currentLevel = '';
 
-    lines.forEach((line) => {
-      if (line.includes('초급')) {
+    sections.forEach((line) => {
+      if (line.includes('초급:')) {
         currentLevel = 'beginner';
-      } else if (line.includes('중급')) {
+        line = line.replace('초급:', '').trim();
+      } else if (line.includes('중급:')) {
         currentLevel = 'intermediate';
-      } else if (line.includes('고급')) {
+        line = line.replace('중급:', '').trim();
+      } else if (line.includes('고급:')) {
         currentLevel = 'advanced';
-      } else if (currentLevel) {
-        let [problemNumber, title] = line.split(' - ');
-        if (problemNumber && title) {
-          problemNumber = problemNumber.replace('[', '').trim();
-          title = title.replace(']', '').replace(',', '').trim();
+        line = line.replace('고급:', '').trim();
+      }
 
-          problems[currentLevel].push({
-            problemNumber,
-            title,
-            url: `https://www.acmicpc.net/problem/${problemNumber}`,
-          });
-        }
+      if (currentLevel) {
+        const problemsList = line
+          .split('],')
+          .map((item) => item.replace(/[[\]]/g, '').trim())
+          .filter(Boolean);
+
+        problemsList.forEach((item) => {
+          const [problemNumber, ...titleParts] = item.split(' - ');
+          const title = titleParts.join(' - ');
+
+          if (problemNumber && title) {
+            problems[currentLevel].push({
+              problemNumber: problemNumber.trim(),
+              title: title.trim(),
+              url: `https://www.acmicpc.net/problem/${problemNumber.trim()}`,
+            });
+          }
+        });
       }
     });
 
