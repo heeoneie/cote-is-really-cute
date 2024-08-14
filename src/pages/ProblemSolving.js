@@ -3,8 +3,8 @@ import { AppContext } from '../App';
 import { Button, Typography } from '@mui/material';
 
 const ProblemSolving = () => {
-  const { problems } = React.useContext(AppContext);
-  const [currentProblemIndex, setCurrentProblemIndex] = React.useState(0);
+  const { problems, currentProblemIndex, setCurrentProblemIndex } =
+    React.useContext(AppContext);
 
   if (!problems || !problems.beginner || problems.beginner.length === 0) {
     return <Typography>No problems available.</Typography>;
