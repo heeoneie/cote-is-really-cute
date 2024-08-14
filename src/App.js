@@ -7,9 +7,16 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     !!localStorage.getItem('token'),
   );
+  const [problems, setProblems] = React.useState({
+    beginner: [],
+    intermediate: [],
+    advanced: [],
+  });
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AppContext.Provider
+      value={{ isLoggedIn, setIsLoggedIn, problems, setProblems }}
+    >
       <RouterProvider router={router} />
     </AppContext.Provider>
   );
