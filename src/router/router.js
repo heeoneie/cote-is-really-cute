@@ -3,6 +3,7 @@ import DefaultLayout from '../layout/DefaultLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
+import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -24,6 +25,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <CategoryBtn />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/solve/:category/:level/:index', // 문제 풀이 페이지를 위한 라우트
+    element: (
+      <ProtectedRoute>
+        <ProblemSolving />
       </ProtectedRoute>
     ),
   },

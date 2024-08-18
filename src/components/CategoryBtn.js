@@ -2,8 +2,12 @@ import React from 'react';
 import { CATEGORIES } from '../utils/categories';
 import { getAlgorithmCourse } from '../axios/openai';
 import { CircularProgress, Button, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../App';
 
 const CategoryBtn = () => {
+  const navigate = useNavigate();
+  const { setProblems } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
@@ -12,13 +16,65 @@ const CategoryBtn = () => {
     setError('');
     try {
       const response = await getAlgorithmCourse(category);
-      console.log(response.data);
+      const parsedProblems = parseProblems(response.data);
+      setProblems(parsedProblems);
+      navigate(`/solve/${category}/beginner/0`);
     } catch (err) {
       setError('Failed to fetch data');
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const parseProblems = (data) => {
+    const problems = {
+      beginner: [],
+      intermediate: [],
+      advanced: [],
+    };
+
+    const sections = data.split('\n').filter((line) => line.trim() !== '');
+    let currentLevel = '';
+
+    sections.forEach((line) => {
+      if (line.includes('초급:')) {
+        currentLevel = 'beginner';
+        line = line.replace('초급:', '').trim();
+      } else if (line.includes('중급:')) {
+        currentLevel = 'intermediate';
+        line = line.replace('중급:', '').trim();
+      } else if (line.includes('고급:')) {
+        currentLevel = 'advanced';
+        line = line.replace('고급:', '').trim();
+      }
+
+      if (currentLevel) {
+        const problemsList = line
+          .split('],')
+          .map((item) => item.replace(/[[\]]/g, '').trim())
+          .filter(Boolean);
+
+        problemsList.forEach((item) => {
+          let [problemNumber, ...titleParts] = item.split(' - ');
+          const title = titleParts.join(' - ');
+
+          if (problemNumber.includes('.') || problemNumber.includes('-')) {
+            problemNumber = problemNumber.split(' ')[1].trim();
+          }
+
+          if (problemNumber && title) {
+            problems[currentLevel].push({
+              problemNumber: problemNumber.trim(),
+              title: title.trim(),
+              url: `https://www.acmicpc.net/problem/${problemNumber.trim()}`,
+            });
+          }
+        });
+      }
+    });
+
+    return problems;
   };
 
   return (
