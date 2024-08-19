@@ -35,8 +35,6 @@ const ProblemSolving = () => {
     }
   };
 
-  const handleTimerComplete = () => alert('시간이 다 되었습니다!');
-
   const currentProblem = currentProblems[currentIndex];
 
   return (
@@ -60,7 +58,7 @@ const ProblemSolving = () => {
             {currentProblem.problemNumber} {currentProblem.title}
           </Typography>
 
-          <Timer initialMinutes={30} onComplete={handleTimerComplete} />
+          <Timer initialMinutes={30} />
 
           <Button
             variant="contained"
