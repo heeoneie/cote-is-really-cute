@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
 import { Box, Button, Typography, Alert } from '@mui/material';
+import Timer from '../components/Timer';
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
@@ -34,6 +35,8 @@ const ProblemSolving = () => {
     }
   };
 
+  const handleTimerComplete = () => alert('시간이 다 되었습니다!');
+
   const currentProblem = currentProblems[currentIndex];
 
   return (
@@ -56,6 +59,9 @@ const ProblemSolving = () => {
           <Typography variant="h4" sx={{ mb: 2 }}>
             {currentProblem.problemNumber} {currentProblem.title}
           </Typography>
+
+          <Timer initialMinutes={30} onComplete={handleTimerComplete} />
+
           <Button
             variant="contained"
             color="primary"
