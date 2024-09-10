@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+## Commit 메시지 구조
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+💡 `type: subject`
 
-## Available Scripts
+타입은 태그와 제목으로 구성되고, 태그는 영어로 쓰되 첫 문자는 대문자로 한다
+```
 
-In the project directory, you can run:
+## Commit Type
 
-### `npm start`
+| 타입       | 이모지  | 설명                                                                 | 예시                                              |
+| ---------- | ------- | -------------------------------------------------------------------- | ------------------------------------------------- |
+| **feat**   | ✨      | 새로운 기능을 추가할 때 사용합니다.                                    | `feat: ✨ 로그인 폼 유효성 검사 추가`             |
+| **fix**    | 🐛      | 버그를 수정할 때 사용합니다.                                          | `fix: 🐛 헤더 컴포넌트 오타 수정`                 |
+| **style**  | 💄      | 코드의 의미에 영향을 주지 않는 스타일 변경 (공백, 서식 등).            | `style: 💄 SCSS 파일 서식 정리`                   |
+| **refactor**| 🔨     | 버그 수정이나 기능 추가 없이 코드 구조를 개선할 때 사용합니다.          | `refactor: 🔨 컴포넌트 상태 관리 로직 단순화`     |
+| **perf**   | ⚡️     | 성능을 개선하는 코드 변경.                                            | `perf: ⚡️ 이미지 로딩 시간 최적화`                |
+| **test**   | ✅      | 테스트 코드를 추가하거나 수정할 때 사용합니다.                         | `test: ✅ 버튼 컴포넌트에 대한 단위 테스트 추가`  |
+| **docs**   | 📝      | 문서만 변경할 때 사용합니다.                                          | `docs: 📝 설치 단계 README에 추가`                |
+| **chore**  | 🔧      | 소스나 테스트 파일을 수정하지 않는 일반적인 작업이나 업데이트.        | `chore: 🔧 종속성 패키지 업데이트`                |
+| **build**  | 🏗️      | 빌드 시스템이나 외부 종속성에 영향을 미치는 변경 (예: webpack, npm).   | `build: 🏗️ 웹팩 설정 업데이트`                   |
+| **ci**     | 👷      | CI 설정 파일 및 스크립트 변경 (예: GitHub Actions, Travis).            | `ci: 👷 자동화 테스트를 위한 GitHub Actions 설정` |
+| **revert** | ⏪      | 이전 커밋을 되돌릴 때 사용합니다.                                    | `revert: ⏪ "로그인 폼 유효성 검사 추가" 커밋 되돌림`|
+| **init**   | 🎉      | 프로젝트 초기 설정 시 사용합니다.                                     | `init: 🎉 React 프로젝트 초기 설정`               |
+| **UI**     | 🎨      | 사용자 인터페이스 관련 변경 사항.                                      | `UI: 🎨 네비게이션 바 디자인 수정`               |
+| **config** | ⚙️      | 환경설정 관련 변경 사항.                                             | `config: ⚙️ ESLint 설정 규칙 업데이트`           |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[참고](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[깃모지 사용법](https://treasurebear.tistory.com/70)
