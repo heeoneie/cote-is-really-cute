@@ -45,6 +45,8 @@ const ProblemSolving = () => {
     setShowCodeEditor(true);
   };
 
+  const handleCodeSubmit = () => {};
+
   return (
     <Box
       sx={{
@@ -83,6 +85,7 @@ const ProblemSolving = () => {
             <CodeEditor
               code={code}
               onChange={(newValue) => setCode(newValue)}
+              onSubmit={handleCodeSubmit}
             />
           )}
         </>
