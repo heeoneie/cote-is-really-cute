@@ -5,10 +5,8 @@ const DefaultLayout = () => {
   return (
     <div>
       <Menubar />
-      <div style={{ marginLeft: '280px', padding: '20px' }}>
-        <h1>Header</h1>
+      <div style={{ margin: '0px 0px 0px 230px' }}>
         <Outlet />
-        <h1>Footer</h1>
       </div>
     </div>
   );
