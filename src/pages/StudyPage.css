@@ -63,8 +63,8 @@
 }
 
 .button:hover {
-  background-color: #82D21C40;
-  border-color: #82D21C;
+  background-color: #82d21c40;
+  border-color: #82d21c;
 }
 
 .bottom-right {
@@ -87,7 +87,8 @@
   text-align: center;
 }
 
-.notification > h2, .status > h2 {
+.notification > h2,
+.status > h2 {
   font-weight: lighter;
   font-size: 24px;
 }

@@ -1,60 +1,63 @@
 /* components/menubar.css */
-@font-face{
-    font-family:'DNFBitBitv2';
-    font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
+@font-face {
+  font-family: 'DNFBitBitv2';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')
+    format('opentype');
+}
 
 .menubar {
-    position: fixed; /* 사이드바를 화면 왼쪽에 고정 */
-    top: 0;
-    left: 0;
-    width: 250px; /* 사이드바의 너비 */
-    height: 100vh; /* 화면 전체 높이 */
-    background-color: #ffffff;
-    color: #82D21C;
-    padding: 0px 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-  }
-  
-  .menubar p {
-    margin-bottom: 20px;
-    font-family: 'DNFBitBitv2';
-    font-size: 24px;
-    text-align: center;
-  }
-  
-  .menubar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .menubar ul li {
-    margin-bottom: 15px;
-  }
-  
-  .menubar-link {
-    display: flex;
-    align-items: center; /* 이미지와 텍스트를 세로로 가운데 정렬 */
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    background-color: #ffffff; /* 버튼 모양의 배경색 */
-    padding: 10px;
-    border: 5px solid #f5f5f5; /* 기본 테두리 색상 */
-    border-radius: 10px;
-    transition: background-color 0.3s; /* 호버 시 배경색 변화 */
-  }
-  
-  .menubar-link:hover {
-    background-color: #61ECFF78; /* 호버 시 배경색 */
-    border-color: #61ECFF;
-  }
-  
-  .menubar-icon {
-    width: 24px; /* 아이콘 크기 */
-    height: 24px;
-    margin-right: 10px; /* 아이콘과 텍스트 사이의 여백 */
-  }
-  
-  .menubar-link span {
-    font-size: 16px; /* 텍스트 크기 */
-  }
-  
+  position: fixed; /* 사이드바를 화면 왼쪽에 고정 */
+  top: 0;
+  left: 0;
+  width: 250px; /* 사이드바의 너비 */
+  height: 100vh; /* 화면 전체 높이 */
+  background-color: #ffffff;
+  color: #82d21c;
+  padding: 0px 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+.menubar p {
+  margin-bottom: 20px;
+  font-family: 'DNFBitBitv2';
+  font-size: 24px;
+  text-align: center;
+}
+
+.menubar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menubar ul li {
+  margin-bottom: 15px;
+}
+
+.menubar-link {
+  display: flex;
+  align-items: center; /* 이미지와 텍스트를 세로로 가운데 정렬 */
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: #ffffff; /* 버튼 모양의 배경색 */
+  padding: 10px;
+  border: 5px solid #f5f5f5; /* 기본 테두리 색상 */
+  border-radius: 10px;
+  transition: background-color 0.3s; /* 호버 시 배경색 변화 */
+}
+
+.menubar-link:hover {
+  background-color: #61ecff78; /* 호버 시 배경색 */
+  border-color: #61ecff;
+}
+
+.menubar-icon {
+  width: 24px; /* 아이콘 크기 */
+  height: 24px;
+  margin-right: 10px; /* 아이콘과 텍스트 사이의 여백 */
+}
+
+.menubar-link span {
+  font-size: 16px; /* 텍스트 크기 */
+}
