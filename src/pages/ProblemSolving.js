@@ -3,12 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
 import { Box, Button, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
+import CodeEditor from '../components/CodeEditor';
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
   const navigate = useNavigate();
   const { category, level, index } = useParams();
   const [showAlert, setShowAlert] = React.useState(false);
+  const [showCodeEditor, setShowCodeEditor] = React.useState(false);
+  const [code, setCode] = React.useState('');
 
   const levelSequence = ['beginner', 'intermediate', 'advanced'];
   const currentLevelIndex = levelSequence.indexOf(level);
@@ -37,6 +40,11 @@ const ProblemSolving = () => {
 
   const currentProblem = currentProblems[currentIndex];
 
+  const handleProblemSolving = () => {
+    window.open(currentProblem.url, '_blank');
+    setShowCodeEditor(true);
+  };
+
   return (
     <Box
       sx={{
@@ -63,7 +71,7 @@ const ProblemSolving = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => window.open(currentProblem.url, '_blank')}
+            onClick={handleProblemSolving}
             sx={{ mb: 2 }}
           >
             문제 풀기
@@ -71,6 +79,12 @@ const ProblemSolving = () => {
           <Button variant="outlined" onClick={nextProblem}>
             다음 문제
           </Button>
+          {showCodeEditor && (
+            <CodeEditor
+              code={code}
+              onChange={(newValue) => setCode(newValue)}
+            />
+          )}
         </>
       ) : (
         <Typography variant="h6">No problems available.</Typography>
