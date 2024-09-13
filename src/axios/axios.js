@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://violent-lea-coteisreallycute-52210e1a.koyeb.app',
   headers: {
     'Content-Type': 'application/json',
   },
