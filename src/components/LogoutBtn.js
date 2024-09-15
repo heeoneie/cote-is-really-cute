@@ -1,14 +1,17 @@
 const LogoutButton = ({ onLogout }) => (
   <button onClick={onLogout} style={buttonStyle}>
-    Logout
+    로그아웃
   </button>
 );
 
 const buttonStyle = {
-  marginTop: '10px',
+  marginRight: '10px',
   padding: '8px 16px',
   fontSize: '16px',
   cursor: 'pointer',
+  fontWeight: 'bold',
+  border: 'none',
+  backgroundColor: 'white',
 };
 
 export default LogoutButton;

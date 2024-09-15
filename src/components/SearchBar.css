@@ -1,23 +1,25 @@
 .search-container {
-  position: relative; /* 검색바 내부에 아이콘을 배치하기 위해 relative로 설정 */
+  position: relative;
   display: flex;
-  align-items: center;
+  justify-content: center; /* 부모에서 중앙 정렬 */
+  width: 100%; /* 부모 그리드 안에서의 전체 너비 */
+  max-width: 600px; /* 검색바의 최대 너비 */
+  padding: 10px;
 }
 
 .search-bar {
-  padding: 8px;
+  padding: 8px 40px 8px 16px; /* 오른쪽에 여유 공간을 더 주어 아이콘 위치 확보 */
   border: 5px solid #82d21c;
   border-radius: 50px;
   width: 100%;
   transition: width 0.3s ease;
-  padding-right: 40px; /* 아이콘을 포함할 공간 확보 */
 }
 
 .search-button {
-  position: absolute;
-  right: 10px; /* 검색바 내부 오른쪽 여백 */
+  position: absolute; /* 검색 버튼을 검색바 안쪽 오른쪽에 고정 */
+  right: 20px;
   top: 50%;
-  transform: translateY(-50%); /* 세로 가운데 정렬 */
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;

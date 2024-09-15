@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom';
+import './AuthLinks.css';
 
 const AuthLinks = () => (
-  <div>
-    <Link to="/login" style={linkStyle}>
-      Login
-    </Link>
-    <Link to="/signup" style={linkStyle}>
-      Sign Up
-    </Link>
+  <div className="login-container">
+    <button className="login-btn">
+      <Link to="/login">로그인</Link>
+    </button>
+    <button className="signup-btn">
+      <Link to="/signup">회원가입</Link>
+    </button>
   </div>
 );
-
-const linkStyle = {
-  marginRight: '10px',
-};
 
 export default AuthLinks;

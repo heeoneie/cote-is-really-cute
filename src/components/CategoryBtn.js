@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CATEGORIES } from '../utils/categories';
 import { getAlgorithmCourse } from '../axios/openai';
-import { CircularProgress, Button, Typography, Box } from '@mui/material';
+import { CircularProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
+import './CategoryBtn.css';
 
 const CategoryBtn = () => {
   const navigate = useNavigate();
   const { setProblems } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState(null);
 
   const getCourse = async (category) => {
     setLoading(true);
@@ -77,8 +80,39 @@ const CategoryBtn = () => {
     return problems;
   };
 
+  const handleDifficultyClick = (difficulty) => {
+    setSelectedDifficulty(difficulty);
+    setSelectedAlgorithm(null); // 난이도 변경 시 알고리즘 초기화
+  };
+
+  const handleScreenClick = () => {
+    setSelectedDifficulty(null);
+    setSelectedAlgorithm(null);
+  };
+  // 난이도에 맞게 별 갯수 생성
+  const renderStars = (difficulty) => {
+    let starCount = 0;
+    switch (difficulty) {
+      case '초급':
+        starCount = 1;
+        break;
+      case '중급':
+        starCount = 2;
+        break;
+      case '고급':
+        starCount = 3;
+        break;
+      default:
+        starCount = 0;
+    }
+
+    return Array.from({ length: starCount }).map((_, idx) => (
+      <img key={idx} src="/img/gradestar.png" alt="별" className="btn-img" />
+    ));
+  };
+
   return (
-    <div>
+    <div className="ctg-container">
       {loading && (
         <Box
           sx={{
@@ -99,18 +133,60 @@ const CategoryBtn = () => {
       )}
 
       <div>
-        {CATEGORIES.map((category, idx) => (
-          <Button
-            key={idx}
-            onClick={() => getCourse(category)}
-            variant="contained"
-            color="primary"
-            style={{ margin: '5px' }}
-          >
-            {category}
-          </Button>
-        ))}
-        {error && <Typography color="error">{error}</Typography>}
+        <Box
+          onClick={handleScreenClick}
+          sx={{
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 2,
+            overflow: 'hidden',
+          }}
+        >
+          {/* 난이도 버튼들 */}
+          {!selectedDifficulty && (
+            <div>
+              {Object.keys(CATEGORIES).map((difficulty) => (
+                <button
+                  key={difficulty}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 클릭 이벤트가 상위 Box로 전파되지 않도록 함
+                    handleDifficultyClick(difficulty);
+                  }}
+                  className="diff-btn"
+                >
+                  {renderStars(difficulty)}
+                  <p>{difficulty}</p>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* 알고리즘 버튼들 */}
+          {selectedDifficulty && (
+            <div style={{ marginTop: '10px' }}>
+              {CATEGORIES[selectedDifficulty].map((algorithm, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 클릭 이벤트가 상위 Box로 전파되지 않도록 함
+                    getCourse(algorithm);
+                  }}
+                  color={
+                    selectedAlgorithm === algorithm ? 'secondary' : 'primary'
+                  }
+                  className="ctg-btn"
+                >
+                  {algorithm}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {error && <Typography color="error">{error}</Typography>}
+        </Box>
       </div>
     </div>
   );

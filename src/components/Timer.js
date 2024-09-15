@@ -1,6 +1,6 @@
 import React from 'react';
 import Countdown from 'react-countdown';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import iphone_alarm from '../assets/iphone_alarm.mp3';
 
 const Timer = ({ initialMinutes }) => {
@@ -58,21 +58,13 @@ const Timer = ({ initialMinutes }) => {
       }}
     >
       <Box sx={{ mb: 2, display: 'flex', gap: 1 }}>
-        <Button
-          variant="contained"
-          color="secondary"
+        <button
           onClick={() => adjustTimer(-10)}
           disabled={timerMinutes <= 10 * 60 * 1000}
         >
           -10분
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => adjustTimer(10)}
-        >
-          +10분
-        </Button>
+        </button>
+        <button onClick={() => adjustTimer(10)}>+10분</button>
       </Box>
 
       {!isTimerActive && (
@@ -94,27 +86,9 @@ const Timer = ({ initialMinutes }) => {
         />
       )}
 
-      {isAlarmActive && (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={stopTimer}
-          sx={{ mt: 2 }}
-        >
-          종료
-        </Button>
-      )}
+      {isAlarmActive && <button onClick={stopTimer}>종료</button>}
 
-      {!isTimerActive && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={startTimer}
-          sx={{ mt: 2 }}
-        >
-          타이머 시작
-        </Button>
-      )}
+      {!isTimerActive && <button onClick={startTimer}>타이머 시작</button>}
     </Box>
   );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
-import { Box, Button, Typography, Alert } from '@mui/material';
+import { Box, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
+import './ProblemSolving.css';
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
@@ -54,23 +55,19 @@ const ProblemSolving = () => {
       )}
       {currentProblem ? (
         <>
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            {currentProblem.problemNumber} {currentProblem.title}
-          </Typography>
-
+          <h4 className="pro-h4">문제번호 : {currentProblem.problemNumber}</h4>
+          <h4 className="pro-h4">{currentProblem.title}</h4>
           <Timer initialMinutes={30} />
 
-          <Button
-            variant="contained"
-            color="primary"
+          <button
+            className="pro-btn"
             onClick={() => window.open(currentProblem.url, '_blank')}
-            sx={{ mb: 2 }}
           >
             문제 풀기
-          </Button>
-          <Button variant="outlined" onClick={nextProblem}>
+          </button>
+          <button className="pro-btn" onClick={nextProblem}>
             다음 문제
-          </Button>
+          </button>
         </>
       ) : (
         <Typography variant="h6">No problems available.</Typography>

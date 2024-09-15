@@ -1,86 +1,16 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: calc(100vw - 250px); /* menubar크기만큼 뺌 */
-  position: relative;
-}
-
-.top-left {
-  position: absolute;
-  top: 25px;
-  left: calc(50% - 15%); /* bottom-right 영역을 피하기 위해 조정 */
-  transform: translate(-50%, 0);
-  width: 50%; /* bottom-right 영역을 피하는 너비 설정 */
-}
-
-.top-right {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.link {
-  margin-left: 10px;
-  text-decoration: none;
-  color: #000000;
-  font-weight: bold;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.bottom-left {
-  position: absolute;
-  top: 400px;
-  left: calc(50% - 15%); /* bottom-right 영역을 피하기 위해 조정 */
-  transform: translate(-50%, -50%);
-  width: 60%; /* bottom-right 영역을 피하는 너비 설정 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.button {
-  width: 20vw;
-  max-width: 500px; /* 최대 너비 */
-  min-width: 200px; /* 최소 너비 */
-  display: block;
-  margin-bottom: 50px;
-  padding: 20px;
-  border: 5px solid #d9d9d9;
-  border-radius: 50px;
-  background-color: #ffffff;
-  color: #000000;
-  cursor: pointer;
-}
-
-.button p {
-  margin: 0px;
-  font-weight: bold;
-  font-size: large;
-}
-
-.button:hover {
-  background-color: #82d21c40;
-  border-color: #82d21c;
-}
-
 .bottom-right {
-  position: absolute;
-  width: 30%;
-  top: 100px;
-  right: 10px;
+  position: relative;
+  width: 15vw;
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
 }
 
 .notification,
 .status {
   background-color: #ffffff;
   border: 5px solid #d9d9d9;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   margin-bottom: 10px;
   border-radius: 50px;
   height: 40vh;
@@ -91,9 +21,4 @@
 .status > h2 {
   font-weight: lighter;
   font-size: 24px;
-}
-
-.btn-img {
-  width: 24px;
-  height: 24px;
 }

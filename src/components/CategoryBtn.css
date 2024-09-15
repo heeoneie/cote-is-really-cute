@@ -1,0 +1,54 @@
+.diff-btn {
+    width: 20vw;
+    max-width: 500px; /* 최대 너비 */
+    min-width: 200px; /* 최소 너비 */
+    display: block;
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 5px solid #d9d9d9;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+  }
+
+.diff-btn p{
+    margin: 0px;
+    font-weight: bold;
+    font-size: large;
+}
+  
+.diff-btn:hover {
+  background-color: #82d21c40;
+  border-color: #82d21c;
+}
+
+.btn-img {
+  width: 24px;
+  height: 24px;
+}
+
+.ctg-btn {
+  width: 20vw;
+  max-width: 500px; /* 최대 너비 */
+  min-width: 200px; /* 최소 너비 */
+  display: block;
+  margin-bottom: 50px;
+  padding: 20px;
+  border: 5px solid #d9d9d9;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.ctg-btn p{
+  margin: 0px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.ctg-btn:hover {
+background-color: #61ecff78;
+border-color: #61ecff;
+}

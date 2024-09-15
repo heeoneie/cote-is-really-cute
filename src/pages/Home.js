@@ -5,6 +5,9 @@ import CategoryBtn from '../components/CategoryBtn';
 import LogoutBtn from '../components/LogoutBtn';
 import AuthLinks from '../components/AuthLinks';
 import { logoutUser } from '../axios/auth';
+import SearchBar from '../components/SearchBar';
+import StudyPage from './StudyPage';
+import { Grid } from '@mui/material';
 
 const Home = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
@@ -19,10 +22,36 @@ const Home = () => {
   return (
     <div>
       {isLoggedIn ? (
-        <>
-          <CategoryBtn />
-          <LogoutBtn onLogout={handleLogout} />
-        </>
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={10}
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <SearchBar />
+          </Grid>
+          <Grid
+            item
+            xs={2}
+            style={{ display: 'flex', justifyContent: 'flex-end' }}
+          >
+            <LogoutBtn onLogout={handleLogout} />
+          </Grid>
+          <Grid
+            item
+            xs={9}
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <CategoryBtn />
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            style={{ display: 'flex', justifyContent: 'flex-end' }}
+          >
+            <StudyPage />
+          </Grid>
+        </Grid>
       ) : (
         <AuthLinks />
       )}
