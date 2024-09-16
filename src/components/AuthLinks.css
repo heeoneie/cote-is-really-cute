@@ -1,36 +1,39 @@
 .login-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: calc(100vw - 250px);
-    position: relative;
-    align-items: center; /* 버튼을 중앙 정렬 */
-    justify-content: center; /* 버튼을 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: calc(100vw - 250px);
+  position: relative;
+  align-items: center; /* 버튼을 중앙 정렬 */
+  justify-content: center; /* 버튼을 중앙 정렬 */
 }
 
-.login-btn, .signup-btn {
-    width: 20vw;
-    max-width: 300px; /* 최대 너비 설정 */
-    border: 5px solid #d9d9d9;
-    border-radius: 50px;
-    background-color: #ffffff;
-    cursor: pointer;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.login-btn,
+.signup-btn {
+  width: 20vw;
+  max-width: 300px; /* 최대 너비 설정 */
+  border: 5px solid #d9d9d9;
+  border-radius: 50px;
+  background-color: #ffffff;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-btn a, .signup-btn a {
-    text-decoration: none;
-    color: #000000; /* 링크 텍스트 색상 */
+.login-btn a,
+.signup-btn a {
+  text-decoration: none;
+  color: #000000; /* 링크 텍스트 색상 */
 }
 
-.login-btn:hover, .signup-btn:hover {
-    background-color: #82d21c40; /* 호버 시 배경색 변경 */
-    border-color: #82d21c;
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: #82d21c40; /* 호버 시 배경색 변경 */
+  border-color: #82d21c;
 }

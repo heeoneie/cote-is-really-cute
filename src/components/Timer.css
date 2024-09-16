@@ -1,0 +1,40 @@
+.t-btn, .tstart-btn, .tend-btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: #b9e481;
+    cursor: pointer;
+  };
+
+.t-btn{
+    font-size: 10px;
+}
+
+.t-btn:hover{
+    background-color: #82d21c;
+}
+
+.tstart-btn{
+    color:#82d21c;
+    border: 4px solid #82d21c;
+    background-color: #ffffff;
+}
+.tend-btn{
+    color:#f28434;
+    border: 4px solid #f28434;
+    background-color: #ffffff;
+}
+
+.tend-btn:hover{
+    background-color: #f28334b0;
+}
+
+.tstart-btn:hover{
+    background-color: #82d21c40;
+}
+
+.t-num{
+    margin: 15px;
+    font-size: x-large;
+    font-family: 'GmarketSansMedium';
+}

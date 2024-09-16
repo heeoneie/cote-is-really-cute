@@ -16,7 +16,7 @@
   background-color: #ffffff;
   color: #82d21c;
   padding: 0px 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+  border-right: 5px solid #00000027;
 }
 
 .menubar p {

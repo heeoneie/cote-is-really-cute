@@ -1,7 +1,8 @@
 import React from 'react';
 import Countdown from 'react-countdown';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import iphone_alarm from '../assets/iphone_alarm.mp3';
+import './Timer.css';
 
 const Timer = ({ initialMinutes }) => {
   const [timerMinutes, setTimerMinutes] = React.useState(
@@ -42,9 +43,9 @@ const Timer = ({ initialMinutes }) => {
     const formattedSeconds = String(seconds).padStart(2, '0');
 
     return (
-      <Typography variant="h4">
+      <h6 className="t-num">
         {formattedHours}:{formattedMinutes}:{formattedSeconds}
-      </Typography>
+      </h6>
     );
   };
 
@@ -57,25 +58,32 @@ const Timer = ({ initialMinutes }) => {
         alignItems: 'center',
       }}
     >
+      <img
+        src="/img/timer.png"
+        alt="타이머"
+        style={{ width: '200px', margin: '10px' }}
+      />
       <Box sx={{ mb: 2, display: 'flex', gap: 1 }}>
         <button
+          className="t-btn"
           onClick={() => adjustTimer(-10)}
           disabled={timerMinutes <= 10 * 60 * 1000}
         >
           -10분
         </button>
-        <button onClick={() => adjustTimer(10)}>+10분</button>
+        <button className="t-btn" onClick={() => adjustTimer(10)}>
+          +10분
+        </button>
       </Box>
-
       {!isTimerActive && (
-        <Typography variant="h6" sx={{ alignSelf: 'center' }}>
+        <h6 className="t-num">
           {String(Math.floor(timerMinutes / 3600000)).padStart(2, '0')}:
           {String(Math.floor((timerMinutes % 3600000) / 60000)).padStart(
             2,
             '0',
           )}
           :{String(Math.floor((timerMinutes % 60000) / 1000)).padStart(2, '0')}
-        </Typography>
+        </h6>
       )}
 
       {isTimerActive && (
@@ -86,9 +94,17 @@ const Timer = ({ initialMinutes }) => {
         />
       )}
 
-      {isAlarmActive && <button onClick={stopTimer}>종료</button>}
+      {isAlarmActive && (
+        <button onClick={stopTimer} className="tend-btn">
+          STOP
+        </button>
+      )}
 
-      {!isTimerActive && <button onClick={startTimer}>타이머 시작</button>}
+      {!isTimerActive && (
+        <button onClick={startTimer} className="tstart-btn">
+          START
+        </button>
+      )}
     </Box>
   );
 };

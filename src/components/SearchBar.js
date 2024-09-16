@@ -49,15 +49,17 @@ const SearchBar = () => {
         value={nickNm}
         onChange={handleInputChange}
       />
-      <button className="search-button">
+      <button className="search-btn">
         <img src="/img/searchbar.png" alt="검색" className="search-icon" />
       </button>
 
       {show && (
         <ul className="dropdown">
           {dataList.map((data, index) => (
-            <li key={index} className="dropdown-itme">
+            <li key={index} className="dropdown-item">
               {data.Nickname}
+              <button className="rival-btn">라이벌 맺기</button>
+              <button className="room-btn">고양이방 보기</button>
             </li>
           ))}
         </ul>
