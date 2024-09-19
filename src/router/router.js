@@ -6,6 +6,7 @@ import SignUp from '../pages/SignUp';
 import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
+import PetRoom from '../pages/PetRoom';
 
 const routes = [
   {
@@ -33,6 +34,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <ProblemSolving />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/petroom', // 문제 풀이 페이지를 위한 라우트
+    element: (
+      <ProtectedRoute>
+        <PetRoom />
       </ProtectedRoute>
     ),
   },
