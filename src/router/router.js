@@ -6,7 +6,6 @@ import SignUp from '../pages/SignUp';
 import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
-import Test from '../pages/Test';
 
 const routes = [
   {
@@ -36,11 +35,6 @@ const routes = [
         <ProblemSolving />
       </ProtectedRoute>
     ),
-  },
-  //임시 test 코드
-  {
-    path: '/test',
-    element: <Test />,
   },
 ];
 
