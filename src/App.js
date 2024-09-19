@@ -23,8 +23,11 @@ const App = () => {
       : 0;
   });
 
-  //유저레벨추가
-  const [userLevel, setUserLevel] = React.useState(1);
+  //유저경험치추가
+  const [userExp, setUserExp] = React.useState(() => {
+    const storedExp = localStorage.getItem('userExp');
+    return storedExp ? JSON.parse(storedExp) : 0; // 기본값은 1
+  });
 
   React.useEffect(() => {
     if (
@@ -46,8 +49,8 @@ const App = () => {
 
   //유저레벨
   React.useEffect(() => {
-    localStorage.setItem('userLevel', JSON.stringify(userLevel));
-  }, [userLevel]);
+    localStorage.setItem('userExp', JSON.stringify(userExp));
+  }, [userExp]);
 
   return (
     <AppContext.Provider
@@ -58,8 +61,8 @@ const App = () => {
         setProblems,
         currentProblemIndex,
         setCurrentProblemIndex,
-        userLevel,
-        setUserLevel,
+        userExp,
+        setUserExp,
       }}
     >
       <RouterProvider router={router} />

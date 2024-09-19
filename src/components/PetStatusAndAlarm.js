@@ -3,8 +3,8 @@ import { AppContext } from '../App';
 import './PetStatusAndAlarm.css';
 
 const StudyPage = () => {
-  const [exp, setExp] = useState(0);
-  const { userLevel, setUserLevel } = useContext(AppContext);
+  const [level, setLevel] = useState(1);
+  const { userExp, setUserExp } = useContext(AppContext);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -16,11 +16,11 @@ const StudyPage = () => {
 
   // 임시 경험치 증가 함수
   const increaseExp = () => {
-    const expUp = exp + 10;
-    setExp(expUp);
+    const expUp = userExp + 10;
+    setUserExp(expUp);
 
     const levelUp = Math.floor(expUp / 100) + 1;
-    setUserLevel(levelUp);
+    setLevel(levelUp);
   };
 
   return (
@@ -30,12 +30,12 @@ const StudyPage = () => {
           <h2>알림창</h2>
         </div>
         <div className="status">
-          <h2>Lv.{userLevel} 냐옹이</h2>
+          <h2>Lv.{level} 냐옹이</h2>
           <div style={{ width: '100%', height: '60%' }}>
             <spline-viewer url="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode"></spline-viewer>
           </div>
           <p>현재 경험치</p>
-          <p>EXP: {exp % 100}%</p>
+          <p>EXP: {userExp % 100}%</p>
           <button onClick={increaseExp}>경험치 증가</button>
         </div>
       </div>
