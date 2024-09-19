@@ -23,6 +23,9 @@ const App = () => {
       : 0;
   });
 
+  //유저레벨추가
+  const [userLevel, setUserLevel] = React.useState(1);
+
   React.useEffect(() => {
     if (
       problems &&
@@ -41,6 +44,11 @@ const App = () => {
     );
   }, [currentProblemIndex]);
 
+  //유저레벨
+  React.useEffect(() => {
+    localStorage.setItem('userLevel', JSON.stringify(userLevel));
+  }, [userLevel]);
+
   return (
     <AppContext.Provider
       value={{
@@ -50,6 +58,8 @@ const App = () => {
         setProblems,
         currentProblemIndex,
         setCurrentProblemIndex,
+        userLevel,
+        setUserLevel,
       }}
     >
       <RouterProvider router={router} />

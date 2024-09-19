@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './StudyPage.css'; // CSS 파일 임포트
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../App';
+import './PetStatusAndAlarm.css';
 
 const StudyPage = () => {
   const [exp, setExp] = useState(0);
-  const [level, setLevel] = useState(1);
+  const { userLevel, setUserLevel } = useContext(AppContext);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -19,7 +20,7 @@ const StudyPage = () => {
     setExp(expUp);
 
     const levelUp = Math.floor(expUp / 100) + 1;
-    setLevel(levelUp);
+    setUserLevel(levelUp);
   };
 
   return (
@@ -29,7 +30,7 @@ const StudyPage = () => {
           <h2>알림창</h2>
         </div>
         <div className="status">
-          <h2>Lv.{level} 냐옹이</h2>
+          <h2>Lv.{userLevel} 냐옹이</h2>
           <div style={{ width: '100%', height: '60%' }}>
             <spline-viewer url="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode"></spline-viewer>
           </div>

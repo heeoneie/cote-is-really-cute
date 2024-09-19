@@ -6,12 +6,10 @@ import './Menubar.css'; // 사이드바 스타일링을 위한 CSS
 const Menubar = () => {
   return (
     <div className="menubar">
-      <Link to="/">
-        <p>코테는 정말 귀여워</p>
-      </Link>
+      <p>코테는 정말 귀여워</p>
       <ul>
         <li>
-          <Link to="/study" className="menubar-link">
+          <Link to="/" className="menubar-link">
             <img
               src="/img/studymode.png"
               alt="studymode"
