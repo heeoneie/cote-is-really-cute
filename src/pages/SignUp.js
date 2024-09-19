@@ -1,24 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Container,
-  Grid,
-  Alert,
-} from '@mui/material';
 import { signUp } from '../axios/auth';
-
+import './SignUp.css';
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
     nickname: '',
     email: '',
     password: '',
-    baekjoonTier: '',
+    confirmPassword: '',
   });
-  const [errors, setErrors] = React.useState({});
   const [signUpError, setSignUpError] = React.useState('');
   const navigate = useNavigate();
 
@@ -31,20 +21,23 @@ const SignUp = () => {
   };
 
   const validate = () => {
-    const validationErrors = {};
-    if (!formData.nickname) validationErrors.nickname = 'Nickname is required';
-    if (!formData.email) validationErrors.email = 'Email is required';
-    if (!formData.password) validationErrors.password = 'Password is required';
-    if (!formData.baekjoonTier)
-      validationErrors.baekjoonTier = 'Baekjoon Tier is required';
+    const validationErrors = [];
+    if (!formData.nickname) validationErrors.push('닉네임을 입력해주세요!');
+    if (!formData.email) validationErrors.push('Email을 입력해주세요');
+    if (!formData.password) validationErrors.push('Password 입력해주세요');
+    if (!formData.confirmPassword)
+      validationErrors.push('Password 일치하게 재입력해주세요');
+    if (formData.password !== formData.confirmPassword)
+      validationErrors.push('Password가 일치하지 않습니다');
+
     return validationErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    if (validationErrors.length > 0) {
+      alert(validationErrors.join('\n')); // alert으로 오류 메시지 표시
       return;
     }
 
@@ -53,93 +46,80 @@ const SignUp = () => {
       navigate('/login');
     } catch (error) {
       setSignUpError(error.message);
+      alert(error.message); // alert으로 오류 메시지 표시
     }
   };
-
+  const handleloginClick = () => {
+    navigate('/login');
+  };
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Nickname"
-                type="text"
-                name="nickname"
-                value={formData.nickname}
-                onChange={handleChange}
-                error={!!errors.nickname}
-                helperText={errors.nickname}
-                fullWidth
-                margin="normal"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                error={!!errors.email}
-                helperText={errors.email}
-                fullWidth
-                margin="normal"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                error={!!errors.password}
-                helperText={errors.password}
-                fullWidth
-                margin="normal"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Baekjoon Tier"
-                type="text"
-                name="baekjoonTier"
-                value={formData.baekjoonTier}
-                onChange={handleChange}
-                error={!!errors.baekjoonTier}
-                helperText={errors.baekjoonTier}
-                fullWidth
-                margin="normal"
-                required
-              />
-            </Grid>
-          </Grid>
-          {signUpError && <Alert severity="error">{signUpError}</Alert>}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+    <div>
+      <h1 className="Signup_title">회원가입</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            className="input_group"
+            type="text"
+            id="nickname"
+            name="nickname"
+            value={formData.nickname}
+            onChange={handleChange}
+            placeholder="닉네임 입력"
+            aria-label="닉네임"
+          />
+        </div>
+        <div>
+          <input
+            className="input_group"
+            type="email"
+            id="signup_email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email 입력"
+            aria-label="email"
+          />
+        </div>
+        <div>
+          <input
+            className="input_group"
+            type="password"
+            id="signup_password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="PW 입력"
+            aria-label="PW"
+          />
+        </div>
+        <div>
+          <input
+            className="input_group"
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            placeholder="PW 재입력"
+            aria-label="PW 재입력"
+          />
+          <div className="middle-line"></div>
+        </div>
+        {signUpError && <p className="error_message">{signUpError}</p>}
+        <button type="submit" className="singup_btn">
+          회원가입
+        </button>
+        <button onClick={handleloginClick} className="Singup_login_btn">
+          로그인
+        </button>
+        <p className="Sing_up_under_phrase">
+          입문자도 쉽게 도전 할 수 있습니다!
+        </p>
+        <p className="Sing_up_middle_phrase2">
+          코딩테스트에 도전하러 가시겠어요?
+        </p>
+      </form>
+    </div>
   );
 };
 
