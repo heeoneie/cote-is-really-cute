@@ -136,7 +136,7 @@ const CategoryBtn = () => {
         <Box
           onClick={handleScreenClick}
           sx={{
-            height: '100vh',
+            height: '80vh',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
