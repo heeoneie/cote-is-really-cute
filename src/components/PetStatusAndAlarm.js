@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './StudyPage.css'; // CSS 파일 임포트
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../App';
+import './PetStatusAndAlarm.css';
 
 const StudyPage = () => {
-  const [exp, setExp] = useState(0);
   const [level, setLevel] = useState(1);
+  const { userExp, setUserExp } = useContext(AppContext);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -15,8 +16,8 @@ const StudyPage = () => {
 
   // 임시 경험치 증가 함수
   const increaseExp = () => {
-    const expUp = exp + 10;
-    setExp(expUp);
+    const expUp = userExp + 10;
+    setUserExp(expUp);
 
     const levelUp = Math.floor(expUp / 100) + 1;
     setLevel(levelUp);
@@ -34,8 +35,9 @@ const StudyPage = () => {
             <spline-viewer url="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode"></spline-viewer>
           </div>
           <p>현재 경험치</p>
-          <p>EXP: {exp % 100}%</p>
+          <p>EXP: {userExp % 100}%</p>
           <button onClick={increaseExp}>경험치 증가</button>
+          <button onClick={() => setUserExp(0)}>경험치 리셋</button>
         </div>
       </div>
     </div>

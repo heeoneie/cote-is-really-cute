@@ -6,7 +6,7 @@ import LogoutBtn from '../components/LogoutBtn';
 import AuthLinks from '../components/AuthLinks';
 import { logoutUser } from '../axios/auth';
 import SearchBar from '../components/SearchBar';
-import StudyPage from './StudyPage';
+import StudyPage from '../components/PetStatusAndAlarm';
 import { Grid } from '@mui/material';
 
 const Home = () => {

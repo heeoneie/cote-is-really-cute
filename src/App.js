@@ -23,6 +23,12 @@ const App = () => {
       : 0;
   });
 
+  //유저경험치추가
+  const [userExp, setUserExp] = React.useState(() => {
+    const storedExp = localStorage.getItem('userExp');
+    return storedExp ? JSON.parse(storedExp) : 0; // 기본값은 1
+  });
+
   React.useEffect(() => {
     if (
       problems &&
@@ -41,6 +47,11 @@ const App = () => {
     );
   }, [currentProblemIndex]);
 
+  //유저레벨
+  React.useEffect(() => {
+    localStorage.setItem('userExp', JSON.stringify(userExp));
+  }, [userExp]);
+
   return (
     <AppContext.Provider
       value={{
@@ -50,6 +61,8 @@ const App = () => {
         setProblems,
         currentProblemIndex,
         setCurrentProblemIndex,
+        userExp,
+        setUserExp,
       }}
     >
       <RouterProvider router={router} />
