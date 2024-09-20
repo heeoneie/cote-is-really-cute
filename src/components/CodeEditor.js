@@ -16,7 +16,7 @@ import {
   Switch,
 } from '@mui/material';
 
-const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
+const CodeEditor = ({ code, onChange, onSubmit }) => {
   const languages = [
     { label: 'Python', mode: 'python' },
     { label: 'Java', mode: 'java' },
@@ -25,11 +25,7 @@ const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
   const [mode, setMode] = React.useState(languages[0].mode);
   const [theme, setTheme] = React.useState('github');
 
-  const handleLanguageChange = (event) => {
-    const newMode = event.target.value;
-    setMode(newMode);
-    onLanguageChange(newMode);
-  };
+  const handleLanguageChange = (event) => setMode(event.target.value);
   const handleThemeChange = (event) =>
     setTheme(event.target.checked ? 'twilight' : 'github');
 

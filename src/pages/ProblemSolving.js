@@ -4,7 +4,6 @@ import { AppContext } from '../App';
 import { Box, Button, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
 import CodeEditor from '../components/CodeEditor';
-import { getGrading } from '../axios/openai';
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
@@ -13,8 +12,6 @@ const ProblemSolving = () => {
   const [showAlert, setShowAlert] = React.useState(false);
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
   const [code, setCode] = React.useState('');
-  const [language, setLanguage] = React.useState('python');
-  const [isGrading, setIsGrading] = React.useState(false);
 
   const levelSequence = ['beginner', 'intermediate', 'advanced'];
   const currentLevelIndex = levelSequence.indexOf(level);
@@ -39,8 +36,6 @@ const ProblemSolving = () => {
         navigate('/');
       }
     }
-    setCode('');
-    setIsGrading(false);
   };
 
   const currentProblem = currentProblems[currentIndex];
@@ -50,26 +45,7 @@ const ProblemSolving = () => {
     setShowCodeEditor(true);
   };
 
-  const handleLanguageChange = (newLanguage) => setLanguage(newLanguage);
-
-  const handleCodeSubmit = async () => {
-    try {
-      const result = await getGrading({
-        problemTitle: currentProblem.title,
-        userLanguage: language,
-        userCode: code,
-      });
-      setIsGrading(result);
-      if (result) {
-        alert('정답입니다!');
-      } else {
-        alert('틀렸습니다. 다시 시도해보세요.');
-      }
-    } catch (error) {
-      console.error('채점 중 오류가 발생했습니다:', error);
-      alert('채점 중 오류가 발생했습니다.');
-    }
-  };
+  const handleCodeSubmit = () => {};
 
   return (
     <Box
@@ -102,18 +78,13 @@ const ProblemSolving = () => {
           >
             문제 풀기
           </Button>
-          <Button
-            variant="outlined"
-            disabled={!isGrading}
-            onClick={nextProblem}
-          >
+          <Button variant="outlined" onClick={nextProblem}>
             다음 문제
           </Button>
           {showCodeEditor && (
             <CodeEditor
               code={code}
               onChange={(newValue) => setCode(newValue)}
-              onLanguageChange={handleLanguageChange}
               onSubmit={handleCodeSubmit}
             />
           )}
