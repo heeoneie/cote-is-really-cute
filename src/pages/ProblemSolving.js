@@ -59,8 +59,8 @@ const ProblemSolving = () => {
         userLanguage: language,
         userCode: code,
       });
-      setIsGrading(result);
-      if (result) {
+      setIsGrading(result.data);
+      if (result.data) {
         alert('정답입니다!');
       } else {
         alert('틀렸습니다. 다시 시도해보세요.');
