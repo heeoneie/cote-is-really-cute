@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SearchBar.css';
 
 const SearchBar = () => {
-  const [nickNm, setNickNm] = useState('');
-  const [dataList, setDataList] = useState([]);
-  const [show, setShow] = useState(false);
+  const [nickNm, setNickNm] = React.useState('');
+  const [dataList, setDataList] = React.useState([]);
+  const [show, setShow] = React.useState(false);
 
   const handleInputChange = (e) => {
     const input = e.target.value;

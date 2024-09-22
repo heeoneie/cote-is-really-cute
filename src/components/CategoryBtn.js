@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CATEGORIES } from '../utils/categories';
 import { getAlgorithmCourse } from '../axios/openai';
 import { CircularProgress, Typography, Box } from '@mui/material';
@@ -11,8 +11,8 @@ const CategoryBtn = () => {
   const { setProblems } = React.useContext(AppContext);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState(null);
+  const [selectedDifficulty, setSelectedDifficulty] = React.useState(null);
+  const [selectedAlgorithm, setSelectedAlgorithm] = React.useState(null);
 
   const getCourse = async (category) => {
     setLoading(true);

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { AppContext } from '../App';
 import './PetStatusAndAlarm.css';
 
 const StudyPage = () => {
-  const [level, setLevel] = useState(1);
-  const { userExp, setUserExp } = useContext(AppContext);
+  const [level, setLevel] = React.useState(1);
+  const { userExp, setUserExp } = React.useContext(AppContext);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const script = document.createElement('script');
     script.src =
       'https://unpkg.com/@splinetool/viewer@1.9.27/build/spline-viewer.js';
