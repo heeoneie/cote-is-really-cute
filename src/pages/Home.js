@@ -5,6 +5,7 @@ import CategoryBtn from '../components/CategoryBtn';
 import LogoutBtn from '../components/LogoutBtn';
 import AuthLinks from '../components/AuthLinks';
 import { logoutUser } from '../axios/auth';
+import BattleBtn from '../components/BattleBtn';
 
 const Home = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
@@ -22,6 +23,7 @@ const Home = () => {
         <>
           <CategoryBtn />
           <LogoutBtn onLogout={handleLogout} />
+          <BattleBtn />
         </>
       ) : (
         <AuthLinks />

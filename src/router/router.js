@@ -6,6 +6,7 @@ import SignUp from '../pages/SignUp';
 import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
+import Battle from '../pages/Battle';
 
 const routes = [
   {
@@ -33,6 +34,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <ProblemSolving />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/battle',
+    element: (
+      <ProtectedRoute>
+        <Battle />
       </ProtectedRoute>
     ),
   },
