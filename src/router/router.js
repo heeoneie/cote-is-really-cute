@@ -29,7 +29,7 @@ const routes = [
     ),
   },
   {
-    path: '/solve/:category/:level/:index', // 문제 풀이 페이지를 위한 라우트
+    path: '/solve/:category/:level/:index',
     element: (
       <ProtectedRoute>
         <ProblemSolving />
