@@ -18,7 +18,7 @@ const Login = () => {
   });
   const [errors, setErrors] = React.useState({});
   const [loginError, setLoginError] = React.useState('');
-  const { setIsLoggedIn } = React.useContext(AppContext);
+  const { setIsLoggedIn, setEmail } = React.useContext(AppContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -48,6 +48,8 @@ const Login = () => {
       const response = await loginUser(formData);
       const { token } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('email', formData.email);
+      setEmail(formData.email);
       setIsLoggedIn(true);
       navigate('/');
     } catch (error) {

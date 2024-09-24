@@ -10,11 +10,11 @@ import StudyPage from '../components/PetStatusAndAlarm';
 import { Grid } from '@mui/material';
 
 const Home = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, setEmail } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutUser();
+    logoutUser(setEmail);
     setIsLoggedIn(false);
     navigate('/');
   };
