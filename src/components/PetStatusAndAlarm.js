@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppContext } from '../App';
-import './PetStatusAndAlarm.css';
+import '../styles/PetStatusAndAlarm.css';
 
 const StudyPage = () => {
   const [level, setLevel] = React.useState(1);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './AuthLinks.css';
+import '../styles/AuthLinks.css';
 
 const AuthLinks = () => (
   <div className="login-container">

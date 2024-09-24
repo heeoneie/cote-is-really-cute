@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
 import { Box, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
-import './ProblemSolving.css';
+import '../styles/ProblemSolving.css';
 import CodeEditor from '../components/CodeEditor';
 import { getGrading } from '../axios/openai';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Countdown from 'react-countdown';
 import { Box } from '@mui/material';
 import iphone_alarm from '../assets/iphone_alarm.mp3';
-import './Timer.css';
+import '../styles/Timer.css';
 
 const Timer = ({ initialMinutes }) => {
   const [timerMinutes, setTimerMinutes] = React.useState(

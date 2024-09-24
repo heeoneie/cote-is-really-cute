@@ -1,7 +1,7 @@
 // components/Menubar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Menubar.css'; // 사이드바 스타일링을 위한 CSS
+import '../styles/Menubar.css'; // 사이드바 스타일링을 위한 CSS
 
 const Menubar = () => {
   return (

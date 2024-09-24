@@ -4,7 +4,7 @@ import { getAlgorithmCourse } from '../axios/openai';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
-import './CategoryBtn.css';
+import '../styles/CategoryBtn.css';
 
 const CategoryBtn = () => {
   const navigate = useNavigate();
