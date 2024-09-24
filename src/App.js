@@ -9,7 +9,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     !!localStorage.getItem('token'),
   );
-
+  const [email, setEmail] = React.useState('');
   const [problems, setProblems] = React.useState(() => {
     const storedProblems = localStorage.getItem('problems');
     return storedProblems
@@ -46,6 +46,8 @@ const App = () => {
       value={{
         isLoggedIn,
         setIsLoggedIn,
+        email,
+        setEmail,
         problems,
         setProblems,
         currentProblemIndex,
