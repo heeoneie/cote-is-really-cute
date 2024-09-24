@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppContext } from '../App';
 import '../styles/PetStatusAndAlarm.css';
+import Spline from '@splinetool/react-spline';
 
 const StudyPage = () => {
   const [level, setLevel] = React.useState(1);
@@ -32,7 +33,7 @@ const StudyPage = () => {
         <div className="status">
           <h2>Lv.{level} 냐옹이</h2>
           <div style={{ width: '100%', height: '60%' }}>
-            <spline-viewer url="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode"></spline-viewer>
+            <Spline scene="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode" />
           </div>
           <p>현재 경험치</p>
           <p>EXP: {userExp % 100}%</p>
