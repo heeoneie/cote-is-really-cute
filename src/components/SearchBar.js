@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../styles/SearchBar.css';
-import request from '../axios/axios';
+import { searchUser } from '../axios/user';
+import { addRival } from '../axios/rival';
+import { AppContext } from '../App';
 
 const SearchBar = () => {
   const [nickNm, setNickNm] = React.useState('');
   const [dataList, setDataList] = React.useState([]);
   const [show, setShow] = React.useState(false);
+  const { email } = useContext(AppContext);
 
   const handleInputChange = (e) => {
     const input = e.target.value;
@@ -21,19 +24,27 @@ const SearchBar = () => {
 
   const searchNm = async (input) => {
     try {
-      const response = await request.get(`/users/search?nickname=${input}`);
-      const result = await response.data;
-      const filteredData = result.filter((item) =>
-        item.nickname.toLowerCase().includes(input.toLowerCase()),
-      );
-      setDataList(filteredData);
-      setShow(filteredData.length > 0);
+      const userList = await searchUser(input);
+      setDataList(userList);
+      setShow(userList.length > 0);
     } catch (error) {
       console.error('Error', error);
       setDataList([]);
       setShow(false);
     }
   };
+
+  const handleRival = async (user) => {
+    const data = {
+      userEmail: email,
+      rivalNickName: user,
+    };
+    const rivals = await addRival(data);
+    if (rivals) {
+      alert(rivals.message);
+    }
+  };
+
   return (
     <div className="search-container">
       <input
@@ -53,7 +64,12 @@ const SearchBar = () => {
           {dataList.map((data, index) => (
             <li key={index} className="dropdown-item">
               {data.nickname}
-              <button className="rival-btn">라이벌 맺기</button>
+              <button
+                className="rival-btn"
+                onClick={() => handleRival(data.nickname)}
+              >
+                라이벌 맺기
+              </button>
               <button className="room-btn">고양이방 보기</button>
             </li>
           ))}
