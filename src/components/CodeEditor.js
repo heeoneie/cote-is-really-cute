@@ -40,7 +40,7 @@ const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
         flexDirection: 'column',
         alignItems: 'center',
         position: 'relative',
-        width: '50%',
+        width: '100%',
       }}
     >
       <Box

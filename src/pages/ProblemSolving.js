@@ -76,7 +76,7 @@ const ProblemSolving = () => {
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: showCodeEditor ? 'row' : 'column',
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
@@ -87,48 +87,50 @@ const ProblemSolving = () => {
           다음 단계로 넘어갑니다!
         </Alert>
       )}
-      {currentProblem ? (
-        <>
-          <h4 className="pro-h4">문제번호 : {currentProblem.problemNumber}</h4>
-          <h4 className="pro-h4">{currentProblem.title}</h4>
-          <Timer initialMinutes={30} />
-
-          <button
-            className="pro-btn"
-            onClick={() => window.open(currentProblem.url, '_blank')}
-          >
-            문제 풀기
-          </button>
-          <button className="pro-btn" onClick={nextProblem}>
-            다음 문제
-          </button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleProblemSolving}
-            sx={{ mb: 2 }}
-          >
-            문제 풀기
-          </Button>
-          <Button
-            variant="outlined"
-            disabled={!isGrading}
-            onClick={nextProblem}
-          >
-            다음 문제
-          </Button>
-          {showCodeEditor && (
-            <CodeEditor
-              code={code}
-              onChange={(newValue) => setCode(newValue)}
-              onLanguageChange={handleLanguageChange}
-              onSubmit={handleCodeSubmit}
-            />
-          )}
-        </>
-      ) : (
-        <Typography variant="h6">No problems available.</Typography>
+      {showCodeEditor && (
+        <Box sx={{ flex: 1, ml: 4 }}>
+          <CodeEditor
+            code={code}
+            onChange={(newValue) => setCode(newValue)}
+            onLanguageChange={handleLanguageChange}
+            onSubmit={handleCodeSubmit}
+          />
+        </Box>
       )}
+      <Box
+        sx={{
+          width: '290px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderLeft: showCodeEditor ? '5px solid #00000027' : '',
+          ml: 4,
+        }}
+      >
+        {currentProblem ? (
+          <>
+            <h4 className="pro-h4">
+              문제번호 : {currentProblem.problemNumber}
+            </h4>
+            <h4 className="pro-h4">{currentProblem.title}</h4>
+            <Timer initialMinutes={30} />
+
+            <button className="pro-btn" onClick={handleProblemSolving}>
+              문제 풀기
+            </button>
+            <button
+              className="pro-btn"
+              onClick={nextProblem}
+              disabled={!isGrading}
+            >
+              다음 문제
+            </button>
+          </>
+        ) : (
+          <Typography variant="h6">No problems available.</Typography>
+        )}
+      </Box>
     </Box>
   );
 };
