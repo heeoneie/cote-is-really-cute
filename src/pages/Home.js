@@ -10,7 +10,6 @@ import BattleBtn from '../components/BattleBtn';
 const Home = () => {
   const { isLoggedIn, setIsLoggedIn, setEmail } = useContext(AppContext);
   const navigate = useNavigate();
-
   const handleLogout = () => {
     logoutUser(setEmail);
     setIsLoggedIn(false);

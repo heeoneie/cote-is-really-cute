@@ -38,7 +38,7 @@ const routes = [
     ),
   },
   {
-    path: '/battle',
+    path: '/battle/:matchId',
     element: (
       <ProtectedRoute>
         <Battle />

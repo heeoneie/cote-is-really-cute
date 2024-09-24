@@ -11,7 +11,9 @@ const BattleBtn = () => {
   const handleJoinBattle = async () => {
     setIsWaiting(true);
     try {
-      const response = await joinBattle();
+      const userEmail = localStorage.getItem('email');
+      console.log(userEmail);
+      const response = await joinBattle(userEmail);
       setMatchId(response.matchId);
     } catch (error) {
       console.error('배틀 참여 중 오류가 발생했습니다:', error);
@@ -25,6 +27,7 @@ const BattleBtn = () => {
       interval = setInterval(async () => {
         try {
           const status = await checkMatchingStatus(matchId);
+          console.log(status);
           if (status.isMatched) {
             setIsWaiting(false);
             navigate(`/battle/${matchId}`);
