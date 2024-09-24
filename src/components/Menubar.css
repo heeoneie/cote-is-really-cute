@@ -15,7 +15,6 @@
   height: 100vh; /* 화면 전체 높이 */
   background-color: #ffffff;
   padding: 0px 20px;
-  border-right: 5px solid #00000027;
 }
 
 .menubar p {
@@ -60,4 +59,14 @@
 
 .menubar-link span {
   font-size: 16px; /* 텍스트 크기 */
+}
+
+.menubar:before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  border-right: 5px solid #00000027;
 }
