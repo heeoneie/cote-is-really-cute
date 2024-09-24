@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/SearchBar.css';
+import request from '../axios/axios';
 
 const SearchBar = () => {
   const [nickNm, setNickNm] = React.useState('');
@@ -20,17 +21,11 @@ const SearchBar = () => {
 
   const searchNm = async (input) => {
     try {
-      //db연결하기
-      //임시 데이터
-      const Data = [
-        { Nickname: 'user1', email: '11@', password: '11' },
-        { Nickname: 'user2', email: '22@', password: '22' },
-        { Nickname: 'user3', email: '33@', password: '33' },
-      ];
-      const filteredData = Data.filter((item) =>
-        item.Nickname.toLowerCase().includes(input.toLowerCase()),
+      const response = await request.get(`/users/search?nickname=${input}`);
+      const result = await response.data;
+      const filteredData = result.filter((item) =>
+        item.nickname.toLowerCase().includes(input.toLowerCase()),
       );
-
       setDataList(filteredData);
       setShow(filteredData.length > 0);
     } catch (error) {
@@ -57,7 +52,7 @@ const SearchBar = () => {
         <ul className="dropdown">
           {dataList.map((data, index) => (
             <li key={index} className="dropdown-item">
-              {data.Nickname}
+              {data.nickname}
               <button className="rival-btn">라이벌 맺기</button>
               <button className="room-btn">고양이방 보기</button>
             </li>
