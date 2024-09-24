@@ -8,11 +8,11 @@ import { logoutUser } from '../axios/auth';
 import BattleBtn from '../components/BattleBtn';
 
 const Home = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, setEmail } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutUser();
+    logoutUser(setEmail);
     setIsLoggedIn(false);
     navigate('/');
   };

@@ -14,6 +14,8 @@ export const signUp = async (userData) => {
   }
 };
 
-export const logoutUser = () => {
+export const logoutUser = (setEmail) => {
   localStorage.removeItem('token');
+  localStorage.removeItem('email');
+  setEmail('');
 };
