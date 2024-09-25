@@ -5,11 +5,13 @@ import { Box, Button, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
 import CodeEditor from '../components/CodeEditor';
 import { getGrading } from '../axios/openai';
+import useLoginStreak from '../components/useLoginStreak'; // 훅 import
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
   const navigate = useNavigate();
   const { category, level, index } = useParams();
+  const { days, incrementLoginDays } = useLoginStreak(); // 출석 일수 및 함수 사용
   const [showAlert, setShowAlert] = React.useState(false);
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
   const [code, setCode] = React.useState('');
@@ -62,6 +64,7 @@ const ProblemSolving = () => {
       setIsGrading(result.data);
       if (result.data) {
         alert('정답입니다!');
+        incrementLoginDays(); // 정답일 때 출석 일수 증가
       } else {
         alert('틀렸습니다. 다시 시도해보세요.');
       }
