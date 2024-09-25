@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppContext } from '../App';
 import '../styles/PetStatusAndAlarm.css';
+// eslint-disable-next-line import/no-unresolved
 import Spline from '@splinetool/react-spline';
 
 const StudyPage = () => {
