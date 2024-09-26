@@ -16,10 +16,12 @@ const BattleBtn = () => {
       console.log('Socket connected:', socket.current.id);
     });
 
-    socket.current.on('matchFound', ({ matchId }) => {
-      console.log('Match Found:', matchId);
+    socket.current.on('matchFound', ({ matchId, problem }) => {
+      console.log('Match Found:', matchId, problem);
       setIsWaiting(false);
-      navigate(`/battle/${matchId}`);
+      navigate(`/battle/${matchId}`, {
+        state: { problem },
+      });
     });
 
     return () => {
