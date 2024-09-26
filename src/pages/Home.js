@@ -3,7 +3,7 @@ import { AppContext } from '../App';
 import Menubar from '../components/Menubar';
 import CategoryBtn from '../components/CategoryBtn';
 import SearchBar from '../components/SearchBar';
-import StudyPage from '../components/PetStatusAndAlarm';
+import Status from '../components/Status';
 import { Grid } from '@mui/material';
 import Landing from '../pages/Landing';
 
@@ -37,7 +37,7 @@ const Home = () => {
           <Grid item xs={2}>
             <Grid item xs container direction="column">
               <Grid item xs>
-                <StudyPage />
+                <Status />
               </Grid>
             </Grid>
           </Grid>
