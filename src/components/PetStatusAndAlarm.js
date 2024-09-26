@@ -8,14 +8,6 @@ const StudyPage = () => {
   const [level, setLevel] = React.useState(1);
   const { userExp, setUserExp } = React.useContext(AppContext);
 
-  React.useEffect(() => {
-    const script = document.createElement('script');
-    script.src =
-      'https://unpkg.com/@splinetool/viewer@1.9.27/build/spline-viewer.js';
-    script.type = 'module';
-    document.body.appendChild(script);
-  }, []);
-
   // 임시 경험치 증가 함수
   const increaseExp = () => {
     const expUp = userExp + 10;

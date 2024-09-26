@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
-import { Box, Typography, Alert } from '@mui/material';
+import { Grid, Box, Typography, Alert } from '@mui/material';
+import Menubar from '../components/Menubar';
 import Timer from '../components/Timer';
 import '../styles/ProblemSolving.css';
 import CodeEditor from '../components/CodeEditor';
@@ -73,65 +74,72 @@ const ProblemSolving = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: showCodeEditor ? 'row' : 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-      }}
-    >
-      {showAlert && (
-        <Alert severity="success" sx={{ mb: 2 }}>
-          다음 단계로 넘어갑니다!
-        </Alert>
-      )}
-      {showCodeEditor && (
-        <Box sx={{ flex: 1, ml: 4 }}>
-          <CodeEditor
-            code={code}
-            onChange={(newValue) => setCode(newValue)}
-            onLanguageChange={handleLanguageChange}
-            onSubmit={handleCodeSubmit}
-          />
-        </Box>
-      )}
-      <Box
-        sx={{
-          width: '290px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderLeft: showCodeEditor ? '5px solid #00000027' : '',
-          ml: 4,
-        }}
-      >
-        {currentProblem ? (
-          <>
-            <h4 className="pro-h4">
-              문제번호 : {currentProblem.problemNumber}
-            </h4>
-            <h4 className="pro-h4">{currentProblem.title}</h4>
-            <Timer initialMinutes={30} />
+    <Grid container>
+      <Grid item style={{ width: '290px' }}>
+        <Menubar />
+      </Grid>
+      <Grid item xs>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: showCodeEditor ? 'row' : 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1, // 남은 공간을 차지하게 설정
+          }}
+        >
+          {showAlert && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              다음 단계로 넘어갑니다!
+            </Alert>
+          )}
+          {showCodeEditor && (
+            <Box sx={{ flex: 1, ml: 4 }}>
+              <CodeEditor
+                code={code}
+                onChange={(newValue) => setCode(newValue)}
+                onLanguageChange={handleLanguageChange}
+                onSubmit={handleCodeSubmit}
+              />
+            </Box>
+          )}
+          <Box
+            sx={{
+              width: '290px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderLeft: showCodeEditor ? '5px solid #00000027' : '',
+              ml: 4,
+            }}
+          >
+            {currentProblem ? (
+              <>
+                <h4 className="pro-h4">
+                  문제번호 : {currentProblem.problemNumber}
+                </h4>
+                <h4 className="pro-h4">{currentProblem.title}</h4>
+                <Timer initialMinutes={30} />
 
-            <button className="pro-btn" onClick={handleProblemSolving}>
-              문제 풀기
-            </button>
-            <button
-              className="pro-btn"
-              onClick={nextProblem}
-              disabled={!isGrading}
-            >
-              다음 문제
-            </button>
-          </>
-        ) : (
-          <Typography variant="h6">No problems available.</Typography>
-        )}
-      </Box>
-    </Box>
+                <button className="pro-btn" onClick={handleProblemSolving}>
+                  문제 풀기
+                </button>
+                <button
+                  className="pro-btn"
+                  onClick={nextProblem}
+                  disabled={!isGrading}
+                >
+                  다음 문제
+                </button>
+              </>
+            ) : (
+              <Typography variant="h6">No problems available.</Typography>
+            )}
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

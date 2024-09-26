@@ -2,8 +2,7 @@
   position: relative;
   display: flex;
   justify-content: center; /* 부모에서 중앙 정렬 */
-  width: 100%; /* 부모 그리드 안에서의 전체 너비 */
-  max-width: 600px; /* 검색바의 최대 너비 */
+  width: 50vw; /* 부모 그리드 안에서의 전체 너비 */
   padding: 20px 10px;
 }
 

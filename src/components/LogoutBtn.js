@@ -5,7 +5,7 @@ const LogoutButton = ({ onLogout }) => (
 );
 
 const buttonStyle = {
-  marginRight: '10px',
+  marginLeft: 'auto',
   padding: '8px 16px',
   fontSize: '16px',
   cursor: 'pointer',

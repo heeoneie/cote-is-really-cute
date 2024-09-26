@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import Menubar from '../components/Menubar';
+import Header from '../components/Header';
 
 const DefaultLayout = () => {
   return (
-    <div>
-      <Menubar />
-      <div style={{ margin: '0px 0px 0px 290px' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <div style={{ flex: 1 }}>
         <Outlet />
       </div>
     </div>
