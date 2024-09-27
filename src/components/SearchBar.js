@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import '../styles/SearchBar.css';
 import { searchUser } from '../axios/user';
 import { addRival, deleteRival } from '../axios/rival';
-import { AppContext } from '../App';
 
 const SearchBar = () => {
   const [nickNm, setNickNm] = React.useState('');
   const [dataList, setDataList] = React.useState([]);
   const [show, setShow] = React.useState(false);
-  const { email } = useContext(AppContext);
+  const email = localStorage.getItem('email');
 
   const handleInputChange = (e) => {
     const input = e.target.value;
@@ -39,16 +38,18 @@ const SearchBar = () => {
       userEmail: email,
       rivalNickName: user,
     };
-    const rivals = await addRival(data);
-    if (rivals) {
-      alert(rivals.message);
+    const response = await addRival(data);
+    if (response) {
+      alert(response.message);
+      searchNm(nickNm);
     }
   };
 
   const handleDeleteRival = async (user) => {
-    const rivals = await deleteRival(email, user);
-    if (rivals) {
-      alert(rivals.message);
+    const response = await deleteRival(email, user);
+    if (response) {
+      alert(response.message);
+      searchNm(nickNm);
     }
   };
 
