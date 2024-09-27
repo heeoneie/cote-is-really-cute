@@ -2,12 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../axios/auth';
 import './SignUp.css';
+
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
     nickname: '',
     email: '',
     password: '',
     confirmPassword: '',
+    baekjoonTier: '',
   });
   const [signUpError, setSignUpError] = React.useState('');
   const navigate = useNavigate();
@@ -29,6 +31,8 @@ const SignUp = () => {
       validationErrors.push('Password 일치하게 재입력해주세요');
     if (formData.password !== formData.confirmPassword)
       validationErrors.push('Password가 일치하지 않습니다');
+    if (!formData.baekjoonTier)
+      validationErrors.push('Baekjoon 티어를 입력해주세요!');
 
     return validationErrors;
   };
@@ -37,7 +41,7 @@ const SignUp = () => {
     e.preventDefault();
     const validationErrors = validate();
     if (validationErrors.length > 0) {
-      alert(validationErrors.join('\n')); // alert으로 오류 메시지 표시
+      alert(validationErrors.join('\n'));
       return;
     }
 
@@ -49,9 +53,11 @@ const SignUp = () => {
       alert(error.message); // alert으로 오류 메시지 표시
     }
   };
+
   const handleloginClick = () => {
     navigate('/login');
   };
+
   return (
     <div>
       <h1 className="Signup_title">회원가입</h1>
@@ -102,6 +108,18 @@ const SignUp = () => {
             onChange={handleChange}
             placeholder="PW 재입력"
             aria-label="PW 재입력"
+          />
+        </div>
+        <div>
+          <input
+            className="input_group"
+            type="text"
+            id="baekjoonTier"
+            name="baekjoonTier"
+            value={formData.baekjoonTier}
+            onChange={handleChange}
+            placeholder="Baekjoon 티어 입력"
+            aria-label="Baekjoon 티어"
           />
           <div className="middle-line"></div>
         </div>

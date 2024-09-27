@@ -11,7 +11,7 @@ const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);
   const navigate = useNavigate();
   const { category, level, index } = useParams();
-  const { days, incrementLoginDays } = useLoginStreak(); // 출석 일수 및 함수 사용
+  const { incrementLoginDays } = useLoginStreak(); // 출석 일수 및 함수 사용
   const [showAlert, setShowAlert] = React.useState(false);
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
   const [code, setCode] = React.useState('');

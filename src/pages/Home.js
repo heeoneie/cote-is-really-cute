@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import CategoryBtn from '../components/CategoryBtn';
@@ -12,6 +13,7 @@ const Home = () => {
   const { isLoggedIn, setIsLoggedIn, setEmail } = useContext(AppContext);
   const { days } = useLoginStreak(); // 출석일 가져오기
   const navigate = useNavigate();
+
   const handleLogout = () => {
     logoutUser(setEmail);
     setIsLoggedIn(false);
@@ -30,6 +32,9 @@ const Home = () => {
       ) : (
         <AuthLinks />
       )}
+      <button>
+        <Link to="/AccountEdit">정보 수정</Link>
+      </button>
     </div>
   );
 };

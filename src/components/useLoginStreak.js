@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 
 function useLoginStreak() {
-  const [days, setDays] = useState(1); // 기본적으로 1일째
+  const [days, setDays] = React.useState(1); // 기본적으로 1일째
 
-  useEffect(() => {
+  React.useEffect(() => {
     const lastVisit = localStorage.getItem('lastVisit');
     const loginDays = localStorage.getItem('loginDays');
 
@@ -25,9 +25,8 @@ function useLoginStreak() {
         setDays(newDays);
         localStorage.setItem('loginDays', newDays);
       } else {
-        // 이전에 방문했으나 문제를 풀지 않은 경우
-        setDays(0); // 출석일을 0으로 설정
-        localStorage.setItem('loginDays', 0); // 로컬 스토리지도 0으로 설정
+        setDays(0);
+        localStorage.setItem('loginDays', 0);
       }
     } else {
       setDays(1);
@@ -44,7 +43,7 @@ function useLoginStreak() {
     localStorage.setItem('loginDays', newDays);
   };
 
-  return { days, incrementLoginDays }; // 출석 증가 함수 반환
+  return { days, incrementLoginDays };
 }
 
 export default useLoginStreak;
