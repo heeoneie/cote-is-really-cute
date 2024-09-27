@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App';
-import Menubar from '../components/Menubar';
 import CategoryBtn from '../components/CategoryBtn';
 import SearchBar from '../components/SearchBar';
 import Status from '../components/Status';
@@ -13,10 +12,12 @@ const Home = () => {
   return (
     <div>
       {isLoggedIn ? (
-        <Grid container direction="row" wrap="nowrap">
-          <Grid item style={{ width: '290px' }}>
-            <Menubar />
-          </Grid>
+        <Grid
+          container
+          direction="row"
+          wrap="nowrap"
+          style={{ width: 'calc(100vw - 290px)', marginLeft: '250px' }}
+        >
           <Grid item xs>
             <Grid
               item

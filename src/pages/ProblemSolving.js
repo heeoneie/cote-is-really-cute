@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../App';
 import { Grid, Box, Typography, Alert } from '@mui/material';
-import Menubar from '../components/Menubar';
 import Timer from '../components/Timer';
 import '../styles/ProblemSolving.css';
 import CodeEditor from '../components/CodeEditor';
@@ -74,10 +73,10 @@ const ProblemSolving = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item style={{ width: '290px' }}>
-        <Menubar />
-      </Grid>
+    <Grid
+      container
+      style={{ width: 'calc(100vw - 290px)', marginLeft: '290px' }}
+    >
       <Grid item xs>
         <Box
           sx={{

@@ -57,6 +57,7 @@
 
 .dropdown-item .rival-btn,
 .dropdown-item .room-btn {
+  background-color: white;
   border: 3px solid #f28434;
   border-radius: 50px;
   margin-left: 8px; /* 버튼 간의 간격 조정 */
@@ -66,6 +67,13 @@
 .dropdown-item .rival-btn {
   margin-left: auto; /* 버튼을 오른쪽으로 정렬 */
   border-color: #82d21c;
+}
+
+.room-btn:hover{
+  background-color: #f2833470;
+}
+.rival-btn:hover{
+  background-color: #83d21c71;
 }
 
 .tier {
