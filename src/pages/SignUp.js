@@ -13,7 +13,7 @@ import { signUp } from '../axios/auth';
 
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
-    nickname: '',
+    nickName: '',
     email: '',
     password: '',
     baekjoonTier: '',
@@ -32,7 +32,7 @@ const SignUp = () => {
 
   const validate = () => {
     const validationErrors = {};
-    if (!formData.nickname) validationErrors.nickname = 'Nickname is required';
+    if (!formData.nickName) validationErrors.nickName = 'Nickname is required';
     if (!formData.email) validationErrors.email = 'Email is required';
     if (!formData.password) validationErrors.password = 'Password is required';
     if (!formData.baekjoonTier)
@@ -75,11 +75,11 @@ const SignUp = () => {
               <TextField
                 label="Nickname"
                 type="text"
-                name="nickname"
-                value={formData.nickname}
+                name="nickName"
+                value={formData.nickName}
                 onChange={handleChange}
-                error={!!errors.nickname}
-                helperText={errors.nickname}
+                error={!!errors.nickName}
+                helperText={errors.nickName}
                 fullWidth
                 margin="normal"
                 required
