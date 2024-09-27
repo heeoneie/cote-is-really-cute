@@ -5,7 +5,7 @@ import CategoryBtn from '../components/CategoryBtn';
 import SearchBar from '../components/SearchBar';
 import Status from '../components/Status';
 import { Grid } from '@mui/material';
-import Landing from '../pages/Landing';
+import Landing from '../components/Landing';
 
 const Home = () => {
   const { isLoggedIn } = useContext(AppContext);

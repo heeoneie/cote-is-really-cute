@@ -61,18 +61,29 @@ const SearchBar = () => {
 
       {show && (
         <ul className="dropdown">
-          {dataList.map((data, index) => (
-            <li key={index} className="dropdown-item">
-              {data.nickname}
-              <button
-                className="rival-btn"
-                onClick={() => handleRival(data.nickname)}
-              >
-                라이벌 맺기
-              </button>
-              <button className="room-btn">고양이방 보기</button>
-            </li>
-          ))}
+          {dataList.map((data, index) => {
+            const isRival = data.rivals.includes(email);
+            console.log(email);
+            return (
+              <li key={index} className="dropdown-item">
+                {data.nickname}
+                <p className="tier">- 백준 티어: {data.baekjoonTier}</p>
+
+                {isRival ? (
+                  <button className="rival-btn">라이벌 끊기</button>
+                ) : (
+                  <button
+                    className="rival-btn"
+                    onClick={() => handleRival(data.nickname)}
+                  >
+                    라이벌 맺기
+                  </button>
+                )}
+
+                <button className="room-btn">고양이방 보기</button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

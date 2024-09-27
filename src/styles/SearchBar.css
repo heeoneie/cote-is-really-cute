@@ -67,3 +67,8 @@
   margin-left: auto; /* 버튼을 오른쪽으로 정렬 */
   border-color: #82d21c;
 }
+
+.tier {
+  margin-left: 8px;
+  color: #707070;
+}
