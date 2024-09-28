@@ -19,3 +19,54 @@ export const logoutUser = (setEmail) => {
   localStorage.removeItem('email');
   setEmail('');
 };
+
+export const checkNickname = async (nickName) => {
+  try {
+    const { data } = await request.get(`/auth/check?nickName=${nickName}`);
+    return data;
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || '응답이 없습니다';
+    throw new Error(errorMessage);
+  }
+};
+
+export const updateNickname = async (newNickName, token) => {
+  try {
+    const { data } = await request.put(
+      '/users/update-nickName',
+      {
+        newNickName,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || '닉네임 변경 실패';
+    throw new Error(errorMessage);
+  }
+};
+
+export const updatePassword = async (newPassword, confirmPassword, token) => {
+  try {
+    const { data } = await request.put(
+      '/users/update-password',
+      {
+        newPassword,
+        confirmPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || '비밀번호 변경 실패';
+    throw new Error(errorMessage);
+  }
+};

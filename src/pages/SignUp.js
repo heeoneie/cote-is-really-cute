@@ -1,17 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signUp } from '../axios/auth';
+import { signUp, checkNickname } from '../axios/auth';
 import './SignUp.css';
 
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
-    nickname: '',
+    nickName: '',
     email: '',
     password: '',
-    confirmPassword: '',
     baekjoonTier: '',
   });
-  const [signUpError, setSignUpError] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [nicknameMessage, setNicknameMessage] = React.useState('');
+  const [emailMessage, setEmailMessage] = React.useState('');
+  const [passwordMessage, setPasswordMessage] = React.useState('');
+  const [baekjoonTierMessage, setBaekjoonTierMessage] = React.useState('');
+  const [nicknameAvailable, setNicknameAvailable] = React.useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,39 +26,112 @@ const SignUp = () => {
     }));
   };
 
-  const validate = () => {
-    const validationErrors = [];
-    if (!formData.nickname) validationErrors.push('닉네임을 입력해주세요!');
-    if (!formData.email) validationErrors.push('Email을 입력해주세요');
-    if (!formData.password) validationErrors.push('Password 입력해주세요');
-    if (!formData.confirmPassword)
-      validationErrors.push('Password 일치하게 재입력해주세요');
-    if (formData.password !== formData.confirmPassword)
-      validationErrors.push('Password가 일치하지 않습니다');
-    if (!formData.baekjoonTier)
-      validationErrors.push('Baekjoon 티어를 입력해주세요!');
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
 
-    return validationErrors;
+  const validateNickName = (nickName) => {
+    if (!nickName) {
+      setNicknameMessage('닉네임을 입력해주세요');
+      return false;
+    }
+    if (!nicknameAvailable) {
+      setNicknameMessage('닉네임 중복 확인을 해주세요!');
+      return false;
+    }
+    setNicknameMessage('');
+    return true;
+  };
+
+  const validateEmail = (email) => {
+    if (!email) {
+      setEmailMessage('Email을 입력해주세요');
+      return false;
+    }
+    setEmailMessage('');
+    return true;
+  };
+
+  const validatePassword = (password, confirmPassword) => {
+    if (!password) {
+      setPasswordMessage('Password를 입력해주세요');
+      return false;
+    }
+    if (!confirmPassword) {
+      setPasswordMessage('Password를 재입력해주세요');
+      return false;
+    }
+    if (password !== confirmPassword) {
+      setPasswordMessage('Password가 일치하지 않습니다');
+      return false;
+    }
+    setPasswordMessage('');
+    return true;
+  };
+
+  const validateBaekjoonTier = (baekjoonTier) => {
+    if (!baekjoonTier) {
+      setBaekjoonTierMessage('Baekjoon 티어를 선택해주세요!');
+      return false;
+    }
+    setBaekjoonTierMessage('');
+    return true;
+  };
+
+  const handleNicknameCheck = async () => {
+    try {
+      const rsf = await checkNickname(formData.nickName);
+      if (rsf.available) {
+        setNicknameAvailable(true);
+        setNicknameMessage('사용 가능한 닉네임입니다!');
+      } else {
+        setNicknameAvailable(false);
+        setNicknameMessage('닉네임이 이미 사용 중입니다.');
+      }
+    } catch (error) {
+      setNicknameAvailable(false);
+      setNicknameMessage(error.message);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (validationErrors.length > 0) {
-      alert(validationErrors.join('\n'));
+
+    // Validate inputs before submitting
+    const isNickNameValid = validateNickName(formData.nickName);
+    const isEmailValid = validateEmail(formData.email);
+    const isPasswordValid = validatePassword(
+      formData.password,
+      confirmPassword,
+    );
+    const isBaekjoonTierValid = validateBaekjoonTier(formData.baekjoonTier);
+
+    if (
+      !isNickNameValid ||
+      !isEmailValid ||
+      !isPasswordValid ||
+      !isBaekjoonTierValid
+    ) {
       return;
     }
 
     try {
       await signUp(formData);
+      setNicknameMessage('회원가입이 성공적으로 완료되었습니다!');
       navigate('/login');
     } catch (error) {
-      setSignUpError(error.message);
-      alert(error.message); // alert으로 오류 메시지 표시
+      setNicknameMessage(error.message);
     }
   };
 
-  const handleloginClick = () => {
+  const handleLevelChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      baekjoonLevel: e.target.value,
+    }));
+  };
+
+  const handleLoginClick = () => {
     navigate('/login');
   };
 
@@ -66,13 +143,23 @@ const SignUp = () => {
           <input
             className="input_group"
             type="text"
-            id="nickname"
-            name="nickname"
-            value={formData.nickname}
+            id="nickName"
+            name="nickName"
+            value={formData.nickName}
             onChange={handleChange}
             placeholder="닉네임 입력"
             aria-label="닉네임"
           />
+          <button
+            type="button"
+            className="nickname_check_btn"
+            onClick={handleNicknameCheck}
+          >
+            닉네임 확인
+          </button>
+          {nicknameMessage && (
+            <span className="nickname_Message">{nicknameMessage}</span>
+          )}
         </div>
         <div>
           <input
@@ -85,6 +172,7 @@ const SignUp = () => {
             placeholder="Email 입력"
             aria-label="email"
           />
+          {emailMessage && <span className="Emailmessage">{emailMessage}</span>}
         </div>
         <div>
           <input
@@ -97,42 +185,82 @@ const SignUp = () => {
             placeholder="PW 입력"
             aria-label="PW"
           />
+          {passwordMessage && (
+            <span className="passwordMessage">{passwordMessage}</span>
+          )}
         </div>
         <div>
           <input
             className="input_group"
             type="password"
             id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
             placeholder="PW 재입력"
             aria-label="PW 재입력"
           />
         </div>
-        <div>
-          <input
-            className="input_group"
-            type="text"
-            id="baekjoonTier"
-            name="baekjoonTier"
-            value={formData.baekjoonTier}
-            onChange={handleChange}
-            placeholder="Baekjoon 티어 입력"
-            aria-label="Baekjoon 티어"
-          />
-          <div className="middle-line"></div>
+
+        <div className="tier-section">
+          <h2>Baekjoon 티어 선택</h2>
+          {['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Ruby'].map(
+            (tier) => (
+              <label
+                key={tier}
+                htmlFor={`tier-${tier}`}
+                className={`tier-label ${formData.baekjoonTier === tier ? 'selected' : ''} ${tier.toLowerCase()}`}
+              >
+                <input
+                  type="radio"
+                  id={`tier-${tier}`}
+                  name="baekjoonTier"
+                  value={tier}
+                  onChange={handleChange}
+                  checked={formData.baekjoonTier === tier}
+                  style={{ display: 'none' }}
+                />
+                {tier}
+              </label>
+            ),
+          )}
         </div>
-        {signUpError && <p className="error_message">{signUpError}</p>}
+        {baekjoonTierMessage && (
+          <span className="baekjoonTier_message">{baekjoonTierMessage}</span>
+        )}
+
+        {formData.baekjoonTier && (
+          <div className="level-section">
+            <h2> 레벨 선택</h2>
+            {['I', 'II', 'III', 'IV', 'V'].map((level, index) => (
+              <label
+                key={level}
+                htmlFor={`level-${index + 1}`}
+                className={
+                  formData.baekjoonLevel === String(index + 1) ? 'selected' : ''
+                }
+              >
+                <input
+                  type="radio"
+                  id={`level-${index + 1}`}
+                  name="baekjoonLevel"
+                  value={index + 1}
+                  onChange={handleLevelChange}
+                  checked={formData.baekjoonLevel === String(index + 1)}
+                  style={{ display: 'none' }}
+                />
+                {level}
+              </label>
+            ))}
+          </div>
+        )}
+
+        <div className="middle-line"></div>
         <button type="submit" className="singup_btn">
-          회원가입
+          회원가입 완료
         </button>
-        <button onClick={handleloginClick} className="Singup_login_btn">
+        <button onClick={handleLoginClick} className="Singup_login_btn">
           로그인
         </button>
-        <p className="Sing_up_under_phrase">
-          입문자도 쉽게 도전 할 수 있습니다!
-        </p>
         <p className="Sing_up_middle_phrase2">
           코딩테스트에 도전하러 가시겠어요?
         </p>

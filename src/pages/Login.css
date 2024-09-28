@@ -21,18 +21,18 @@ body {
   position: relative;
   left: 550px;
   top: 250px;
-  width: 350px; /* 입력 필드 너비 조정 */
-  height: 40px; /* 입력 필드 높이 조정 */
-  font-size: 18px; /* 입력 필드 글씨 크기 조정 */
+  width: 350px;
+  height: 40px; 
+  font-size: 18px; 
   font-family: 'GmarketSans', sans-serif; 
 }
 #password{
   position: relative;
   left: 550px;
   top: 250px;
-  width: 350px; /* 입력 필드 너비 조정 */
-  height: 40px; /* 입력 필드 높이 조정 */
-  font-size: 18px; /* 입력 필드 글씨 크기 조정 */
+  width: 350px; 
+  height: 40px; 
+  font-size: 18px; 
   font-family: 'GmarketSans', sans-serif; 
 }
 
