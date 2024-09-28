@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import CodeEditor from '../components/CodeEditor';
 import { getGrading } from '../axios/openai';
+import socket from '../utils/socket';
 
 const Battle = () => {
   const location = useLocation();
@@ -10,6 +11,18 @@ const Battle = () => {
   const [code, setCode] = React.useState('');
   const [language, setLanguage] = React.useState('python');
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log('Socket ID:', socket.id);
+    socket.on('battleEnded', (data) => {
+      console.log('Battle ended data received:', data);
+      if (data.problemId === problem.problemNumber)
+        alert(`배틀 종료! 승리자는 ${data.winner}입니다.`);
+    });
+    return () => {
+      socket.off('battleEnded');
+    };
+  }, [problem]);
 
   const handleCodeSubmit = async () => {
     try {
@@ -20,6 +33,11 @@ const Battle = () => {
       });
       if (result.data) {
         alert('정답입니다!');
+        socket.emit('submitSolution', {
+          problemNumber: problem.problemNumber,
+          userEmail: localStorage.getItem('email'),
+          isCorrect: true,
+        });
       } else {
         alert('틀렸습니다. 다시 시도해보세요.');
       }
