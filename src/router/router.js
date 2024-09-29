@@ -7,6 +7,7 @@ import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
 import PetRoom from '../pages/PetRoom';
+import Battle from '../pages/Battle';
 
 const routes = [
   {
@@ -42,6 +43,14 @@ const routes = [
     element: (
       <ProtectedRoute>
         <PetRoom />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/battle/:matchId',
+    element: (
+      <ProtectedRoute>
+        <Battle />
       </ProtectedRoute>
     ),
   },
