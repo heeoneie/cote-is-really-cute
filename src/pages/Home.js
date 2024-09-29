@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { AppContext } from '../App';
 import CategoryBtn from '../components/CategoryBtn';
 import SearchBar from '../components/SearchBar';
-import Status from '../components/Status';
+import PetStatus from '../components/PetStatus';
+import LoginStreak from '../components/LoginStreak';
 import { Grid } from '@mui/material';
 import Landing from '../components/Landing';
 
@@ -38,7 +39,10 @@ const Home = () => {
           <Grid item xs={2}>
             <Grid item xs container direction="column">
               <Grid item xs>
-                <Status />
+                <PetStatus />
+              </Grid>
+              <Grid item xs>
+                <LoginStreak />
               </Grid>
             </Grid>
           </Grid>

@@ -24,10 +24,13 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData((prevState) => {
+      console.log(prevState);
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
   };
 
   const validate = () => {
