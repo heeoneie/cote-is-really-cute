@@ -11,12 +11,12 @@ const StyledButton = styled.button`
   background-color: white;
 
   &:hover {
-    color: #82d21c;
+    color: #82d21c; /* 호버 시 배경색 변경 */
   }
 `;
 
-const LogoutButton = ({ onLogout }) => (
-  <StyledButton onClick={onLogout}>로그아웃</StyledButton>
+const HomeButton = ({ onNavigate }) => (
+  <StyledButton onClick={onNavigate}>홈으로 가기</StyledButton>
 );
 
-export default LogoutButton;
+export default HomeButton;

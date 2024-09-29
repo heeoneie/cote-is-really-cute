@@ -10,7 +10,7 @@ const DefaultLayout = () => {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Header />
-      {isLoggedIn ? <Menubar /> : ''};
+      {isLoggedIn ? <Menubar /> : ''}
       <div style={{ flex: 1 }}>
         <Outlet />
       </div>
