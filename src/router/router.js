@@ -7,6 +7,7 @@ import ProblemSolving from '../pages/ProblemSolving';
 import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
 import PetRoom from '../pages/PetRoom';
+import Battle from '../pages/Battle';
 
 const routes = [
   {
@@ -38,10 +39,18 @@ const routes = [
     ),
   },
   {
-    path: '/petroom', // 문제 풀이 페이지를 위한 라우트
+    path: '/petroom',
     element: (
       <ProtectedRoute>
         <PetRoom />
+      </ProtectedRoute>
+      ),
+  },
+  {
+    path: '/battle/:matchId',
+    element: (
+      <ProtectedRoute>
+        <Battle />
       </ProtectedRoute>
     ),
   },
