@@ -62,7 +62,7 @@
     -webkit-transition: all 0.1s ease-out;
     transition: all 0.1s ease-out;
     position: absolute; 
-    left: 1325px;
+    left: 1290px;
     top: 430px;
     z-index: 10;
     font-family: 'GmarketSans', sans-serif;
@@ -251,7 +251,7 @@
     font-size: 14px;
     position: relative;
     top: 150px;
-    left: 13px;
+    left: 0px;
     
 }
 .Emailmessage{
@@ -259,7 +259,7 @@
     font-size: 14px;
     position: relative;
     top: 150px;
-    left: 50px;
+    left: 30px;
 }
 .baekjoonTier_message{
     color: red;
@@ -273,5 +273,5 @@
     font-size: 14px;
     position: relative;
     top: 150px;
-    left: -90px;
+    left: -120px;
 }

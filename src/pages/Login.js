@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 import { loginUser } from '../axios/auth';
-import './Login.css'; // CSS 파일 임포트
+import './Login.css';
 const Login = () => {
   const [formData, setFormData] = React.useState({
     email: '',
@@ -45,7 +45,7 @@ const Login = () => {
       setIsLoggedIn(true);
       navigate('/');
     } catch (error) {
-      setLoginError('Invalid email or password');
+      setLoginError('이메일 또는 비밀번호가 틀렸습니다');
     }
   };
   const handleSignUpClick = () => {
@@ -85,7 +85,7 @@ const Login = () => {
           />
           {errors.password && <div className="error">{errors.password}</div>}
         </div>
-        {loginError && <div className="alert">{loginError}</div>}
+        {loginError && <div className="login_error">{loginError}</div>}
         <button type="submit" className="btn">
           로그인
         </button>

@@ -96,8 +96,6 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate inputs before submitting
     const isNickNameValid = validateNickName(formData.nickName);
     const isEmailValid = validateEmail(formData.email);
     const isPasswordValid = validatePassword(
@@ -117,6 +115,11 @@ const SignUp = () => {
 
     try {
       await signUp(formData);
+      localStorage.setItem(
+        `baekjoonLevel_${formData.email}`,
+        formData.baekjoonLevel,
+      );
+
       setNicknameMessage('회원가입이 성공적으로 완료되었습니다!');
       navigate('/login');
     } catch (error) {

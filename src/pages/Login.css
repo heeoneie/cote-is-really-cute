@@ -131,5 +131,11 @@ font-family: 'GmarketSans', sans-serif;
   box-shadow: none;
   }
   }
-
-  
+  .login_error {
+    color: red; 
+    margin-top: 10px; 
+    position: relative;
+    margin-left: 20px;
+    left: 525px;
+    top: 265px;
+  }
