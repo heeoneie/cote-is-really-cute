@@ -1,21 +1,18 @@
 import React, { Suspense } from 'react';
 import { Rooms } from '../utils/Rooms';
 import { Items } from '../utils/Items';
-// import { AppContext } from '../App';
 // eslint-disable-next-line import/no-unresolved
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const PetRoom = () => {
-  // const { userExp } = useContext(AppContext);
-  const userExp = 800; //100단위로 레벨 증가하는 임시 변수(0~900)
+  const userExp = 800;
   const level = Math.floor(userExp / 100) + 1;
 
-  // 레벨에 따라 다른 Spline URL 반환
   const getScene = (level, type) => {
     if (type === 'item2') {
-      return Items.item2[level - 4]; // 레벨 4, 5, 7
+      return Items.item2[level - 4];
     } else if (type === 'item3') {
-      return Items.item3[level - 6]; // 레벨 6
+      return Items.item3[level - 6];
     }
 
     return Items[type][level - 1];
@@ -68,7 +65,7 @@ const PetRoom = () => {
     <div
       style={{
         display: 'flex',
-        // width: 'calc(100vw - 290px)',
+        width: 'calc(100vw - 290px)',
         height: '100vh',
         margin: 0,
         padding: 0,

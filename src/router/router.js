@@ -39,7 +39,7 @@ const routes = [
     ),
   },
   {
-    path: '/petroom', // 문제 풀이 페이지를 위한 라우트
+    path: '/petroom',
     element: (
       <ProtectedRoute>
         <PetRoom />
