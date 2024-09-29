@@ -34,7 +34,7 @@ const PetStatus = () => {
   };
 
   return (
-    <Container className="status">
+    <Container>
       <Title>Lv.{level} 냐옹이</Title>
       <div style={{ width: '100%', height: '60%' }}>
         <Spline scene="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode" />

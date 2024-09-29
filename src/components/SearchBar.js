@@ -2,11 +2,14 @@ import React from 'react';
 import '../styles/SearchBar.css';
 import { searchUser } from '../axios/user';
 import { addRival, deleteRival } from '../axios/rival';
+import RoomModal from './RoomModal';
 
 const SearchBar = () => {
   const [nickNm, setNickNm] = React.useState('');
   const [dataList, setDataList] = React.useState([]);
   const [show, setShow] = React.useState(false);
+  const [modal, setModal] = React.useState(false);
+  const [selectedUser, setSelectedUser] = React.useState(null);
   const email = localStorage.getItem('email');
 
   const handleInputChange = (e) => {
@@ -53,6 +56,16 @@ const SearchBar = () => {
     }
   };
 
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+    setSelectedUser(null);
+  };
+
   return (
     <div className="search-container">
       <input
@@ -93,12 +106,20 @@ const SearchBar = () => {
                   </button>
                 )}
 
-                <button className="room-btn">고양이방 보기</button>
+                <button className="room-btn" onClick={() => openModal(data)}>
+                  고양이방 보기
+                </button>
               </li>
             );
           })}
         </ul>
       )}
+
+      <RoomModal
+        show={modal}
+        onClose={closeModal}
+        selectedUser={selectedUser}
+      />
     </div>
   );
 };
