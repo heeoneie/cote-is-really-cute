@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import CodeEditor from '../components/CodeEditor';
 import { getGrading } from '../axios/openai';
@@ -11,13 +11,15 @@ const Battle = () => {
   const [code, setCode] = React.useState('');
   const [language, setLanguage] = React.useState('python');
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
-    console.log('Socket ID:', socket.id);
     socket.on('battleEnded', (data) => {
-      console.log('Battle ended data received:', data);
       if (data.problemId === problem.problemNumber)
-        alert(`배틀 종료! 승리자는 ${data.winner}입니다.`);
+        alert(
+          `배틀 종료! 승리자는 ${data.winner}입니다. 경험치 ${data.experience}를 얻었습니다.`,
+        );
+      navigate('/');
     });
     return () => {
       socket.off('battleEnded');

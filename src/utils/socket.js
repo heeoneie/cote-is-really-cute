@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:8080');
+const socket = io('https://violent-lea-coteisreallycute-52210e1a.koyeb.app');
 
 export default socket;

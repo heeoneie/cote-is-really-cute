@@ -10,15 +10,11 @@ const BattleBtn = () => {
   const handleJoinBattle = async () => {
     setIsWaiting(true);
     try {
-      socket.on('connect', () => {
-        console.log('Socket connected:', socket.current.id);
-      });
-
+      socket.on('connect', () => {});
       const userEmail = localStorage.getItem('email');
       socket.emit('joinBattle', userEmail);
 
       socket.on('matchFound', ({ matchId, problem }) => {
-        console.log('Match Found:', matchId, problem);
         setIsWaiting(false);
         navigate(`/battle/${matchId}`, {
           state: { problem },
