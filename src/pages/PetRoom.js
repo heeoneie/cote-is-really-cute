@@ -73,6 +73,7 @@ const PetRoom = () => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginLeft: '290px',
       }}
     >
       <Suspense fallback={<div>Loading...</div>}>
