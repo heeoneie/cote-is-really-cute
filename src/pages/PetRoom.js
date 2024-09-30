@@ -1,12 +1,29 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useContext } from 'react';
 import { rooms } from '../utils/rooms';
 import SplineScene from '../components/SplineScene';
+import { searchRival } from '../axios/rival';
+import { AppContext } from '../App';
 // eslint-disable-next-line import/no-unresolved
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const PetRoom = () => {
-  const userExp = 800;
-  const level = Math.floor(userExp / 100) + 1;
+  const { email } = useContext(AppContext);
+  const [level, setLevel] = React.useState(1);
+
+  React.useEffect(() => {
+    if (email) fetchLevel(email);
+  }, [email]);
+
+  const fetchLevel = async (email) => {
+    try {
+      const response = await searchRival(email);
+      setLevel(response.userLevel);
+      console.log(response.userLevel);
+    } catch (error) {
+      console.error('Error fetching rivals', error);
+      setLevel(1);
+    }
+  };
 
   const renderItems = (level) => {
     if (level === 10) {
