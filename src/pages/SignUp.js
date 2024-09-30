@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signUp, checkNickName } from '../axios/auth';
 import '../styles/SignUp.css';
+import HomeBtn from '../components/HomeBtn';
 
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
@@ -110,6 +111,7 @@ const SignUp = () => {
   return (
     <div className="signup_container">
       <div className="signup_mainContainer">
+        <HomeBtn />
         <h1 className="signup_title">회원가입</h1>
         <form onSubmit={handleSubmit}>
           <div className="signup_nickname_container">
