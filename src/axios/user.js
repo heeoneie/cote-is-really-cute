@@ -12,3 +12,12 @@ export const recordAttendance = async (userEmail) => {
     console.error('Failed to record attendance:', error);
   }
 };
+
+export const checkConsecutiveAttendance = async (userEmail) => {
+  try {
+    const response = await request.get(`/users/attend/${userEmail}`);
+    return response.data.consecutiveDays;
+  } catch (error) {
+    console.error('Error fetching attendance:', error);
+  }
+};
