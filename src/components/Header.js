@@ -25,7 +25,7 @@ const Header = () => {
       {isLoggedIn ? (
         <LogoutButton onLogout={handleLogout} />
       ) : isAuthPage ? (
-        <HomeButton onNavigate={() => navigate('/')} /> // 홈 버튼 사용
+        <HomeButton onNavigate={() => navigate('/')} />
       ) : (
         <AuthLinks />
       )}

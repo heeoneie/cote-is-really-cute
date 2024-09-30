@@ -82,14 +82,14 @@ const CategoryBtn = () => {
 
   const handleDifficultyClick = (difficulty) => {
     setSelectedDifficulty(difficulty);
-    setSelectedAlgorithm(null); // 난이도 변경 시 알고리즘 초기화
+    setSelectedAlgorithm(null);
   };
 
   const handleScreenClick = () => {
     setSelectedDifficulty(null);
     setSelectedAlgorithm(null);
   };
-  // 난이도에 맞게 별 갯수 생성
+
   const renderStars = (difficulty) => {
     let starCount = 0;
     switch (difficulty) {
@@ -146,14 +146,13 @@ const CategoryBtn = () => {
             overflow: 'hidden',
           }}
         >
-          {/* 난이도 버튼들 */}
           {!selectedDifficulty && (
             <div>
               {Object.keys(CATEGORIES).map((difficulty) => (
                 <button
                   key={difficulty}
                   onClick={(e) => {
-                    e.stopPropagation(); // 클릭 이벤트가 상위 Box로 전파되지 않도록 함
+                    e.stopPropagation();
                     handleDifficultyClick(difficulty);
                   }}
                   className="diff-btn"
@@ -165,14 +164,13 @@ const CategoryBtn = () => {
             </div>
           )}
 
-          {/* 알고리즘 버튼들 */}
           {selectedDifficulty && (
             <div style={{ marginTop: '10px' }}>
               {CATEGORIES[selectedDifficulty].map((algorithm, idx) => (
                 <button
                   key={idx}
                   onClick={(e) => {
-                    e.stopPropagation(); // 클릭 이벤트가 상위 Box로 전파되지 않도록 함
+                    e.stopPropagation();
                     getCourse(algorithm);
                   }}
                   color={

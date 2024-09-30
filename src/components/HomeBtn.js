@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   background-color: white;
 
   &:hover {
-    color: #82d21c; /* 호버 시 배경색 변경 */
+    color: #82d21c;
   }
 `;
 
