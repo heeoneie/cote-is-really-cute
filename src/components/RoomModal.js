@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { rooms } from '../utils/rooms';
-import { levels } from '../utils/levels';
 // eslint-disable-next-line import/no-unresolved
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
@@ -41,11 +40,6 @@ const RoomModal = ({ show, onClose, selectedUser }) => {
   const [isPending, startTransition] = React.useTransition();
 
   if (!show) return null;
-  const userLevel = levels.reduce((acc, level) => {
-    return selectedUser.experience >= level.requiredExperience
-      ? level.level
-      : acc;
-  }, 1);
 
   const handleClose = () => {
     startTransition(() => {
@@ -70,7 +64,7 @@ const RoomModal = ({ show, onClose, selectedUser }) => {
                 minWidth: '300px',
                 minHeight: '300px',
               }}
-              scene={rooms[userLevel - 1]}
+              scene={rooms[selectedUser?.level - 1]}
             />
           </React.Suspense>
         )}

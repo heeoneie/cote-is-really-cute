@@ -26,7 +26,7 @@ const SearchBar = () => {
 
   const searchNm = async (input) => {
     try {
-      const userList = await searchUser(input);
+      const userList = await searchUser(input, email);
       setDataList(userList);
       setShow(userList.length > 0);
     } catch (error) {
@@ -83,13 +83,12 @@ const SearchBar = () => {
       {show && (
         <ul className="dropdown">
           {dataList.map((data, index) => {
-            const isRival = data.rivals.includes(email);
             return (
               <li key={index} className="dropdown-item">
                 {data.nickName}
                 <p className="tier">- 백준 티어: {data.baekjoonTier}</p>
 
-                {isRival ? (
+                {data.isRival ? (
                   <button
                     className="rival-btn"
                     onClick={() => handleDeleteRival(data.nickName)}

@@ -1,11 +1,13 @@
 import request from './axios';
 
-export const searchUser = async (user) => {
+export const searchUser = async (input, email) => {
   try {
-    const response = await request.get(`/users/search?nickName=${user}`);
+    const response = await request.get(
+      `/users/search?type=nickName&value=${input}&userEmail=${email}`,
+    );
     const result = await response.data;
     const filteredData = result.filter((item) =>
-      item.nickName.toLowerCase().includes(user.toLowerCase()),
+      item.nickName.toLowerCase().includes(input.toLowerCase()),
     );
 
     return filteredData;
