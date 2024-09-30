@@ -15,6 +15,7 @@ import {
   Select,
   Switch,
 } from '@mui/material';
+import { recordAttendance } from '../axios/user';
 
 const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
   const languages = [
@@ -32,6 +33,11 @@ const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
   };
   const handleThemeChange = (event) =>
     setTheme(event.target.checked ? 'twilight' : 'github');
+
+  const handleSubmit = async () => {
+    const isCorrect = await onSubmit();
+    if (isCorrect) await recordAttendance(localStorage.getItem('email'));
+  };
 
   return (
     <Box
@@ -104,7 +110,7 @@ const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
       <Button
         variant="contained"
         color="primary"
-        onClick={onSubmit}
+        onClick={handleSubmit}
         sx={{
           position: 'absolute',
           bottom: 16,
