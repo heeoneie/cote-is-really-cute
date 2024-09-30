@@ -63,8 +63,10 @@ const ProblemSolving = () => {
       setIsGrading(result.data);
       if (result.data) {
         alert('정답입니다!');
+        return true;
       } else {
         alert('틀렸습니다. 다시 시도해보세요.');
+        return false;
       }
     } catch (error) {
       console.error('채점 중 오류가 발생했습니다:', error);

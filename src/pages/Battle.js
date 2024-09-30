@@ -66,8 +66,10 @@ const Battle = () => {
           userEmail: localStorage.getItem('email'),
           isCorrect: true,
         });
+        return true;
       } else {
         alert('틀렸습니다. 다시 시도해보세요.');
+        return false;
       }
     } catch (error) {
       console.error('채점 중 오류가 발생했습니다:', error);
