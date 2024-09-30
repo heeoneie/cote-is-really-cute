@@ -84,7 +84,6 @@ const SearchBar = () => {
         <ul className="dropdown">
           {dataList.map((data, index) => {
             const isRival = data.rivals.includes(email);
-            console.log(email);
             return (
               <li key={index} className="dropdown-item">
                 {data.nickName}

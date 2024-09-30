@@ -1,23 +1,23 @@
 .search-container {
   position: relative;
   display: flex;
-  justify-content: center; /* 부모에서 중앙 정렬 */
-  width: 50vw; /* 부모 그리드 안에서의 전체 너비 */
-  padding: 20px 10px;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0px;
 }
 
 .search-bar {
-  padding: 8px 40px 8px 16px; /* 오른쪽에 여유 공간을 더 주어 아이콘 위치 확보 */
+  padding: 8px 40px 8px 16px;
   border: 5px solid #82d21c;
   border-radius: 50px;
   width: 100%;
   transition: width 0.3s ease;
-  position: relative; /* 드롭다운을 이 요소에 맞춰서 배치할 수 있게 함 */
-  z-index: 1; /* 검색바가 드롭다운 위에 올라가지 않도록 z-index 조정 */
+  position: relative;
+  z-index: 1;
 }
 
 .search-btn {
-  position: absolute; /* 검색 버튼을 검색바 안쪽 오른쪽에 고정 */
+  position: absolute;
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
@@ -43,16 +43,16 @@
   width: 90%;
   z-index: 10;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  list-style: none; /* 불릿 포인트 제거 */
-  padding-left: 0; /* 기본 패딩 제거 */
-  margin: 0; /* 기본 마진 제거 */
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 .dropdown-item {
   padding: 8px;
   cursor: pointer;
-  display: flex; /* Flexbox로 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
+  display: flex;
+  align-items: center;
 }
 
 .dropdown-item .rival-btn,
@@ -60,12 +60,12 @@
   background-color: white;
   border: 3px solid #f28434;
   border-radius: 50px;
-  margin-left: 8px; /* 버튼 간의 간격 조정 */
+  margin-left: 8px;
   cursor: pointer;
 }
 
 .dropdown-item .rival-btn {
-  margin-left: auto; /* 버튼을 오른쪽으로 정렬 */
+  margin-left: auto;
   border-color: #82d21c;
 }
 

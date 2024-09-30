@@ -1,48 +1,50 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/Menubar.css';
 
+const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (
+  <li>
+    <Link to={to} className={`menubar-link ${isActive ? 'active' : ''}`}>
+      <img src={imgSrc} alt={alt} className="menubar-icon" />
+      <span>{label}</span>
+    </Link>
+  </li>
+);
+
 const Menubar = () => {
+  const location = useLocation();
+
+  const menuItems = [
+    { to: '/', imgSrc: '/img/studymode.png', alt: 'studymode', label: '학습' },
+    { to: '/pvp', imgSrc: '/img/pvpmode.png', alt: 'pvpmode', label: '대결' },
+    {
+      to: '/mypage',
+      imgSrc: '/img/mypage.png',
+      alt: 'mypage',
+      label: '마이페이지',
+    },
+    {
+      to: '/petroom',
+      imgSrc: '/img/catroom.png',
+      alt: 'petroom',
+      label: '고양이방',
+    },
+  ];
+
   return (
     <div className="menubar">
       <p>코테는 정말 귀여워</p>
       <ul>
-        <li>
-          <Link to="/" className="menubar-link">
-            <img
-              src="/img/studymode.png"
-              alt="studymode"
-              className="menubar-icon"
-            />
-            <span>학습</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/pvp" className="menubar-link">
-            <img
-              src="/img/pvpmode.png"
-              alt="pvpmode"
-              className="menubar-icon"
-            />
-            <span>대결</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/mypage" className="menubar-link">
-            <img src="/img/mypage.png" alt="mypage" className="menubar-icon" />
-            <span>마이페이지</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/petroom" className="menubar-link">
-            <img
-              src="/img/catroom.png"
-              alt="petroom"
-              className="menubar-icon"
-            />
-            <span>고양이방</span>
-          </Link>
-        </li>
+        {menuItems.map(({ to, imgSrc, alt, label }) => (
+          <MenuItem
+            key={to}
+            to={to}
+            imgSrc={imgSrc}
+            alt={alt}
+            label={label}
+            isActive={location.pathname === to}
+          />
+        ))}
       </ul>
     </div>
   );

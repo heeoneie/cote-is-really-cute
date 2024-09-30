@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PropTypes from 'prop-types'; // PropTypes를 사용해 props 타입 검증
+import PropTypes from 'prop-types';
+import { rooms } from '../utils/rooms';
+import { levels } from '../utils/levels';
+// eslint-disable-next-line import/no-unresolved
+const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -34,14 +38,42 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 const RoomModal = ({ show, onClose, selectedUser }) => {
+  const [isPending, startTransition] = React.useTransition();
+
   if (!show) return null;
+  const userLevel = levels.reduce((acc, level) => {
+    return selectedUser.experience >= level.requiredExperience
+      ? level.level
+      : acc;
+  }, 1);
+
+  const handleClose = () => {
+    startTransition(() => {
+      onClose();
+    });
+  };
 
   return (
     <ModalBackground onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>X</CloseButton>
+        <CloseButton onClick={handleClose}>X</CloseButton>
         <h2>{selectedUser?.nickName}님의 고양이방</h2>
-        <p>고양이방 표시하기</p>
+        {isPending ? (
+          <div>Loading...</div>
+        ) : (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Spline
+              style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                minWidth: '300px',
+                minHeight: '300px',
+              }}
+              scene={rooms[userLevel - 1]}
+            />
+          </React.Suspense>
+        )}
       </ModalContainer>
     </ModalBackground>
   );

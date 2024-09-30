@@ -1,7 +1,8 @@
-.diff-btn {
+.diff-btn,
+.ctg-btn {
   width: 20vw;
-  max-width: 500px; /* 최대 너비 */
-  min-width: 200px; /* 최소 너비 */
+  max-width: 500px;
+  min-width: 200px;
   display: block;
   margin-bottom: 50px;
   padding: 20px;
@@ -10,9 +11,11 @@
   background-color: #ffffff;
   color: #000000;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.diff-btn p {
+.diff-btn p,
+.ctg-btn p {
   margin: 0px;
   font-weight: bold;
   font-size: large;
@@ -26,26 +29,6 @@
 .btn-img {
   width: 24px;
   height: 24px;
-}
-
-.ctg-btn {
-  width: 20vw;
-  max-width: 500px; /* 최대 너비 */
-  min-width: 200px; /* 최소 너비 */
-  display: block;
-  margin-bottom: 50px;
-  padding: 20px;
-  border: 5px solid #d9d9d9;
-  border-radius: 50px;
-  background-color: #ffffff;
-  color: #000000;
-  cursor: pointer;
-}
-
-.ctg-btn p {
-  margin: 0px;
-  font-weight: bold;
-  font-size: large;
 }
 
 .ctg-btn:hover {
