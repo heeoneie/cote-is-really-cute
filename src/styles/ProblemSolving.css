@@ -17,3 +17,8 @@
   background-color: #61ecff78;
   border-color: #61ecff;
 }
+
+.notGrade:hover {
+  background-color: #ffffff;
+  border-color: #d9d9d9;
+}

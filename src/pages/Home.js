@@ -27,8 +27,9 @@ const Home = () => {
               direction="column"
               justifyContent="center"
               alignItems="center"
+              style={{ width: '100%' }}
             >
-              <Grid item>
+              <Grid item xs={12} style={{ width: '80%' }}>
                 <SearchBar />
               </Grid>
               <Grid item xs>

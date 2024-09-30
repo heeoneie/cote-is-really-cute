@@ -1,9 +1,35 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import CodeEditor from '../components/CodeEditor';
 import { getGrading } from '../axios/openai';
 import socket from '../utils/socket';
+import styled from '@emotion/styled/macro';
+import Timer from '../components/Timer';
+
+const ProTitle = styled.h4`
+  font-size: 24px;
+  margin: 10px;
+`;
+
+const ProBtn = styled.button`
+  width: 150px;
+  padding: 10px 20px;
+  border: 4px solid #d9d9d9;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  margin: 10px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    background-color: #61ecff78;
+    border-color: #61ecff;
+  }
+`;
 
 const Battle = () => {
   const location = useLocation();
@@ -60,43 +86,104 @@ const Battle = () => {
   };
 
   return (
-    <Box
+    <Grid
+      container
       sx={{
+        width: 'calc(100vw - 290px)',
+        marginLeft: '290px',
+        height: '90vh',
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
+        flexWrap: 'nowrap',
       }}
     >
-      {problem ? (
-        <>
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            {problem.problemNumber} {problem.problemTitle}
-          </Typography>
+      <Grid
+        item
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          height: '100%',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '90%',
+            width: '90%',
+          }}
+        >
+          {problem ? (
+            <>
+              {!showCodeEditor ? (
+                <>
+                  <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
+                  <ProTitle>{problem.problemTitle}</ProTitle>
+                  <ProBtn onClick={handleProblemSolving}>문제 풀기</ProBtn>
+                </>
+              ) : null}
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleProblemSolving}
-            sx={{ mb: 2 }}
-          >
-            문제 풀기
-          </Button>
-
-          {showCodeEditor && (
-            <CodeEditor
-              code={code}
-              onChange={(newValue) => setCode(newValue)}
-              onLanguageChange={setLanguage}
-              onSubmit={handleCodeSubmit}
-            />
+              {showCodeEditor && (
+                <Box
+                  sx={{
+                    flex: 1,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                  }}
+                >
+                  <CodeEditor
+                    code={code}
+                    onChange={(newValue) => setCode(newValue)}
+                    onLanguageChange={setLanguage}
+                    onSubmit={handleCodeSubmit}
+                  />
+                </Box>
+              )}
+            </>
+          ) : (
+            <Typography variant="h6">문제를 불러오는 중...</Typography>
           )}
-        </>
-      ) : (
-        <Typography variant="h6">문제를 불러오는 중...</Typography>
-      )}
-    </Box>
+        </Box>
+      </Grid>
+      <Grid
+        item
+        sx={{
+          width: '290px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderLeft: '5px solid #00000027',
+          height: '100%',
+          minWidth: '290px',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+          }}
+        >
+          {showCodeEditor ? (
+            <>
+              <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
+              <ProTitle>{problem.problemTitle}</ProTitle>
+            </>
+          ) : (
+            ''
+          )}
+          <Timer initialMinutes={30} />
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -84,7 +84,7 @@ const ProblemSolving = () => {
             flexDirection: showCodeEditor ? 'row' : 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            flex: 1, // 남은 공간을 차지하게 설정
+            flex: 1,
           }}
         >
           {showAlert && (
@@ -125,7 +125,7 @@ const ProblemSolving = () => {
                   문제 풀기
                 </button>
                 <button
-                  className="pro-btn"
+                  className={`pro-btn ${!isGrading ? 'notGrade' : ''}`}
                   onClick={nextProblem}
                   disabled={!isGrading}
                 >

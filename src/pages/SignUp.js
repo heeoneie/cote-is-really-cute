@@ -174,7 +174,7 @@ const SignUp = () => {
               id="confirmPassword"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              placeholder="Password 재입력"
+              placeholder="Password 확인"
               aria-label="PW 재입력"
               required
             />
