@@ -24,13 +24,18 @@
     "prettier/prettier": [
       "error",
       {
-       "endOfLine": "auto"
+        "endOfLine": "auto"
       }
     ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
   },
   "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
     "react": {
       "version": "detect"
     }

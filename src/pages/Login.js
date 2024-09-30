@@ -1,15 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  TextField,
-  Button,
-  Typography,
-  Container,
-  Box,
-  Alert,
-} from '@mui/material';
 import { AppContext } from '../App';
 import { loginUser } from '../axios/auth';
+import '../styles/Login.css';
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
@@ -53,48 +46,67 @@ const Login = () => {
       setIsLoggedIn(true);
       navigate('/');
     } catch (error) {
-      setLoginError('Invalid email or password');
+      setLoginError('이메일 또는 비밀번호가 틀렸습니다');
     }
   };
 
+  const handleSignUpClick = () => {
+    navigate('/signup');
+  };
+
   return (
-    <Container maxWidth="xs">
-      <Box display="flex" flexDirection="column" alignItems="center" mt={8}>
-        <Typography variant="h4" gutterBottom>
-          Login
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            error={!!errors.email}
-            helperText={errors.email}
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            error={!!errors.password}
-            helperText={errors.password}
-            fullWidth
-            margin="normal"
-            required
-          />
-          {loginError && <Alert severity="error">{loginError}</Alert>}
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Login
-          </Button>
+    <div className="login_container">
+      <div className="login_mainContainer">
+        <h1 className="login_Login_title">로그인</h1>
+        <form onSubmit={handleSubmit} className="login_form">
+          <div className="login_input-group">
+            <input
+              placeholder="Email"
+              id="email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="login_input"
+              required
+            />
+            {errors.email && <div className="login_error">{errors.email}</div>}
+            <div className="login_v-line"></div>
+          </div>
+          <div className="login_input-group">
+            <input
+              placeholder="Password"
+              id="password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="login_input"
+              required
+            />
+            {errors.password && (
+              <div className="login_error">{errors.password}</div>
+            )}
+          </div>
+          {loginError && <div className="login_login_error">{loginError}</div>}
+          <div className="login_loginContainer">
+            <div className="login_phrase">
+              <p>코딩테스트에 도전해보세요!</p>
+            </div>
+            <button type="submit" className="login_loginbtn">
+              로그인
+            </button>
+          </div>
         </form>
-      </Box>
-    </Container>
+      </div>
+      <div className="login_divider" />
+      <div className="login_subContainer">
+        <h1 className="login_phrase2">계정이 없으신가요?</h1>
+        <button onClick={handleSignUpClick} className="login_signupbtn">
+          회원가입
+        </button>
+      </div>
+    </div>
   );
 };
 

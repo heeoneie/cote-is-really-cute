@@ -1,18 +1,26 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from '@emotion/styled/macro';
+
+const AuthLinksContainer = styled.div`
+  margin-left: auto;
+  font-weight: bold;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: #82d21c;
+  }
+`;
 
 const AuthLinks = () => (
-  <div>
-    <Link to="/login" style={linkStyle}>
-      Login
-    </Link>
-    <Link to="/signup" style={linkStyle}>
-      Sign Up
-    </Link>
-  </div>
+  <AuthLinksContainer>
+    <StyledLink to="/login">로그인</StyledLink> |{' '}
+    <StyledLink to="/signup">회원가입</StyledLink>
+  </AuthLinksContainer>
 );
-
-const linkStyle = {
-  marginRight: '10px',
-};
 
 export default AuthLinks;

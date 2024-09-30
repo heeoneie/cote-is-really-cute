@@ -8,6 +8,8 @@ import CategoryBtn from '../components/CategoryBtn';
 import ProtectedRoute from './ProtectedRoute';
 import PetRoom from '../pages/PetRoom';
 import Battle from '../pages/Battle';
+import Pvp from '../pages/Pvp';
+import MyPage from '../pages/MyPage';
 
 const routes = [
   {
@@ -51,6 +53,22 @@ const routes = [
     element: (
       <ProtectedRoute>
         <Battle />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/pvp',
+    element: (
+      <ProtectedRoute>
+        <Pvp />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/mypage',
+    element: (
+      <ProtectedRoute>
+        <MyPage />
       </ProtectedRoute>
     ),
   },

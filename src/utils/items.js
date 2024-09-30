@@ -1,4 +1,4 @@
-export const Items = {
+export const items = {
   item: [
     'https://prod.spline.design/wd2lp0v8GDqU0Utg/scene.splinecode',
     'https://prod.spline.design/R1QC1a2qPpz6j3VM/scene.splinecode',

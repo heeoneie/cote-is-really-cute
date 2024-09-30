@@ -1,21 +1,27 @@
-import React, { Suspense } from 'react';
-import { Rooms } from '../utils/Rooms';
-import { Items } from '../utils/Items';
+import React, { Suspense, useContext } from 'react';
+import { rooms } from '../utils/rooms';
+import SplineScene from '../components/SplineScene';
+import { searchRival } from '../axios/rival';
+import { AppContext } from '../App';
 // eslint-disable-next-line import/no-unresolved
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const PetRoom = () => {
-  const userExp = 800;
-  const level = Math.floor(userExp / 100) + 1;
+  const { email } = useContext(AppContext);
+  const [level, setLevel] = React.useState(1);
 
-  const getScene = (level, type) => {
-    if (type === 'item2') {
-      return Items.item2[level - 4];
-    } else if (type === 'item3') {
-      return Items.item3[level - 6];
+  React.useEffect(() => {
+    if (email) fetchLevel(email);
+  }, [email]);
+
+  const fetchLevel = async (email) => {
+    try {
+      const response = await searchRival(email);
+      setLevel(response.userLevel);
+    } catch (error) {
+      console.error('Error fetching rivals', error);
+      setLevel(1);
     }
-
-    return Items[type][level - 1];
   };
 
   const renderItems = (level) => {
@@ -24,40 +30,20 @@ const PetRoom = () => {
     } else if (level === 6) {
       return (
         <>
-          <Spline
-            style={{ width: '80%', height: '180px' }}
-            scene={getScene(level, 'item')}
-          />
-          <Spline
-            style={{ width: '80%', height: '180px' }}
-            scene={getScene(level, 'item2')}
-          />
-          <Spline
-            style={{ width: '80%', height: '180px' }}
-            scene={getScene(level, 'item3')}
-          />
+          <SplineScene level={level} type="item" />
+          <SplineScene level={level} type="item2" />
+          <SplineScene level={level} type="item3" />
         </>
       );
     } else if ([4, 5, 7].includes(level)) {
       return (
         <>
-          <Spline
-            style={{ width: '80%', height: '180px' }}
-            scene={getScene(level, 'item')}
-          />
-          <Spline
-            style={{ width: '80%', height: '180px' }}
-            scene={getScene(level, 'item2')}
-          />
+          <SplineScene level={level} type="item" />
+          <SplineScene level={level} type="item2" />
         </>
       );
     } else {
-      return (
-        <Spline
-          style={{ width: '80%', height: '180px' }}
-          scene={getScene(level, 'item')}
-        />
-      );
+      return <SplineScene level={level} type="item" />;
     }
   };
 
@@ -66,13 +52,14 @@ const PetRoom = () => {
       style={{
         display: 'flex',
         width: 'calc(100vw - 290px)',
-        height: '100vh',
+        height: '90vh',
         margin: 0,
         padding: 0,
         overflow: 'hidden',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginLeft: '290px',
       }}
     >
       <Suspense fallback={<div>Loading...</div>}>
@@ -84,7 +71,7 @@ const PetRoom = () => {
             minWidth: '300px',
             minHeight: '300px',
           }}
-          scene={Rooms[level - 1]}
+          scene={rooms[level - 1]}
         />
       </Suspense>
       <div
@@ -109,9 +96,7 @@ const PetRoom = () => {
         >
           <p>다음 레벨 아이템</p>
           <p>Lv. {level + 1}</p>
-          <Suspense fallback={<div>Loading...</div>}>
-            {renderItems(level)}
-          </Suspense>
+          {renderItems(level)}
         </div>
       </div>
     </div>

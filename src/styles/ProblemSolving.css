@@ -1,0 +1,24 @@
+.pro-h4 {
+  font-size: 24px;
+  margin: 10px;
+}
+.pro-btn {
+  width: 150px;
+  padding: 10px 20px;
+  border: 4px solid #d9d9d9;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.pro-btn:hover {
+  background-color: #61ecff78;
+  border-color: #61ecff;
+}
+
+.notGrade:hover {
+  background-color: #ffffff;
+  border-color: #d9d9d9;
+}

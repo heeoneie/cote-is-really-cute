@@ -1,5 +1,22 @@
 import request from './axios';
 
+export const searchUser = async (input, email) => {
+  try {
+    const response = await request.get(
+      `/users/search?type=nickName&value=${input}&userEmail=${email}`,
+    );
+    const result = await response.data;
+    const filteredData = result.filter((item) =>
+      item.nickName.toLowerCase().includes(input.toLowerCase()),
+    );
+
+    return filteredData;
+  } catch (error) {
+    console.error('Error during user search:', error);
+    return [];
+  }
+};
+
 export const recordAttendance = async (userEmail) => {
   const today = new Date().toISOString().split('T')[0];
   const lastAttendance = localStorage.getItem('lastAttendance');

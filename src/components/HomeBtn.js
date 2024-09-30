@@ -15,8 +15,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const LogoutButton = ({ onLogout }) => (
-  <StyledButton onClick={onLogout}>로그아웃</StyledButton>
+const HomeButton = ({ onNavigate }) => (
+  <StyledButton onClick={onNavigate}>홈으로 가기</StyledButton>
 );
 
-export default LogoutButton;
+export default HomeButton;

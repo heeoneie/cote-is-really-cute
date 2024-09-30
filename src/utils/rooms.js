@@ -1,4 +1,4 @@
-export const Rooms = [
+export const rooms = [
   'https://prod.spline.design/pI2VvHNgRZPe6A2i/scene.splinecode',
   'https://prod.spline.design/BbXVJz7rx7U5FvcP/scene.splinecode',
   'https://prod.spline.design/tl3S3KKaSASoiAnl/scene.splinecode',
