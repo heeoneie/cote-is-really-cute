@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../App';
 import styled from '@emotion/styled/macro';
 // eslint-disable-next-line import/no-unresolved
 import Spline from '@splinetool/react-spline';
+import { searchRival } from '../axios/rival';
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -21,28 +22,32 @@ const Title = styled.h2`
 `;
 
 const PetStatus = () => {
+  const { email } = useContext(AppContext);
   const [level, setLevel] = React.useState(1);
-  const { userExp, setUserExp } = React.useContext(AppContext);
 
-  // 임시 경험치 증가 함수
-  const increaseExp = () => {
-    const expUp = userExp + 10;
-    setUserExp(expUp);
+  React.useEffect(() => {
+    if (email) fetchLevel(email);
+  }, [email]);
 
-    const levelUp = Math.floor(expUp / 100) + 1;
-    setLevel(levelUp);
+  const fetchLevel = async (email) => {
+    try {
+      const response = await searchRival(email);
+      setLevel(response.userLevel);
+      console.log(response.userLevel);
+    } catch (error) {
+      console.error('Error fetching rivals', error);
+      setLevel(1);
+    }
   };
 
   return (
     <Container>
-      <Title>Lv.{level} 냐옹이</Title>
+      <Title>고양이 상태창</Title>
       <div style={{ width: '100%', height: '60%' }}>
         <Spline scene="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode" />
       </div>
-      <p>현재 경험치</p>
-      <p>EXP: {userExp % 100}%</p>
-      <button onClick={increaseExp}>경험치 증가</button>
-      <button onClick={() => setUserExp(0)}>경험치 리셋</button>
+      <p>현재 레벨</p>
+      <p>Lv: {level}</p>
     </Container>
   );
 };
