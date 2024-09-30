@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { AppContext } from '../App';
 import LogoutButton from './LogoutBtn';
 import HomeButton from './HomeBtn';
@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import AuthLinks from '../components/AuthLinks';
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn, setEmail } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, setEmail } = React.useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 

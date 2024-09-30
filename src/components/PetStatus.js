@@ -33,7 +33,6 @@ const PetStatus = () => {
     try {
       const response = await searchRival(email);
       setLevel(response.userLevel);
-      console.log(response.userLevel);
     } catch (error) {
       console.error('Error fetching rivals', error);
       setLevel(1);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signUp, checkNickname } from '../axios/auth';
+import { signUp, checkNickName } from '../axios/auth';
 import '../styles/SignUp.css';
 
 const SignUp = () => {
@@ -12,10 +12,10 @@ const SignUp = () => {
   });
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [baekjoonLevel, setBaekjoonLevel] = React.useState('');
-  const [nicknameMessage, setNicknameMessage] = React.useState('');
+  const [nicknameMessage, setNickNameMessage] = React.useState('');
   const [passwordMessage, setPasswordMessage] = React.useState('');
   const [baekjoonTierMessage, setBaekjoonTierMessage] = React.useState('');
-  const [nicknameAvailable, setNicknameAvailable] = React.useState(false);
+  const [nicknameAvailable, setNickNameAvailable] = React.useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,10 +32,10 @@ const SignUp = () => {
 
   const validateNickName = () => {
     if (!nicknameAvailable) {
-      setNicknameMessage('닉네임 중복 확인을 해주세요!');
+      setNickNameMessage('닉네임 중복 확인을 해주세요!');
       return false;
     }
-    setNicknameMessage('');
+    setNickNameMessage('');
     return true;
   };
 
@@ -57,19 +57,19 @@ const SignUp = () => {
     return true;
   };
 
-  const handleNicknameCheck = async () => {
+  const handleNickNameCheck = async () => {
     try {
-      const rsf = await checkNickname(formData.nickName);
+      const rsf = await checkNickName(formData.nickName);
       if (rsf.available) {
-        setNicknameAvailable(true);
-        setNicknameMessage('사용 가능한 닉네임입니다!');
+        setNickNameAvailable(true);
+        setNickNameMessage('사용 가능한 닉네임입니다!');
       } else {
-        setNicknameAvailable(false);
-        setNicknameMessage('이미 사용 중인 닉네임입니다.');
+        setNickNameAvailable(false);
+        setNickNameMessage('이미 사용 중인 닉네임입니다.');
       }
     } catch (error) {
-      setNicknameAvailable(false);
-      setNicknameMessage(error.message);
+      setNickNameAvailable(false);
+      setNickNameMessage(error.message);
     }
   };
 
@@ -95,7 +95,7 @@ const SignUp = () => {
       alert('회원가입이 성공적으로 완료되었습니다!');
       navigate('/login');
     } catch (error) {
-      setNicknameMessage(error.message);
+      setNickNameMessage(error.message);
     }
   };
 
@@ -127,7 +127,7 @@ const SignUp = () => {
             <button
               type="button"
               className="signup_nickname_check_btn"
-              onClick={handleNicknameCheck}
+              onClick={handleNickNameCheck}
             >
               닉네임 확인
             </button>

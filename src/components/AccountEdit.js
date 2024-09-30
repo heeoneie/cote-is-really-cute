@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/AccountEdit.css';
-import { updateNickname, updatePassword, checkNickname } from '../axios/auth';
+import { updateNickName, updatePassword, checkNickName } from '../axios/auth';
 
 const AccountEdit = () => {
   const [nickName, setNickname] = React.useState('');
@@ -10,7 +10,7 @@ const AccountEdit = () => {
 
   const handleNicknameCheck = async () => {
     try {
-      const response = await checkNickname(nickName);
+      const response = await checkNickName(nickName);
       if (response.available) {
         setIsNicknameAvailable(true);
       } else {
@@ -26,7 +26,7 @@ const AccountEdit = () => {
 
     if (nickName && isNicknameAvailable) {
       try {
-        await updateNickname(nickName);
+        await updateNickName(nickName);
         alert('닉네임이 성공적으로 변경되었습니다.');
         setNickname('');
       } catch (error) {

@@ -87,7 +87,6 @@ const PetStatus = () => {
   });
 
   const fetchConsecutiveAttendance = async (userEmail) => {
-    console.log(`Fetching attendance for email: ${userEmail}`);
     try {
       const days = await checkConsecutiveAttendance(userEmail);
       setConsecutiveDays(days);
@@ -99,7 +98,6 @@ const PetStatus = () => {
 
   React.useEffect(() => {
     if (email) fetchConsecutiveAttendance(email);
-    console.log(consecutiveDays);
   }, [email]);
 
   return (

@@ -20,7 +20,7 @@ export const logoutUser = (setEmail) => {
   setEmail('');
 };
 
-export const checkNickname = async (nickName) => {
+export const checkNickName = async (nickName) => {
   try {
     const { data } = await request.get(`/auth/check?nickName=${nickName}`);
     return data;
@@ -30,7 +30,7 @@ export const checkNickname = async (nickName) => {
   }
 };
 
-export const updateNickname = async (newNickName) => {
+export const updateNickName = async (newNickName) => {
   try {
     const { data } = await request.put('/users/update-nickName', {
       newNickName,
