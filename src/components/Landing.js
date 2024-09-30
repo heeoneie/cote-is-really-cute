@@ -1,16 +1,26 @@
 import React from 'react';
+import AuthLinks from '../components/AuthLinks';
 // eslint-disable-next-line import/no-unresolved
 import Spline from '@splinetool/react-spline';
 
 const Landing = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        textAlign: 'center',
+      }}
+    >
       <p
         style={{
           fontFamily: 'DNFBitBitv2',
           fontSize: '36px',
-          textAlign: 'center',
           color: '#82d21c',
+          marginBottom: '20px',
         }}
       >
         코테는 정말 귀여워
@@ -20,8 +30,8 @@ const Landing = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          textAlign: 'center',
           gap: '10px',
+          marginBottom: '20px',
         }}
       >
         이동:{' '}
@@ -35,11 +45,12 @@ const Landing = () => {
           style={{ width: '50px' }}
         />
       </p>
-
+      <AuthLinks />
       <div
         style={{
           width: '100%',
-          height: '80vh',
+          height: '70vh',
+          marginTop: '20px',
         }}
       >
         <Spline scene="https://prod.spline.design/TSJQ8iJNUZqLcLLy/scene.splinecode" />

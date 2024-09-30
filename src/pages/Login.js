@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 import { loginUser } from '../axios/auth';
 import '../styles/Login.css';
+import HomeBtn from '../components/HomeBtn';
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
@@ -57,6 +58,7 @@ const Login = () => {
   return (
     <div className="login_container">
       <div className="login_mainContainer">
+        <HomeBtn />
         <h1 className="login_Login_title">로그인</h1>
         <form onSubmit={handleSubmit} className="login_form">
           <div className="login_input-group">

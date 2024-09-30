@@ -1,6 +1,9 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Menubar.css';
+import { AppContext } from '../App';
+import { logoutUser } from '../axios/auth';
+import LogoutButton from './LogoutBtn';
 
 const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (
   <li>
@@ -12,7 +15,15 @@ const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (
 );
 
 const Menubar = () => {
+  const { setIsLoggedIn, setEmail } = React.useContext(AppContext);
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const handleLogout = () => {
+    logoutUser(setEmail);
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   const menuItems = [
     { to: '/', imgSrc: '/img/studymode.png', alt: 'studymode', label: '학습' },
@@ -46,6 +57,7 @@ const Menubar = () => {
           />
         ))}
       </ul>
+      <LogoutButton onLogout={handleLogout} />
     </div>
   );
 };

@@ -1,26 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
 
 const AuthLinksContainer = styled.div`
-  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
   font-weight: bold;
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
+const StyledButton = styled.button`
+  width: 150px;
+  padding: 10px 20px;
+  border: 4px solid #82d21c;
+  border-radius: 25px;
+  background-color: white;
   color: black;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 
   &:hover {
-    color: #82d21c;
+    background-color: #83d21c71;
   }
 `;
 
-const AuthLinks = () => (
-  <AuthLinksContainer>
-    <StyledLink to="/login">로그인</StyledLink> |{' '}
-    <StyledLink to="/signup">회원가입</StyledLink>
-  </AuthLinksContainer>
-);
+const AuthLinks = () => {
+  const navigate = useNavigate();
+
+  return (
+    <AuthLinksContainer>
+      <StyledButton onClick={() => navigate('/login')}>로그인</StyledButton>
+      <StyledButton onClick={() => navigate('/signup')}>회원가입</StyledButton>
+    </AuthLinksContainer>
+  );
+};
 
 export default AuthLinks;
