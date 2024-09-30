@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
+import { AppContext } from '../App';
+import { searchRival } from '../axios/rival';
+import RoomModal from './RoomModal';
 
 const PetButton = styled.button`
   background-color: white;
@@ -20,12 +23,37 @@ const RivalLi = styled.li`
   margin: 10px 0;
   flex-wrap: wrap;
 `;
+
 const RivalList = () => {
+  const { email } = useContext(AppContext);
   const [rivalList, setRivalList] = React.useState([]);
+  const [modal, setModal] = React.useState(false);
+  const [selectedUser, setSelectedUser] = React.useState(null);
 
   React.useEffect(() => {
-    setRivalList([{ nickName: 'wldusdn' }, { nickName: 'wavetoearth' }]);
-  }, []);
+    if (email) fetchRivalList(email);
+  }, [email]);
+
+  const fetchRivalList = async (email) => {
+    try {
+      const response = await searchRival(email);
+      setRivalList(response.rivals);
+    } catch (error) {
+      console.error('Error fetching rivals', error);
+      setRivalList([]);
+    }
+  };
+
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+    setSelectedUser(null);
+  };
+
   return (
     <>
       <h1
@@ -48,11 +76,18 @@ const RivalList = () => {
           return (
             <RivalLi key={index}>
               <p>{data.nickName}</p>
-              <PetButton>고양이방 보러가기</PetButton>
+              <PetButton onClick={() => openModal(data)}>
+                고양이방 보러가기
+              </PetButton>
             </RivalLi>
           );
         })}
       </ul>
+      <RoomModal
+        show={modal}
+        onClose={closeModal}
+        selectedUser={selectedUser}
+      />
     </>
   );
 };
