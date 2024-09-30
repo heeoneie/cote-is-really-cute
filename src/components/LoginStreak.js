@@ -5,24 +5,24 @@ import { useContext } from 'react';
 import { AppContext } from '../App';
 import { checkConsecutiveAttendance } from '../axios/user';
 
-// const slideUp = keyframes`
-//   0% {
-//     opacity: 0;
-//     transform: translateY(20px);
-//   }
-//   30% {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-//   70% {
-//     opacity: 1; /* 잠시 머무름 */
-//     transform: translateY(0);
-//   }
-//   100% {
-//     opacity: 0;
-//     transform: translateY(20px);
-//   }
-// `;
+const slideUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1; /* 잠시 머무름 */
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+`;
 
 const float = keyframes`
   0% {
@@ -67,17 +67,16 @@ const FireImageSmallRight = styled(FireImage)`
   right: 35px;
   width: 20px;
 `;
-// const AttendText = styled.p`
-//   margin: 0;
-//   font-weight: bold;
-//   color: #f28434;
-//   opacity: 0;
-//   animation: ${slideUp} 2s ease-in-out forwards;
-// `;
+const AttendText = styled.p`
+  margin: 0;
+  font-weight: bold;
+  color: #f28434;
+  opacity: 0;
+  animation: ${slideUp} 2s ease-in-out forwards;
+`;
 
 const Title = styled.h2`
   font-weight: lighter;
-  font-size: 20px;
   margin: 0;
 `;
 
@@ -105,6 +104,7 @@ const PetStatus = () => {
 
   return (
     <Container>
+      <AttendText>Excellent!</AttendText>
       <FireImageSmallLeft src="/img/fire.png" alt="출석" />
       <br />
       <FireImage src="/img/fire.png" alt="출석" />

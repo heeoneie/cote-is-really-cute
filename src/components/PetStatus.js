@@ -8,7 +8,7 @@ import { searchRival } from '../axios/rival';
 const Container = styled.div`
   background-color: #ffffff;
   border: 5px solid #d9d9d9;
-  padding: 10px 10px 10px 20px;
+  padding: 10px;
   margin-bottom: 20px;
   border-radius: 50px;
   text-align: center;

@@ -23,11 +23,6 @@ const App = () => {
       : 0;
   });
 
-  const [userExp, setUserExp] = React.useState(() => {
-    const storedExp = localStorage.getItem('userExp');
-    return storedExp ? JSON.parse(storedExp) : 0;
-  });
-
   React.useEffect(() => {
     if (
       problems &&
@@ -46,10 +41,6 @@ const App = () => {
     );
   }, [currentProblemIndex]);
 
-  React.useEffect(() => {
-    localStorage.setItem('userExp', JSON.stringify(userExp));
-  }, [userExp]);
-
   return (
     <AppContext.Provider
       value={{
@@ -61,8 +52,6 @@ const App = () => {
         setProblems,
         currentProblemIndex,
         setCurrentProblemIndex,
-        userExp,
-        setUserExp,
       }}
     >
       <RouterProvider router={router} />
