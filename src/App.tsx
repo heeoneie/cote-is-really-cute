@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './app.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './router/router';
-import useProblemStore from './store/problemStore';
+import useProblemStore from '@store/problemStore';
 
 const App = () => {
   const { problems, currentProblemIndex } = useProblemStore();
