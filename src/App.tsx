@@ -1,29 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './router/router';
-
-export const AppContext = React.createContext();
+import useProblemStore from './store/problemStore';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(
-    !!localStorage.getItem('token'),
-  );
-  const [email, setEmail] = React.useState('');
-  const [problems, setProblems] = React.useState(() => {
-    const storedProblems = localStorage.getItem('problems');
-    return storedProblems
-      ? JSON.parse(storedProblems)
-      : { beginner: [], intermediate: [], advanced: [] };
-  });
+  const { problems, currentProblemIndex } = useProblemStore();
 
-  const [currentProblemIndex, setCurrentProblemIndex] = React.useState(() => {
-    return localStorage.getItem('currentProblemIndex')
-      ? JSON.parse(localStorage.getItem('currentProblemIndex'))
-      : 0;
-  });
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       problems &&
       (problems.beginner.length > 0 ||
@@ -34,29 +18,14 @@ const App = () => {
     }
   }, [problems]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem(
       'currentProblemIndex',
       JSON.stringify(currentProblemIndex),
     );
   }, [currentProblemIndex]);
 
-  return (
-    <AppContext.Provider
-      value={{
-        isLoggedIn,
-        setIsLoggedIn,
-        email,
-        setEmail,
-        problems,
-        setProblems,
-        currentProblemIndex,
-        setCurrentProblemIndex,
-      }}
-    >
-      <RouterProvider router={router} />
-    </AppContext.Provider>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
