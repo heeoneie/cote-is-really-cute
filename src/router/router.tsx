@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -11,19 +11,10 @@ import Battle from '../pages/Battle';
 import Pvp from '../pages/Pvp';
 import MyPage from '../pages/MyPage';
 
-const routes = [
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/signup',
-    element: <SignUp />,
-  },
+const routes: RouteObject[] = [
+  { path: '/', element: <Home /> },
+  { path: '/login', element: <Login /> },
+  { path: '/signup', element: <SignUp /> },
   {
     path: '/categories',
     element: (

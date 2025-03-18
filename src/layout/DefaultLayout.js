@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useContext } from 'react';
 import { AppContext } from '../App';
-import Menubar from '../components/Menubar';
+import Menubar from '@components/Menubar';
 
 const DefaultLayout = () => {
   const { isLoggedIn } = useContext(AppContext);

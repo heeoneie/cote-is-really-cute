@@ -1,5 +1,5 @@
 import React from 'react';
-import { CATEGORIES } from '../utils/categories';
+import { CATEGORIES } from '@utils/categories';
 import { getAlgorithmCourse } from '../axios/openai';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
