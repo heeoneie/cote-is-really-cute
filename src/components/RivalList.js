@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
 import { AppContext } from '../App';
-import { searchRival } from '../axios/rival';
+import { searchRival } from '../api/rival';
 import RoomModal from './RoomModal';
 
 const PetButton = styled.button`

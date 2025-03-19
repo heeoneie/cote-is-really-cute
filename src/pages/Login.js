@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
-import { loginUser } from '../axios/auth';
+import { loginUser } from '../api/auth';
 import '../styles/Login.css';
 import HomeBtn from '../components/HomeBtn';
 

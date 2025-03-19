@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Menubar.css';
 import { AppContext } from '../App';
-import { logoutUser } from '../axios/auth';
+import { logoutUser } from '../api/auth';
 import LogoutButton from './LogoutBtn';
 
 const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (

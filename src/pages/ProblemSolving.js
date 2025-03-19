@@ -5,7 +5,7 @@ import { Grid, Box, Typography, Alert } from '@mui/material';
 import Timer from '../components/Timer';
 import '../styles/ProblemSolving.css';
 import CodeEditor from '../components/CodeEditor';
-import { getGrading } from '../axios/openai';
+import { getGrading } from '../api/openai';
 
 const ProblemSolving = () => {
   const { problems } = React.useContext(AppContext);

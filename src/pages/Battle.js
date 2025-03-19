@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Grid, Typography } from '@mui/material';
 import CodeEditor from '../components/CodeEditor';
-import { getGrading } from '../axios/openai';
+import { getGrading } from '../api/openai';
 import socket from '../utils/socket';
 import styled from '@emotion/styled/macro';
 import Timer from '../components/Timer';

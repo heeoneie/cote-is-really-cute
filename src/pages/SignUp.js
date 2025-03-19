@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signUp, checkNickName } from '../axios/auth';
+import { signUp, checkNickName } from '../api/auth';
 import '../styles/SignUp.css';
 import HomeBtn from '../components/HomeBtn';
 

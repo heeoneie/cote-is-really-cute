@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/AccountEdit.css';
-import { updateNickName, updatePassword, checkNickName } from '../axios/auth';
+import { updateNickName, updatePassword, checkNickName } from '../api/auth';
 
 const AccountEdit = () => {
   const [nickName, setNickname] = React.useState('');

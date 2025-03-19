@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 const TOKEN_KEY = 'token';
+const EMAIL = 'email';
 
 const getTokenFromStorage = (): string | null => {
   try {
@@ -22,6 +23,7 @@ const useAuthStore = create<AuthStore>((set) => ({
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   logout: () => {
     try {
+      localStorage.removeItem(EMAIL);
       localStorage.removeItem(TOKEN_KEY);
       set({ isLoggedIn: false });
     } catch (error) {

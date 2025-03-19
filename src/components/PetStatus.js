@@ -3,7 +3,7 @@ import { AppContext } from '../App';
 import styled from '@emotion/styled/macro';
 // eslint-disable-next-line import/no-unresolved
 import Spline from '@splinetool/react-spline';
-import { searchRival } from '../axios/rival';
+import { searchRival } from '../api/rival';
 
 const Container = styled.div`
   background-color: #ffffff;

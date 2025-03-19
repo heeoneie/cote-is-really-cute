@@ -15,7 +15,7 @@ import {
   Select,
   Switch,
 } from '@mui/material';
-import { recordAttendance } from '../axios/user';
+import { recordAttendance } from '../api/user';
 
 const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
   const languages = [

@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import { rooms } from '../utils/rooms';
 import SplineScene from '../components/SplineScene';
-import { searchRival } from '../axios/rival';
+import { searchRival } from '../api/rival';
 import { AppContext } from '../App';
 // eslint-disable-next-line import/no-unresolved
 const Spline = React.lazy(() => import('@splinetool/react-spline'));

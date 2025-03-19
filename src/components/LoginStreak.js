@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled/macro';
 import { keyframes } from '@emotion/react';
-import { useContext } from 'react';
 import { AppContext } from '../App';
-import { checkConsecutiveAttendance } from '../axios/user';
+import { checkConsecutiveAttendance } from '../api/user';
 
 const slideUp = keyframes`
   0% {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CATEGORIES } from '@utils/categories';
-import { getAlgorithmCourse } from '../axios/openai';
+import { getAlgorithmCourse } from '../api/openai';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
