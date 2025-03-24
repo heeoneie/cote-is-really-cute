@@ -1,40 +1,89 @@
 import request from './axios';
 
-const addRival = async (user) => {
+interface AddRivalRequest {
+  userEmail: string;
+  rivalNickName: string;
+}
+
+interface AddRivalResponse {
+  success: boolean;
+  message: string;
+}
+
+interface DeleteRivalResponse {
+  success: boolean;
+  message: string;
+}
+
+interface RivalInfo {
+  nickName: string;
+  rating: number;
+  rank: number;
+}
+
+interface SearchRivalResponse {
+  rivals: RivalInfo[];
+}
+
+export const addRival = async (
+  user: AddRivalRequest,
+): Promise<AddRivalResponse> => {
+  if (!user.userEmail.trim() || !user.rivalNickName.trim()) {
+    throw new Error('이메일과 라이벌 닉네임을 모두 입력해주세요.');
+  }
+
   try {
-    const { data } = await request.post('/rival/register', user);
+    const { data } = await request.post<AddRivalResponse>(
+      '/rival/register',
+      user,
+    );
     return data;
-  } catch (error) {
-    const errorMessage =
-      error.response?.data?.message || 'Error during rival add';
-    throw new Error(errorMessage);
+  } catch (error: any) {
+    console.error('📌 라이벌 등록 중 오류 발생:', error);
+    throw new Error(error.response?.data?.message || 'Error during rival add');
   }
 };
 
-const deleteRival = async (userEmail, rivalNickName) => {
+export const deleteRival = async (
+  userEmail: string,
+  rivalNickName: string,
+): Promise<DeleteRivalResponse> => {
+  if (!userEmail.trim() || !rivalNickName.trim()) {
+    throw new Error('이메일과 라이벌 닉네임을 모두 입력해주세요.');
+  }
+
   try {
-    const { data } = await request.delete('/rival/remove', {
-      params: { userEmail, rivalNickName },
-    });
+    const { data } = await request.delete<DeleteRivalResponse>(
+      '/rival/remove',
+      {
+        params: { userEmail, rivalNickName },
+      },
+    );
     return data;
-  } catch (error) {
-    const errorMessage =
-      error.response?.data?.message || 'Error during rival delete';
-    throw new Error(errorMessage);
+  } catch (error: any) {
+    console.error('📌 라이벌 삭제 중 오류 발생:', error);
+    throw new Error(
+      error.response?.data?.message || 'Error during rival delete',
+    );
   }
 };
 
-const searchRival = async (userEmail) => {
+export const searchRival = async (
+  userEmail: string,
+): Promise<SearchRivalResponse> => {
+  if (!userEmail.trim()) {
+    throw new Error('이메일을 입력해주세요.');
+  }
+
   try {
-    const { data } = await request.get(
+    const { data } = await request.get<SearchRivalResponse>(
       `/rival/get-info?userEmail=${userEmail}`,
     );
     return data;
-  } catch (error) {
-    const errorMessage =
-      error.response?.data?.message || 'Error during rival search';
-    throw new Error(errorMessage);
+  } catch (error: any) {
+    console.error('📌 라이벌 검색 중 오류 발생:', error);
+    throw new Error(
+      error.response?.data?.message || 'Error during rival search',
+    );
   }
 };
-
-export { addRival, deleteRival, searchRival };
