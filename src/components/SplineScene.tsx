@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import { items } from '../utils/items';
-// eslint-disable-next-line import/no-unresolved
+import { items } from '@utils/items';
+
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const SplineScene = ({ level, type }) => {
