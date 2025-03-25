@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Grid, Typography } from '@mui/material';
-import CodeEditor from '../components/CodeEditor';
-import { getGrading } from '../api/openai';
-import socket from '../utils/socket';
 import styled from '@emotion/styled/macro';
-import Timer from '../components/Timer';
+import CodeEditor from '@components/CodeEditor';
+import { gradeCode } from '@api/openai';
+import socket from '@utils/socket';
+import Timer from '@components/Timer';
+
+interface Problem {
+  problemNumber: number;
+  problemTitle: string;
+}
+
+interface BattleEndData {
+  problemId: number;
+  winner: string;
+  experience: number;
+}
 
 const ProTitle = styled.h4`
   font-size: 24px;
@@ -31,35 +42,42 @@ const ProBtn = styled.button`
   }
 `;
 
-const Battle = () => {
+const Battle: React.FC = () => {
   const location = useLocation();
-  const problem = location.state?.problem;
-  const [code, setCode] = React.useState('');
-  const [language, setLanguage] = React.useState('python');
-  const [showCodeEditor, setShowCodeEditor] = React.useState(false);
   const navigate = useNavigate();
+  const problem: Problem | undefined = location.state?.problem;
 
-  React.useEffect(() => {
-    socket.on('battleEnded', (data) => {
-      if (data.problemId === problem.problemNumber)
+  const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('python');
+  const [showCodeEditor, setShowCodeEditor] = useState(false);
+
+  useEffect(() => {
+    const handleBattleEnd = (data: BattleEndData) => {
+      if (problem && data.problemId === problem.problemNumber) {
         alert(
           `배틀 종료! 승리자는 ${data.winner}입니다. 경험치 ${data.experience}를 얻었습니다.`,
         );
-      navigate('/');
-    });
-    return () => {
-      socket.off('battleEnded');
+        navigate('/');
+      }
     };
-  }, [problem]);
 
-  const handleCodeSubmit = async () => {
+    socket.on('battleEnded', handleBattleEnd);
+    return () => {
+      socket.off('battleEnded', handleBattleEnd);
+    };
+  }, [problem, navigate]);
+
+  const handleCodeSubmit = useCallback(async (): Promise<boolean | void> => {
+    if (!problem) return;
+
     try {
-      const result = await getGrading({
-        problemTitle: problem.title,
+      const result = await gradeCode({
+        problemTitle: problem.problemTitle,
         userLanguage: language,
         userCode: code,
       });
-      if (result.data) {
+
+      if (result) {
         alert('정답입니다!');
         socket.emit('submitSolution', {
           problemNumber: problem.problemNumber,
@@ -72,12 +90,12 @@ const Battle = () => {
         return false;
       }
     } catch (error) {
-      console.error('채점 중 오류가 발생했습니다:', error);
+      console.error('채점 중 오류 발생:', error);
       alert('채점 중 오류가 발생했습니다.');
     }
-  };
+  }, [problem, language, code]);
 
-  const handleProblemSolving = () => {
+  const handleProblemSolving = useCallback(() => {
     if (problem) {
       window.open(
         `https://www.acmicpc.net/problem/${problem.problemNumber}`,
@@ -85,7 +103,7 @@ const Battle = () => {
       );
       setShowCodeEditor(true);
     }
-  };
+  }, [problem]);
 
   return (
     <Grid
@@ -121,33 +139,24 @@ const Battle = () => {
           }}
         >
           {problem ? (
-            <>
-              {!showCodeEditor ? (
-                <>
-                  <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
-                  <ProTitle>{problem.problemTitle}</ProTitle>
-                  <ProBtn onClick={handleProblemSolving}>문제 풀기</ProBtn>
-                </>
-              ) : null}
-
-              {showCodeEditor && (
-                <Box
-                  sx={{
-                    flex: 1,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                  }}
-                >
-                  <CodeEditor
-                    code={code}
-                    onChange={(newValue) => setCode(newValue)}
-                    onLanguageChange={setLanguage}
-                    onSubmit={handleCodeSubmit}
-                  />
-                </Box>
-              )}
-            </>
+            !showCodeEditor ? (
+              <>
+                <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
+                <ProTitle>{problem.problemTitle}</ProTitle>
+                <ProBtn onClick={handleProblemSolving}>문제 풀기</ProBtn>
+              </>
+            ) : (
+              <Box
+                sx={{ flex: 1, width: '100%', height: '100%', display: 'flex' }}
+              >
+                <CodeEditor
+                  code={code}
+                  onChange={setCode}
+                  onLanguageChange={setLanguage}
+                  onSubmit={handleCodeSubmit}
+                />
+              </Box>
+            )
           ) : (
             <Typography variant="h6">문제를 불러오는 중...</Typography>
           )}
@@ -174,14 +183,17 @@ const Battle = () => {
             height: '100%',
           }}
         >
-          {showCodeEditor ? (
-            <>
-              <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
-              <ProTitle>{problem.problemTitle}</ProTitle>
-            </>
+          {problem ? (
+            showCodeEditor && (
+              <>
+                <ProTitle>문제번호 : {problem.problemNumber}</ProTitle>
+                <ProTitle>{problem.problemTitle}</ProTitle>
+              </>
+            )
           ) : (
-            ''
+            <Typography variant="h6">문제를 불러올 수 없습니다.</Typography>
           )}
+
           <Timer initialMinutes={30} />
         </Box>
       </Grid>

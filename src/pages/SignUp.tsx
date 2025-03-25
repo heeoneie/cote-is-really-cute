@@ -1,25 +1,29 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signUp, checkNickName } from '../api/auth';
+import { signUp, checkNickName } from '@api/auth';
 import '../styles/SignUp.css';
-import HomeBtn from '../components/HomeBtn';
+import HomeBtn from '@components/HomeBtn';
 
-const SignUp = () => {
-  const [formData, setFormData] = React.useState({
+interface SignUpFormData {
+  nickName: string;
+  email: string;
+  password: string;
+}
+
+const SignUp: React.FC = () => {
+  const [formData, setFormData] = React.useState<SignUpFormData>({
     nickName: '',
     email: '',
     password: '',
-    baekjoonTier: '',
   });
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [baekjoonLevel, setBaekjoonLevel] = React.useState('');
-  const [nicknameMessage, setNickNameMessage] = React.useState('');
-  const [passwordMessage, setPasswordMessage] = React.useState('');
-  const [baekjoonTierMessage, setBaekjoonTierMessage] = React.useState('');
-  const [nicknameAvailable, setNickNameAvailable] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = React.useState<string>('');
+  const [nicknameMessage, setNickNameMessage] = React.useState<string>('');
+  const [passwordMessage, setPasswordMessage] = React.useState<string>('');
+  const [nicknameAvailable, setNickNameAvailable] =
+    React.useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -27,7 +31,9 @@ const SignUp = () => {
     }));
   };
 
-  const handleConfirmPasswordChange = (e) => {
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setConfirmPassword(e.target.value);
   };
 
@@ -40,21 +46,12 @@ const SignUp = () => {
     return true;
   };
 
-  const validatePassword = (password, confirmPassword) => {
+  const validatePassword = (password: string, confirmPassword: string) => {
     if (password !== confirmPassword) {
       setPasswordMessage('Password가 일치하지 않습니다');
       return false;
     }
     setPasswordMessage('');
-    return true;
-  };
-
-  const validateBaekjoonTier = (baekjoonTier) => {
-    if (!baekjoonTier || !baekjoonLevel) {
-      setBaekjoonTierMessage('Baekjoon 티어와 레벨을 모두 선택해주세요!');
-      return false;
-    }
-    setBaekjoonTierMessage('');
     return true;
   };
 
@@ -70,38 +67,31 @@ const SignUp = () => {
       }
     } catch (error) {
       setNickNameAvailable(false);
-      setNickNameMessage(error.message);
+      if (error instanceof Error) setNickNameMessage(error.message);
+      else setNickNameMessage('알 수 없는 오류가 발생했습니다.');
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isNickNameValid = validateNickName();
     const isPasswordValid = validatePassword(
       formData.password,
       confirmPassword,
     );
-    const isBaekjoonTierValid = validateBaekjoonTier(formData.baekjoonTier);
 
-    if (!isNickNameValid || !isPasswordValid || !isBaekjoonTierValid) {
-      return;
-    }
+    if (!isNickNameValid || !isPasswordValid) return;
 
-    const signupFormData = {
-      ...formData,
-      baekjoonTier: `${formData.baekjoonTier} ${baekjoonLevel}`,
-    };
+    const signupFormData = { ...formData };
+
     try {
       await signUp(signupFormData);
       alert('회원가입이 성공적으로 완료되었습니다!');
       navigate('/login');
     } catch (error) {
-      setNickNameMessage(error.message);
+      if (error instanceof Error) setNickNameMessage(error.message);
+      else setNickNameMessage('알 수 없는 오류가 발생했습니다.');
     }
-  };
-
-  const handleLevelChange = (e) => {
-    setBaekjoonLevel(e.target.value);
   };
 
   const handleLoginClick = () => {
@@ -181,64 +171,11 @@ const SignUp = () => {
               required
             />
           </div>
-          <div className="signup_tier-section">
-            <h2>Baekjoon 티어 선택</h2>
-            {['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Ruby'].map(
-              (tier) => (
-                <label
-                  key={tier}
-                  htmlFor={`tier-${tier}`}
-                  className={`signup_tier-label ${formData.baekjoonTier === tier ? 'selected' : ''} ${tier.toLowerCase()}`}
-                >
-                  <input
-                    type="radio"
-                    id={`tier-${tier}`}
-                    name="baekjoonTier"
-                    value={tier}
-                    onChange={handleChange}
-                    checked={formData.baekjoonTier === tier}
-                    required
-                  />
-                  {tier}
-                </label>
-              ),
-            )}
-          </div>
-          {formData.baekjoonTier && (
-            <div className="signup_level-section">
-              <h2> 레벨 선택</h2>
-              {['I', 'II', 'III', 'IV', 'V'].map((level, index) => (
-                <label
-                  key={level}
-                  htmlFor={`level-${index + 1}`}
-                  className={`signup_level-label ${
-                    baekjoonLevel === level ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    id={`level-${index + 1}`}
-                    name="baekjoonLevel"
-                    value={level}
-                    onChange={handleLevelChange}
-                    checked={baekjoonLevel === level}
-                    required
-                  />
-                  {level}
-                </label>
-              ))}
-            </div>
-          )}
           <div className="signup_btn_and_msg">
             <div className="signup_error_messages">
               {passwordMessage && (
                 <span className="signup_passwordMessage">
                   {passwordMessage}
-                </span>
-              )}
-              {baekjoonTierMessage && (
-                <span className="signup_baekjoonTier_message">
-                  {baekjoonTierMessage}
                 </span>
               )}
             </div>

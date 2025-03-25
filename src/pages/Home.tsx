@@ -7,7 +7,6 @@ import { Grid } from '@mui/material';
 import Landing from '../components/Landing';
 import useAuthStore from '@store/authStore';
 
-/** Auth Store 타입 정의 */
 interface AuthStore {
   isLoggedIn: boolean;
 }

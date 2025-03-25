@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AppContext } from '../App';
 import { Grid, Box, Typography, Alert } from '@mui/material';
-import Timer from '../components/Timer';
+import Timer from '@components/Timer';
 import '../styles/ProblemSolving.css';
-import CodeEditor from '../components/CodeEditor';
-import { getGrading } from '../api/openai';
+import CodeEditor from '@components/CodeEditor';
+import { gradeCode } from '@api/openai';
+import useProblemStore from '@store/problemStore';
 
 const ProblemSolving = () => {
-  const { problems } = React.useContext(AppContext);
+  const { category, level } = useParams();
   const navigate = useNavigate();
-  const { category, level, index } = useParams();
+  const { problems, currentProblemIndex, setCurrentProblemIndex } =
+    useProblemStore();
+
   const [showAlert, setShowAlert] = React.useState(false);
   const [showCodeEditor, setShowCodeEditor] = React.useState(false);
   const [code, setCode] = React.useState('');
@@ -18,22 +20,26 @@ const ProblemSolving = () => {
   const [isGrading, setIsGrading] = React.useState(false);
 
   const levelSequence = ['beginner', 'intermediate', 'advanced'];
-  const currentLevelIndex = levelSequence.indexOf(level);
-  const currentProblems = problems[level];
-  const currentIndex = parseInt(index, 10);
+  const currentLevelIndex = level ? levelSequence.indexOf(level) : 0;
+  const currentProblems = problems[level ?? 'beginner'] || [];
+
+  useEffect(() => {
+    setCurrentProblemIndex(0);
+  }, [level, category]);
 
   const nextProblem = () => {
-    if (currentIndex + 1 < currentProblems.length) {
-      navigate(`/solve/${category}/${level}/${currentIndex + 1}`);
+    const nextIndex = currentProblemIndex + 1;
+
+    if (nextIndex < currentProblems.length) {
+      setCurrentProblemIndex(nextIndex);
     } else {
       const nextLevelIndex = currentLevelIndex + 1;
-
       if (nextLevelIndex < levelSequence.length) {
         setShowAlert(true);
         setTimeout(() => {
           setShowAlert(false);
-          const nextLevel = levelSequence[nextLevelIndex];
-          navigate(`/solve/${category}/${nextLevel}/0`);
+          navigate(`/solve/${category}/${levelSequence[nextLevelIndex]}/0`);
+          setCurrentProblemIndex(0);
         }, 2000);
       } else {
         alert('모든 문제를 풀었습니다! 축하합니다!');
@@ -44,24 +50,20 @@ const ProblemSolving = () => {
     setIsGrading(false);
   };
 
-  const currentProblem = currentProblems[currentIndex];
-
   const handleProblemSolving = () => {
-    window.open(currentProblem.url, '_blank');
+    window.open(currentProblems[currentProblemIndex]?.url, '_blank');
     setShowCodeEditor(true);
   };
 
-  const handleLanguageChange = (newLanguage) => setLanguage(newLanguage);
-
   const handleCodeSubmit = async () => {
     try {
-      const result = await getGrading({
-        problemTitle: currentProblem.title,
+      const result = await gradeCode({
+        problemTitle: currentProblems[currentProblemIndex]?.title,
         userLanguage: language,
         userCode: code,
       });
-      setIsGrading(result.data);
-      if (result.data) {
+      setIsGrading(result);
+      if (result) {
         alert('정답입니다!');
         return true;
       } else {
@@ -75,10 +77,7 @@ const ProblemSolving = () => {
   };
 
   return (
-    <Grid
-      container
-      style={{ width: 'calc(100vw - 290px)', marginLeft: '290px' }}
-    >
+    <Grid container sx={{ width: 'calc(100vw - 290px)', marginLeft: '290px' }}>
       <Grid item xs>
         <Box
           sx={{
@@ -94,16 +93,18 @@ const ProblemSolving = () => {
               다음 단계로 넘어갑니다!
             </Alert>
           )}
+
           {showCodeEditor && (
             <Box sx={{ flex: 1, ml: 4 }}>
               <CodeEditor
                 code={code}
-                onChange={(newValue) => setCode(newValue)}
-                onLanguageChange={handleLanguageChange}
+                onChange={setCode}
+                onLanguageChange={setLanguage}
                 onSubmit={handleCodeSubmit}
               />
             </Box>
           )}
+
           <Box
             sx={{
               width: '290px',
@@ -115,12 +116,15 @@ const ProblemSolving = () => {
               ml: 4,
             }}
           >
-            {currentProblem ? (
+            {currentProblems[currentProblemIndex] ? (
               <>
-                <h4 className="pro-h4">
-                  문제번호 : {currentProblem.problemNumber}
-                </h4>
-                <h4 className="pro-h4">{currentProblem.title}</h4>
+                <Typography variant="h6">
+                  문제번호:{' '}
+                  {currentProblems[currentProblemIndex]?.problemNumber}
+                </Typography>
+                <Typography variant="h6">
+                  {currentProblems[currentProblemIndex]?.title}
+                </Typography>
                 <Timer initialMinutes={30} />
 
                 <button className="pro-btn" onClick={handleProblemSolving}>

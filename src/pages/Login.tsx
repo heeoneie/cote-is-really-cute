@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../App';
-import { loginUser } from '../api/auth';
+import { loginUser } from '@api/auth';
 import '../styles/Login.css';
-import HomeBtn from '../components/HomeBtn';
+import HomeBtn from '@components/HomeBtn';
+import useAuthStore from '@store/authStore';
+import useUserStore from '@store/userStore';
 
-const Login = () => {
-  const [formData, setFormData] = React.useState({
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface ValidationErrors {
+  email?: string;
+  password?: string;
+}
+
+const Login: React.FC = () => {
+  const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
   });
-  const [errors, setErrors] = React.useState({});
-  const [loginError, setLoginError] = React.useState('');
-  const { setIsLoggedIn, setEmail } = React.useContext(AppContext);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [loginError, setLoginError] = useState<string>('');
+
+  const { setIsLoggedIn } = useAuthStore();
+  const { setEmail } = useUserStore();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -23,14 +36,14 @@ const Login = () => {
     }));
   };
 
-  const validate = () => {
-    const validationErrors = {};
+  const validate = (): ValidationErrors => {
+    const validationErrors: ValidationErrors = {};
     if (!formData.email) validationErrors.email = 'Email is required';
     if (!formData.password) validationErrors.password = 'Password is required';
     return validationErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -51,9 +64,7 @@ const Login = () => {
     }
   };
 
-  const handleSignUpClick = () => {
-    navigate('/signup');
-  };
+  const handleSignUpClick = () => navigate('/signup');
 
   return (
     <div className="login_container">
