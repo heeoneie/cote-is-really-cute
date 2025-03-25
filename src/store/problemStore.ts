@@ -1,10 +1,16 @@
 import { create } from 'zustand';
 
+type Problem = {
+  title: string;
+  problemNumber: number;
+  url: string;
+};
+
 type Problems = {
-  beginner: string[];
-  intermediate: string[];
-  advanced: string[];
-  [key: string]: string[];
+  beginner: Problem[];
+  intermediate: Problem[];
+  advanced: Problem[];
+  [key: string]: Problem[];
 };
 
 type ProblemStore = {
@@ -16,12 +22,33 @@ type ProblemStore = {
 };
 
 const useProblemStore = create<ProblemStore>((set) => ({
-  problems: { beginner: [], intermediate: [], advanced: [] },
+  problems: (() => {
+    try {
+      const storedProblems = localStorage.getItem('problems');
+      return storedProblems
+        ? JSON.parse(storedProblems)
+        : { beginner: [], intermediate: [], advanced: [] };
+    } catch (error) {
+      console.error('Failed to load problems from localStorage:', error);
+      return { beginner: [], intermediate: [], advanced: [] };
+    }
+  })(),
   setProblems: (problems) => {
     localStorage.setItem('problems', JSON.stringify(problems));
     set({ problems });
   },
-  currentProblemIndex: 0,
+  currentProblemIndex: (() => {
+    try {
+      const storedIndex = localStorage.getItem('currentProblemIndex');
+      return storedIndex ? JSON.parse(storedIndex) : 0;
+    } catch (error) {
+      console.error(
+        'Failed to load currentProblemIndex from localStorage:',
+        error,
+      );
+      return 0;
+    }
+  })(),
   setCurrentProblemIndex: (index) => {
     localStorage.setItem('currentProblemIndex', JSON.stringify(index));
     set({ currentProblemIndex: index });
