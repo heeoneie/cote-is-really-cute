@@ -56,7 +56,10 @@ export const deleteRival = async (
     const { data } = await request.delete<DeleteRivalResponse>(
       '/rival/remove',
       {
-        params: { userEmail, rivalNickName },
+        params: {
+          userEmail: encodeURIComponent(userEmail),
+          rivalNickName: encodeURIComponent(rivalNickName),
+        },
       },
     );
     return data;
@@ -77,7 +80,7 @@ export const searchRival = async (
 
   try {
     const { data } = await request.get<SearchRivalResponse>(
-      `/rival/get-info?userEmail=${userEmail}`,
+      `/rival/get-info?userEmail=${encodeURIComponent(userEmail)}`,
     );
     return data;
   } catch (error: any) {

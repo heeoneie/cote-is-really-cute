@@ -46,9 +46,10 @@ export const gradeCode = async (data: GradeCodeRequest): Promise<boolean> => {
 
   try {
     const response = await request.post<GradeCodeResponse>('/openai/grade', {
-      data,
+      ...data,
     });
-    return response?.data?.isCorrect ?? false; // 응답이 없으면 기본값 false
+    if (response && response.data) return response.data.isCorrect === true;
+    return false;
   } catch (error) {
     console.error('📌 코드 채점 API 호출 중 오류 발생:', error);
     throw error;
