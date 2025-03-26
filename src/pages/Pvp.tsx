@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BattleBtn from '@components/BattleBtn';
 import Timer from '@components/Timer';
 import Spline from '@splinetool/react-spline';
-import { Grid, Box, styled } from '@mui/material';
+import { Grid, Box, styled, Skeleton } from '@mui/material';
 
 const Ment = styled('h5')({
   fontSize: '30px',
@@ -35,7 +35,18 @@ const TimerBox = styled(Box)({
   height: '100%',
 });
 
+const SplineContainer = styled(Box)({
+  height: '70%',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 const Pvp: React.FC = () => {
+  const [splineLoaded, setSplineLoaded] = useState(false);
+  const [splineError, setSplineError] = useState(false);
+
   return (
     <StyledGridContainer container>
       <StyledMainGrid item>
@@ -44,10 +55,31 @@ const Pvp: React.FC = () => {
           <br />
           다른 유저와의 대결에서 승리하고 경험치를 쌓아보세요!
         </Ment>
-        <Spline
-          scene="https://prod.spline.design/HMPTMU1jPmnbwett/scene.splinecode"
-          style={{ height: '70%' }}
-        />
+        <SplineContainer>
+          {!splineLoaded && !splineError && (
+            <Skeleton
+              variant="rectangular"
+              width="80%"
+              height="100%"
+              animation="wave"
+            />
+          )}
+          {splineError && <Box>3D 콘텐츠를 불러올 수 없습니다.</Box>}
+          <Box
+            style={{
+              display: splineLoaded ? 'block' : 'none',
+              height: '100%',
+              width: '100%',
+            }}
+          >
+            <Spline
+              scene="https://prod.spline.design/HMPTMU1jPmnbwett/scene.splinecode"
+              style={{ height: '100%' }}
+              onLoad={() => setSplineLoaded(true)}
+              onError={() => setSplineError(true)}
+            />
+          </Box>
+        </SplineContainer>
         <BattleBtn />
       </StyledMainGrid>
 
