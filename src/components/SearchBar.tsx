@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/SearchBar.css';
-import { searchUser } from '../api/user';
-import { addRival, deleteRival } from '../api/rival';
+import { searchUser } from '@api/user';
+import { addRival, deleteRival } from '@api/rival';
 import RoomModal from './RoomModal';
 
 const SearchBar = () => {
