@@ -1,16 +1,14 @@
 import React, { Suspense, useTransition } from 'react';
 import styled from '@emotion/styled';
 import { rooms } from '@utils/rooms';
+import { User } from '../@types/user';
 
 const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 interface RoomModalProps {
   show: boolean;
   onClose: () => void;
-  selectedUser: {
-    nickName: string;
-    isRival: boolean;
-  } | null;
+  selectedUser: User | null;
 }
 
 const ModalBackground = styled.div`

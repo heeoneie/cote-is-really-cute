@@ -1,11 +1,24 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Menubar.css';
-import { AppContext } from '../App';
-import { logoutUser } from '../api/auth';
 import LogoutButton from './LogoutBtn';
+import useAuthStore from '@store/authStore';
 
-const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (
+interface MenuItemProps {
+  to: string;
+  imgSrc: string;
+  alt: string;
+  label: string;
+  isActive: boolean;
+}
+
+const MenuItem: React.FC<MenuItemProps> = ({
+  to,
+  imgSrc,
+  alt,
+  label,
+  isActive,
+}) => (
   <li>
     <Link to={to} className={`menubar-link ${isActive ? 'active' : ''}`}>
       <img src={imgSrc} alt={alt} className="menubar-icon" />
@@ -14,17 +27,18 @@ const MenuItem = ({ to, imgSrc, alt, label, isActive }) => (
   </li>
 );
 
-const Menubar = () => {
-  const { setIsLoggedIn, setEmail } = React.useContext(AppContext);
+const Menubar: React.FC = () => {
+  const { setIsLoggedIn, logout } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = () => {
-    logoutUser(setEmail);
+    logout();
     setIsLoggedIn(false);
     navigate('/');
   };
 
+  // 메뉴 아이템 타입 정의
   const menuItems = [
     { to: '/', imgSrc: '/img/studymode.png', alt: 'studymode', label: '학습' },
     { to: '/pvp', imgSrc: '/img/pvpmode.png', alt: 'pvpmode', label: '대결' },

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../App';
+import React from 'react';
 import styled from '@emotion/styled/macro';
-// eslint-disable-next-line import/no-unresolved
 import Spline from '@splinetool/react-spline';
-import { searchRival } from '../api/rival';
+import { searchRival } from '@api/rival';
+import useUserStore from '@store/userStore';
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -22,17 +21,17 @@ const Title = styled.h2`
 `;
 
 const PetStatus = () => {
-  const { email } = useContext(AppContext);
-  const [level, setLevel] = React.useState(1);
+  const { email } = useUserStore();
+  const [level, setLevel] = React.useState<number>(1);
 
   React.useEffect(() => {
     if (email) fetchLevel(email);
   }, [email]);
 
-  const fetchLevel = async (email) => {
+  const fetchLevel = async (email: string) => {
     try {
       const response = await searchRival(email);
-      setLevel(response.userLevel);
+      setLevel(response.rivals[0].level.level);
     } catch (error) {
       console.error('Error fetching rivals', error);
       setLevel(1);

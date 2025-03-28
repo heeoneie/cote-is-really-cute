@@ -1,6 +1,5 @@
 import React from 'react';
-import AuthLinks from '../components/AuthLinks';
-// eslint-disable-next-line import/no-unresolved
+import AuthLinks from '@components/AuthLinks';
 import Spline from '@splinetool/react-spline';
 
 const Landing = () => {
