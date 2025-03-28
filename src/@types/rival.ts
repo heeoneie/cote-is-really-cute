@@ -1,8 +1,5 @@
-import { Level } from './level';
+import { User } from './user';
 
-export interface Rival {
+export interface Rival extends User {
   rivalId: number;
-  email: string;
-  nickName: string;
-  level: Level;
 }
