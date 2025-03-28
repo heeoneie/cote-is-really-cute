@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
@@ -13,30 +13,44 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Switch,
 } from '@mui/material';
-import { recordAttendance } from '../api/user';
+import { recordAttendance } from '@api/user';
 
-const CodeEditor = ({ code, onChange, onSubmit, onLanguageChange }) => {
+interface CodeEditorProps {
+  code: string;
+  onChange: (newCode: string) => void;
+  onSubmit: () => Promise<boolean>;
+  onLanguageChange: (mode: string) => void;
+}
+
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  code,
+  onChange,
+  onSubmit,
+  onLanguageChange,
+}) => {
   const languages = [
     { label: 'Python', mode: 'python' },
     { label: 'Java', mode: 'java' },
     { label: 'C++', mode: 'c_cpp' },
   ];
-  const [mode, setMode] = React.useState(languages[0].mode);
-  const [theme, setTheme] = React.useState('github');
+  const [mode, setMode] = useState<string>(languages[0].mode);
+  const [theme, setTheme] = useState<string>('github');
 
-  const handleLanguageChange = (event) => {
+  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
     const newMode = event.target.value;
     setMode(newMode);
     onLanguageChange(newMode);
   };
-  const handleThemeChange = (event) =>
+
+  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTheme(event.target.checked ? 'twilight' : 'github');
 
   const handleSubmit = async () => {
     const isCorrect = await onSubmit();
-    if (isCorrect) await recordAttendance(localStorage.getItem('email'));
+    if (isCorrect) await recordAttendance(localStorage.getItem('email') || '');
   };
 
   return (

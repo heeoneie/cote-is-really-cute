@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
-import { AppContext } from '../App';
-import { searchRival } from '../api/rival';
+import { searchRival } from '@api/rival';
 import RoomModal from './RoomModal';
+import useUserStore from '@store/userStore';
+import { User } from '../@types/user';
+import { Rival } from '../@types/rival';
 
 const PetButton = styled.button`
   background-color: white;
@@ -25,16 +27,16 @@ const RivalLi = styled.li`
 `;
 
 const RivalList = () => {
-  const { email } = useContext(AppContext);
-  const [rivalList, setRivalList] = React.useState([]);
-  const [modal, setModal] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState(null);
+  const { email } = useUserStore();
+  const [rivalList, setRivalList] = React.useState<Rival[]>([]);
+  const [isModal, setIsModal] = React.useState(false);
+  const [selectedUser, setSelectedUser] = React.useState<User | null>(null);
 
   React.useEffect(() => {
     if (email) fetchRivalList(email);
   }, [email]);
 
-  const fetchRivalList = async (email) => {
+  const fetchRivalList = async (email: string) => {
     try {
       const response = await searchRival(email);
       setRivalList(response.rivals);
@@ -44,13 +46,13 @@ const RivalList = () => {
     }
   };
 
-  const openModal = (user) => {
+  const openModal = (user: User) => {
     setSelectedUser(user);
-    setModal(true);
+    setIsModal(true);
   };
 
   const closeModal = () => {
-    setModal(false);
+    setIsModal(false);
     setSelectedUser(null);
   };
 
@@ -72,11 +74,11 @@ const RivalList = () => {
         라이벌 목록
       </h1>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {rivalList.map((data, index) => {
+        {rivalList.map((rival: Rival, index) => {
           return (
             <RivalLi key={index}>
-              <p>{data.nickName}</p>
-              <PetButton onClick={() => openModal(data)}>
+              <p>{rival.nickName}</p>
+              <PetButton onClick={() => openModal(rival)}>
                 고양이방 보러가기
               </PetButton>
             </RivalLi>
@@ -84,7 +86,7 @@ const RivalList = () => {
         })}
       </ul>
       <RoomModal
-        show={modal}
+        show={isModal}
         onClose={closeModal}
         selectedUser={selectedUser}
       />
