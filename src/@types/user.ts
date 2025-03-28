@@ -6,4 +6,5 @@ export interface User {
   nickName: string;
   experience: number;
   level: Level;
+  isRival: boolean;
 }

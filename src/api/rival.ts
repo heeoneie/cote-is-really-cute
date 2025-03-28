@@ -1,4 +1,5 @@
 import request from './axios';
+import { Rival } from '../@types/rival';
 
 interface AddRivalRequest {
   userEmail: string;
@@ -15,14 +16,8 @@ interface DeleteRivalResponse {
   message: string;
 }
 
-interface RivalInfo {
-  nickName: string;
-  rating: number;
-  rank: number;
-}
-
 interface SearchRivalResponse {
-  rivals: RivalInfo[];
+  rivals: Rival[];
 }
 
 export const addRival = async (

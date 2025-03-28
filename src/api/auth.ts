@@ -1,10 +1,5 @@
 import request from './axios';
-
-interface User {
-  email: string;
-  password: string;
-  nickName: string;
-}
+import { User } from '../@types/user';
 
 interface LoginCredentials {
   email: string;
@@ -42,7 +37,6 @@ export const loginUser = async (
 
 export const signUp = async (user: User): Promise<SignupApiResponse> => {
   if (!user.email.trim()) throw new Error('이메일을 입력해주세요.');
-  if (!user.password.trim()) throw new Error('비밀번호를 입력해주세요.');
   if (!user.nickName.trim()) throw new Error('닉네임을 입력해주세요.');
 
   try {

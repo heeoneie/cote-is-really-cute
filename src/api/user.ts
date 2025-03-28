@@ -1,10 +1,5 @@
 import request from './axios';
-
-interface User {
-  id: string;
-  nickName: string;
-  email: string;
-}
+import { User } from '../@types/user';
 
 export const searchUser = async (
   input: string,
