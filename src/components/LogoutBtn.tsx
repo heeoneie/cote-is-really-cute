@@ -18,8 +18,11 @@ const StyledButton = styled.button`
     background-color: #83d21c71;
   }
 `;
+interface LogoutButtonProps {
+  onLogout: () => void;
+}
 
-const LogoutButton = ({ onLogout }) => (
+const LogoutButton: React.FC<LogoutButtonProps> = ({ onLogout }) => (
   <StyledButton onClick={onLogout}>로그아웃</StyledButton>
 );
 

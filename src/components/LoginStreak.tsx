@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled/macro';
 import { keyframes } from '@emotion/react';
-import { AppContext } from '../App';
-import { checkConsecutiveAttendance } from '../api/user';
+import { checkConsecutiveAttendance } from '@api/user';
+import useUserStore from '@store/userStore';
 
 const slideUp = keyframes`
   0% {
@@ -14,7 +14,7 @@ const slideUp = keyframes`
     transform: translateY(0);
   }
   70% {
-    opacity: 1; /* 잠시 머무름 */
+    opacity: 1;
     transform: translateY(0);
   }
   100% {
@@ -80,16 +80,14 @@ const Title = styled.h2`
 `;
 
 const PetStatus = () => {
-  const { email } = useContext(AppContext);
-  const [consecutiveDays, setConsecutiveDays] = React.useState(() => {
-    return localStorage.getItem('consecutiveDays') || 0;
-  });
+  const { email } = useUserStore();
+  const [consecutiveDays, setConsecutiveDays] = React.useState<number>(0);
 
-  const fetchConsecutiveAttendance = async (userEmail) => {
+  const fetchConsecutiveAttendance = async (userEmail: string) => {
     try {
-      const days = await checkConsecutiveAttendance(userEmail);
-      setConsecutiveDays(days);
-      localStorage.setItem('consecutiveDays', days);
+      const days: number | null = await checkConsecutiveAttendance(userEmail);
+      setConsecutiveDays(days ?? 0);
+      localStorage.setItem('consecutiveDays', String(days ?? 0));
     } catch (error) {
       console.error('Error fetching attendance:', error);
     }
