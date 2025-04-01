@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CATEGORIES } from '@utils/categories';
-import { getAlgorithmCourse } from '../api/openai';
+import { getAlgorithmCourse } from '@api/openai';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../App';
 import '../styles/CategoryBtn.css';
+import useProblemStore, { Problems } from '@store/problemStore';
 
 const CategoryBtn = () => {
   const navigate = useNavigate();
-  const { setProblems } = React.useContext(AppContext);
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState('');
-  const [selectedDifficulty, setSelectedDifficulty] = React.useState(null);
-  const [selectedAlgorithm, setSelectedAlgorithm] = React.useState(null);
+  const { setProblems } = useProblemStore();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(
+    null,
+  );
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
+    null,
+  );
 
-  const getCourse = async (category) => {
+  const getCourse = async (category: string) => {
     setLoading(true);
     setError('');
     try {
       const response = await getAlgorithmCourse(category);
-      const parsedProblems = parseProblems(response.data);
+      const parsedProblems = parseProblems(response);
       setProblems(parsedProblems);
       navigate(`/solve/${category}/beginner/0`);
     } catch (err) {
@@ -30,14 +34,17 @@ const CategoryBtn = () => {
     }
   };
 
-  const parseProblems = (data) => {
-    const problems = {
+  const parseProblems = (data: string[]) => {
+    const problems: Problems = {
       beginner: [],
       intermediate: [],
       advanced: [],
     };
 
-    const sections = data.split('\n').filter((line) => line.trim() !== '');
+    const sections = data
+      .join('\n')
+      .split('\n')
+      .filter((line) => line.trim() !== '');
     let currentLevel = '';
 
     sections.forEach((line) => {
@@ -68,7 +75,7 @@ const CategoryBtn = () => {
 
           if (problemNumber && title) {
             problems[currentLevel].push({
-              problemNumber: problemNumber.trim(),
+              problemNumber: parseInt(problemNumber.trim(), 10), // 타입 변환!
               title: title.trim(),
               url: `https://www.acmicpc.net/problem/${problemNumber.trim()}`,
             });
@@ -90,7 +97,7 @@ const CategoryBtn = () => {
     setSelectedAlgorithm(null);
   };
 
-  const renderStars = (difficulty) => {
+  const renderStars = (difficulty: string) => {
     let starCount = 0;
     switch (difficulty) {
       case '초급':
