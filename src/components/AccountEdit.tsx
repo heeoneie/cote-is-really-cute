@@ -1,27 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/AccountEdit.css';
-import { updateNickName, updatePassword, checkNickName } from '../api/auth';
+import { updateNickName, updatePassword, checkNickName } from '@api/auth';
 
 const AccountEdit = () => {
-  const [nickName, setNickname] = React.useState('');
-  const [newPassword, setNewPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [isNicknameAvailable, setIsNicknameAvailable] = React.useState(null);
+  const [nickName, setNickname] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState<
+    boolean | null
+  >(null);
 
-  const handleNicknameCheck = async () => {
+  const handleNicknameCheck = async (): Promise<void> => {
     try {
       const response = await checkNickName(nickName);
-      if (response.available) {
-        setIsNicknameAvailable(true);
-      } else {
-        setIsNicknameAvailable(false);
-      }
+      setIsNicknameAvailable(response.available);
     } catch (error) {
-      console.error(error.message);
+      console.error((error as Error).message);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
 
     if (nickName && isNicknameAvailable) {
@@ -30,9 +30,9 @@ const AccountEdit = () => {
         alert('닉네임이 성공적으로 변경되었습니다.');
         setNickname('');
       } catch (error) {
-        alert(error.message);
+        alert((error as Error).message);
       }
-    } else if (nickName && !isNicknameAvailable) {
+    } else if (nickName && isNicknameAvailable === false) {
       alert('사용할 수 없는 닉네임입니다.');
       setNickname('');
     }
@@ -44,7 +44,7 @@ const AccountEdit = () => {
         setNewPassword('');
         setConfirmPassword('');
       } catch (error) {
-        alert(error.message);
+        alert((error as Error).message);
       }
     } else if (newPassword !== confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');

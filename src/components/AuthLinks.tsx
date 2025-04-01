@@ -30,8 +30,12 @@ const AuthLinks = () => {
 
   return (
     <AuthLinksContainer>
-      <StyledButton onClick={() => navigate('/login')}>로그인</StyledButton>
-      <StyledButton onClick={() => navigate('/signup')}>회원가입</StyledButton>
+      <StyledButton type="button" onClick={() => navigate('/login')}>
+        로그인
+      </StyledButton>
+      <StyledButton type="button" onClick={() => navigate('/signup')}>
+        회원가입
+      </StyledButton>
     </AuthLinksContainer>
   );
 };
