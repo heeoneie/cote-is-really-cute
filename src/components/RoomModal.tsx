@@ -47,7 +47,14 @@ const RoomModal: React.FC<RoomModalProps> = ({
   onClose,
   selectedUser,
 }) => {
+  const [sceneUrl, setSceneUrl] = React.useState<string>('');
   const [isPending, startTransition] = useTransition();
+
+  React.useEffect(() => {
+    if (show) {
+      setSceneUrl(rooms[Math.floor(Math.random() * rooms.length)]);
+    }
+  }, [show]);
 
   if (!show) return null;
 
@@ -63,7 +70,7 @@ const RoomModal: React.FC<RoomModalProps> = ({
         <CloseButton onClick={handleClose}>×</CloseButton>
         <h2>{selectedUser?.nickName}님의 방</h2>
         <Suspense fallback={<div>방을 불러오는 중...</div>}>
-          <Spline scene={rooms[Math.floor(Math.random() * rooms.length)]} />
+          <Spline scene={sceneUrl} />
         </Suspense>
       </ModalContainer>
     </ModalBackground>
