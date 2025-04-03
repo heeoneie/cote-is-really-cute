@@ -28,7 +28,7 @@ const SearchBar: React.FC = () => {
     try {
       const response: User[] = await searchUser(input, email);
       setUserList(response);
-      setIsShow(userList.length > 0);
+      setIsShow(response.length > 0);
     } catch (error) {
       console.error('Error', error);
       setUserList([]);
@@ -81,7 +81,7 @@ const SearchBar: React.FC = () => {
         value={nickName}
         onChange={handleInputChange}
       />
-      <button className="search-btn">
+      <button className="search-btn" onClick={() => searchName(nickName)}>
         <img src="/img/searchbar.png" alt="검색" className="search-icon" />
       </button>
 

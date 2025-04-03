@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import socket from '../utils/socket';
+import socket from '@utils/socket';
 import styled from '@emotion/styled/macro';
 
 const BattleButton = styled.button`
@@ -20,40 +20,50 @@ const BattleButton = styled.button`
   }
 `;
 
-const BattleBtn = () => {
-  const [isWaiting, setIsWaiting] = React.useState(false);
+interface MatchFoundData {
+  matchId: string;
+  problem: string;
+}
+
+const BattleBtn: React.FC = () => {
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleJoinBattle = async () => {
-    setIsWaiting(true);
-    try {
-      socket.on('connect', () => {});
-      const userEmail = localStorage.getItem('email');
-      socket.emit('joinBattle', userEmail);
+  useEffect(() => {
+    const handleMatchFound = ({ matchId, problem }: MatchFoundData) => {
+      setIsWaiting(false);
+      navigate(`/battle/${matchId}`, { state: { problem } });
+    };
 
-      socket.on('matchFound', ({ matchId, problem }) => {
-        setIsWaiting(false);
-        navigate(`/battle/${matchId}`, {
-          state: { problem },
-        });
-      });
-    } catch (error) {
-      console.error('배틀 참여 중 오류가 발생했습니다:', error);
+    socket.on('matchFound', handleMatchFound);
+
+    return () => {
+      socket.off('matchFound', handleMatchFound);
+    };
+  }, [navigate]);
+
+  const handleJoinBattle = () => {
+    setIsWaiting(true);
+    const userEmail = localStorage.getItem('email');
+
+    if (userEmail) {
+      socket.emit('joinBattle', userEmail);
+    } else {
+      console.error('유저 이메일을 찾을 수 없습니다.');
       setIsWaiting(false);
     }
   };
 
-  const handleCancleWaiting = () => {
+  const handleCancelWaiting = () => {
     setIsWaiting(false);
     socket.emit('leaveBattle');
-    socket.off('matchFound');
   };
 
   return (
     <Box>
       {isWaiting ? (
         <Box
-          onClick={handleCancleWaiting}
+          onClick={handleCancelWaiting}
           sx={{
             position: 'fixed',
             top: 0,

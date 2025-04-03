@@ -6,7 +6,7 @@ type Problem = {
   url: string;
 };
 
-type Problems = {
+export type Problems = {
   beginner: Problem[];
   intermediate: Problem[];
   advanced: Problem[];
@@ -34,8 +34,13 @@ const useProblemStore = create<ProblemStore>((set) => ({
     }
   })(),
   setProblems: (problems) => {
-    localStorage.setItem('problems', JSON.stringify(problems));
-    set({ problems });
+    try {
+      localStorage.setItem('problems', JSON.stringify(problems));
+      set({ problems });
+    } catch (error) {
+      console.error('Failed to save problems to localStorage:', error);
+      set({ problems });
+    }
   },
   currentProblemIndex: (() => {
     try {
@@ -50,8 +55,16 @@ const useProblemStore = create<ProblemStore>((set) => ({
     }
   })(),
   setCurrentProblemIndex: (index) => {
-    localStorage.setItem('currentProblemIndex', JSON.stringify(index));
-    set({ currentProblemIndex: index });
+    try {
+      localStorage.setItem('currentProblemIndex', JSON.stringify(index));
+      set({ currentProblemIndex: index });
+    } catch (error) {
+      console.error(
+        'Failed to save currentProblemIndex to localStorage:',
+        error,
+      );
+      set({ currentProblemIndex: index });
+    }
   },
   resetProblemIndex: () => {
     localStorage.removeItem('currentProblemIndex');

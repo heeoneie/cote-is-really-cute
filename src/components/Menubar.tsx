@@ -34,7 +34,6 @@ const Menubar: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    setIsLoggedIn(false);
     navigate('/');
   };
 

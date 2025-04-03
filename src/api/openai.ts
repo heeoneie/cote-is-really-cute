@@ -18,7 +18,7 @@ interface GradeCodeResponse {
   isCorrect: boolean;
 }
 
-export const recommendProblems = async (
+export const getAlgorithmCourse = async (
   category: string,
 ): Promise<string[]> => {
   if (!category.trim()) {
