@@ -68,7 +68,7 @@ const RoomModal: React.FC<RoomModalProps> = ({
     <ModalBackground onClick={handleClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={handleClose}>×</CloseButton>
-        <h2>{selectedUser?.nickName}님의 방</h2>
+        <h2>{selectedUser?.nickName ?? '알 수 없음'}님의 방</h2>
         <Suspense fallback={<div>방을 불러오는 중...</div>}>
           <Spline scene={sceneUrl} />
         </Suspense>
