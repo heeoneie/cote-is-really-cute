@@ -33,7 +33,10 @@ export const getAlgorithmCourse = async (
     return response?.data?.problems ?? [];
   } catch (error) {
     console.error('📌 문제 추천 API 호출 중 오류 발생:', error);
-    throw error;
+    if (error instanceof Error) {
+      throw new Error(`문제 추천 API 오류: ${error.message}`);
+    }
+    throw new Error('문제 추천 API 호출 중 알 수 없는 오류가 발생했습니다.');
   }
 };
 
@@ -48,7 +51,7 @@ export const gradeCode = async (data: GradeCodeRequest): Promise<boolean> => {
     const response = await request.post<GradeCodeResponse>('/openai/grade', {
       ...data,
     });
-    if (response && response.data) return response.data.isCorrect === true;
+    return response?.data?.isCorrect === true;
     return false;
   } catch (error) {
     console.error('📌 코드 채점 API 호출 중 오류 발생:', error);

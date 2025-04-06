@@ -46,6 +46,7 @@ const SearchBar: React.FC = () => {
       }
     } catch (error) {
       console.error('라이벌 추가 실패:', error);
+      alert('라이벌 추가에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -58,6 +59,7 @@ const SearchBar: React.FC = () => {
       }
     } catch (error) {
       console.error('라이벌 삭제 실패:', error);
+      alert('라이벌 삭제에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
