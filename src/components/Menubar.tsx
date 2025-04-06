@@ -37,7 +37,6 @@ const Menubar: React.FC = () => {
     navigate('/');
   };
 
-  // 메뉴 아이템 타입 정의
   const menuItems = [
     { to: '/', imgSrc: '/img/studymode.png', alt: 'studymode', label: '학습' },
     { to: '/pvp', imgSrc: '/img/pvpmode.png', alt: 'pvpmode', label: '대결' },
