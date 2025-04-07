@@ -16,7 +16,7 @@ interface ValidationErrors {
   password?: string;
 }
 
-const Login: React.FC = () => {
+const Login = () => {
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',

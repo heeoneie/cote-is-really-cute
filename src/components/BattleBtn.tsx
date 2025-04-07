@@ -3,6 +3,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import socket from '@utils/socket';
 import styled from '@emotion/styled/macro';
+import useUserStore from '@store/userStore';
 
 const BattleButton = styled.button`
   width: 150px;
@@ -44,7 +45,7 @@ const BattleBtn: React.FC = () => {
 
   const handleJoinBattle = () => {
     setIsWaiting(true);
-    const userEmail = localStorage.getItem('email');
+    const { email: userEmail } = useUserStore();
 
     if (userEmail) {
       socket.emit('joinBattle', userEmail);

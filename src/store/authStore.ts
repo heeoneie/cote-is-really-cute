@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import useUserStore from '@store/userStore';
 
 const TOKEN_KEY = 'token';
 const EMAIL = 'email';
@@ -24,6 +25,7 @@ const useAuthStore = create<AuthStore>((set) => ({
   logout: () => {
     try {
       localStorage.removeItem(EMAIL);
+      useUserStore.getState().clearEmail();
       localStorage.removeItem(TOKEN_KEY);
       set({ isLoggedIn: false });
     } catch (error) {
