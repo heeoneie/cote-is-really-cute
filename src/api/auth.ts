@@ -1,5 +1,6 @@
 import request from './axios';
 import { User } from '../@types/user';
+import { handleApiError } from '@utils/apiError';
 
 interface LoginCredentials {
   email: string;
@@ -20,10 +21,6 @@ type SignupApiResponse = ApiResponse<{ user: User }>;
 type UpdateNickNameResponse = ApiResponse<{ nickName: string }>;
 type UpdatePasswordResponse = ApiResponse<{ message: string }>;
 
-const handleApiError = (error: any, defaultMessage: string): never => {
-  throw new Error(error.response?.data?.message || defaultMessage);
-};
-
 export const loginUser = async (
   credentials: LoginCredentials,
 ): Promise<LoginApiResponse> => {
@@ -31,7 +28,7 @@ export const loginUser = async (
     const response = await request.post('/auth/login', credentials);
     return response.data;
   } catch (error: any) {
-    throw handleApiError(error, '로그인 실패');
+    return handleApiError(error, '로그인 실패');
   }
 };
 
@@ -43,7 +40,7 @@ export const signUp = async (user: User): Promise<SignupApiResponse> => {
     const { data } = await request.post('/auth/signup', user);
     return data;
   } catch (error: any) {
-    throw handleApiError(error, '회원가입 실패');
+    return handleApiError(error, '회원가입');
   }
 };
 
@@ -64,7 +61,7 @@ export const checkNickName = async (
     if (error.response?.status === 409)
       return { available: false, message: '이미 사용 중인 닉네임입니다.' };
 
-    throw handleApiError(error, '닉네임 확인 중 오류가 발생했습니다');
+    return handleApiError(error, '닉네임 중복 확인');
   }
 };
 
@@ -77,7 +74,7 @@ export const updateNickName = async (
     });
     return data;
   } catch (error: any) {
-    throw handleApiError(error, '닉네임 변경 실패');
+    return handleApiError(error, '닉네임 변경');
   }
 };
 
@@ -97,6 +94,6 @@ export const updatePassword = async (
     });
     return data;
   } catch (error: any) {
-    throw handleApiError(error, '비밀번호 변경 실패');
+    return handleApiError(error, '비밀번호 변경');
   }
 };

@@ -29,6 +29,7 @@ interface MatchFoundData {
 const BattleBtn: React.FC = () => {
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { email: userEmail } = useUserStore();
 
   useEffect(() => {
     const handleMatchFound = ({ matchId, problem }: MatchFoundData) => {
@@ -45,7 +46,6 @@ const BattleBtn: React.FC = () => {
 
   const handleJoinBattle = () => {
     setIsWaiting(true);
-    const { email: userEmail } = useUserStore();
 
     if (userEmail) {
       socket.emit('joinBattle', userEmail);
