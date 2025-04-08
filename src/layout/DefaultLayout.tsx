@@ -3,14 +3,9 @@ import { Outlet } from 'react-router-dom';
 import Menubar from '@components/Menubar';
 import useAuthStore from '@store/authStore';
 
-interface AuthStore {
-  isLoggedIn: boolean;
-}
-
 const DefaultLayout: React.FC = () => {
-  const { isLoggedIn } = useAuthStore() as AuthStore;
+  const { isLoggedIn } = useAuthStore();
 
-  /** 스타일 객체 */
   const layoutStyle: React.CSSProperties = {
     height: '100%',
     display: 'flex',

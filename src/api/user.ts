@@ -15,7 +15,7 @@ export const searchUser = async (
     return data.filter((user) =>
       user.nickName.toLowerCase().includes(input.toLowerCase()),
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '사용자 검색');
   }
 };
@@ -34,7 +34,7 @@ export const recordAttendance = async (
     await request.post('/users/attend', { userEmail, attendanceDate: today });
     localStorage.setItem('lastAttendance', today);
     return { success: true, message: '출석이 완료되었습니다!' };
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '출석 체크');
   }
 };
@@ -49,7 +49,7 @@ export const checkConsecutiveAttendance = async (
       `/users/attend/${encodeURIComponent(userEmail)}`,
     );
     return data.consecutiveDays;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '연속 출석 체크');
   }
 };

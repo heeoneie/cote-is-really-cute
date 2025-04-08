@@ -48,12 +48,21 @@ const RoomModal: React.FC<RoomModalProps> = ({
   selectedUser,
 }) => {
   const [sceneUrl, setSceneUrl] = React.useState<string>('');
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   React.useEffect(() => {
-    if (show) {
-      setSceneUrl(rooms[Math.floor(Math.random() * rooms.length)]);
-    }
+    if (show) setSceneUrl(rooms[Math.floor(Math.random() * rooms.length)]);
+  }, [show]);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClose();
+    };
+    if (show) window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [show]);
 
   if (!show) return null;

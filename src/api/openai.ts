@@ -26,7 +26,7 @@ export const getAlgorithmCourse = async (
       { category },
     );
     return response?.data?.problems ?? [];
-  } catch (error) {
+  } catch (error: unknown) {
     throw handleApiError(error, '문제 추천');
   }
 };
@@ -41,8 +41,8 @@ export const gradeCode = async (data: GradeCodeRequest): Promise<boolean> => {
     const response = await request.post<GradeCodeResponse>('/openai/grade', {
       ...data,
     });
-    return response?.data?.isCorrect === true;
-  } catch (error) {
+    return response?.data?.isCorrect ?? false;
+  } catch (error: unknown) {
     throw handleApiError(error, '코드 채점');
   }
 };

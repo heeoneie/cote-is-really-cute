@@ -4,18 +4,21 @@ import Timer from '@components/Timer';
 import Spline from '@splinetool/react-spline';
 import { Grid, Box, styled, Skeleton } from '@mui/material';
 
-const Ment = styled('h5')({
+const PvpHeading = styled('h5')({
   fontSize: '30px',
   textAlign: 'center',
   marginTop: 0,
   marginBottom: '10px',
 });
 
-const StyledGridContainer = styled(Grid)({
-  width: 'calc(100vw - 290px)',
-  marginLeft: '290px',
+const StyledGridContainer = styled(Grid)(({ theme }) => ({
+  width: '100%',
   height: '90vh',
-});
+  [theme.breakpoints.up('md')]: {
+    width: 'calc(100vw - 290px)',
+    marginLeft: '290px',
+  },
+}));
 
 const StyledMainGrid = styled(Grid)({
   display: 'flex',
@@ -50,11 +53,11 @@ const Pvp: React.FC = () => {
   return (
     <StyledGridContainer container>
       <StyledMainGrid item>
-        <Ment>
+        <PvpHeading>
           코딩 능력을 시험해볼 기회!
           <br />
           다른 유저와의 대결에서 승리하고 경험치를 쌓아보세요!
-        </Ment>
+        </PvpHeading>
         <SplineContainer>
           {!splineLoaded && !splineError && (
             <Skeleton

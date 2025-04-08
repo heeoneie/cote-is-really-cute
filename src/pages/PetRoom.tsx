@@ -9,13 +9,18 @@ const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const PetRoomContainer = styled.div`
   display: flex;
-  width: calc(100vw - 290px);
+  width: 100%;
   height: 90vh;
   overflow: hidden;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 290px;
+  margin-left: 0;
+
+  @media (min-width: 768px) {
+    width: calc(100vw - 290px);
+    margin-left: 290px;
+  }
 `;
 
 const SplineWrapper = styled.div`
@@ -52,7 +57,7 @@ const PetRoom: React.FC = () => {
       if (!email) return;
       try {
         const response = await searchRival(email);
-        setLevel(response.rivals[0].rating);
+        setLevel(response.rivals[0].level.level);
       } catch (error) {
         console.error('Error fetching rivals', error);
         setLevel(1);

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { items } from '@utils/items';
 
 interface Items {
@@ -11,7 +11,7 @@ interface SplineSceneProps {
   type: keyof Items;
 }
 
-const Spline = React.lazy(() => import('@splinetool/react-spline'));
+const Spline = lazy(() => import('@splinetool/react-spline'));
 
 const SplineScene: React.FC<SplineSceneProps> = ({ level, type }) => {
   const getScene = (level: number, type: keyof Items): string => {

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 import { Box } from '@mui/material';
+// @ts-ignore
 import iphone_alarm from '../assets/iphone_alarm.mp3';
 import '../styles/Timer.css';
 
@@ -14,15 +15,15 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
   );
   const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
   const [isAlarmActive, setIsAlarmActive] = useState<boolean>(false);
-  const [audio] = useState<HTMLAudioElement>(new Audio(iphone_alarm));
+  const audioRef = useRef<HTMLAudioElement>(new Audio(iphone_alarm));
 
   useEffect(() => {
-    if (isAlarmActive) audio.play();
+    if (isAlarmActive) audioRef.current.play();
     else {
-      audio.pause();
-      audio.currentTime = 0;
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
-  }, [isAlarmActive, audio]);
+  }, [isAlarmActive, audioRef]);
 
   const startTimer = (): void => {
     setIsTimerActive(true);
@@ -32,8 +33,8 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
   const stopTimer = (): void => {
     setIsTimerActive(false);
     setIsAlarmActive(false);
-    audio.pause();
-    audio.currentTime = 0;
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
   };
 
   const adjustTimer = (adjustment: number): void => {

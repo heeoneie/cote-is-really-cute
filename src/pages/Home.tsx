@@ -7,12 +7,8 @@ import { Grid } from '@mui/material';
 import Landing from '../components/Landing';
 import useAuthStore from '@store/authStore';
 
-interface AuthStore {
-  isLoggedIn: boolean;
-}
-
 const Home: React.FC = () => {
-  const { isLoggedIn } = useAuthStore() as AuthStore;
+  const { isLoggedIn } = useAuthStore();
 
   return (
     <div>
@@ -20,12 +16,11 @@ const Home: React.FC = () => {
         <Grid
           container
           wrap="nowrap"
-          sx={{
-            width: 'calc(100vw - 290px)',
-            marginLeft: '250px',
-          }}
+          sx={(theme) => ({
+            width: { xs: '100%', md: 'calc(100vw - 290px)' },
+            marginLeft: { xs: 0, md: '250px' },
+          })}
         >
-          {/* 왼쪽 검색 및 카테고리 */}
           <Grid item xs container direction="column" alignItems="center">
             <Grid item xs={12} sx={{ width: '80%' }}>
               <SearchBar />
@@ -35,7 +30,6 @@ const Home: React.FC = () => {
             </Grid>
           </Grid>
 
-          {/* 오른쪽 펫 상태 및 출석 */}
           <Grid item xs={2} container direction="column">
             <Grid item>
               <PetStatus />

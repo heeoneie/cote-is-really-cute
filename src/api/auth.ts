@@ -29,7 +29,7 @@ export const loginUser = async (
   try {
     const response = await request.post('/auth/login', credentials);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '로그인 실패');
   }
 };
@@ -41,7 +41,7 @@ export const signUp = async (user: User): Promise<SignupApiResponse> => {
   try {
     const { data } = await request.post('/auth/signup', user);
     return data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '회원가입');
   }
 };
@@ -59,10 +59,7 @@ export const checkNickName = async (
       available: true,
       message: data.message || '사용 가능한 닉네임입니다.',
     };
-  } catch (error: any) {
-    if (error.response?.status === 409)
-      return { available: false, message: '이미 사용 중인 닉네임입니다.' };
-
+  } catch (error: unknown) {
     throw handleApiError(error, '닉네임 중복 확인');
   }
 };
@@ -76,7 +73,7 @@ export const updateNickName = async (
       newNickName,
     });
     return data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '닉네임 변경');
   }
 };
@@ -96,7 +93,7 @@ export const updatePassword = async (
       confirmPassword,
     });
     return data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw handleApiError(error, '비밀번호 변경');
   }
 };
