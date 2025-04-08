@@ -1,6 +1,7 @@
 import request from './axios';
 import { User } from '../@types/user';
 import { handleApiError } from '@utils/apiError';
+import { API } from '@utils/endPoint';
 
 interface LoginCredentials {
   email: string;
@@ -27,7 +28,7 @@ export const loginUser = async (
   if (!credentials.email.trim()) throw new Error('이메일을 입력해주세요.');
   if (!credentials.password.trim()) throw new Error('비밀번호를 입력해주세요.');
   try {
-    const response = await request.post('/auth/login', credentials);
+    const response = await request.post(API.AUTH.LOGIN, credentials);
     return response.data;
   } catch (error: unknown) {
     throw handleApiError(error, '로그인 실패');
@@ -39,7 +40,7 @@ export const signUp = async (user: User): Promise<SignupApiResponse> => {
   if (!user.nickName.trim()) throw new Error('닉네임을 입력해주세요.');
 
   try {
-    const { data } = await request.post('/auth/signup', user);
+    const { data } = await request.post(API.AUTH.SIGNUP, user);
     return data;
   } catch (error: unknown) {
     throw handleApiError(error, '회원가입');
@@ -52,9 +53,7 @@ export const checkNickName = async (
   if (!nickName.trim()) throw new Error('닉네임을 입력해주세요.');
 
   try {
-    const { data } = await request.get(
-      `/auth/check?nickName=${encodeURIComponent(nickName)}`,
-    );
+    const { data } = await request.get(API.AUTH.CHECK_NICKNAME(nickName));
     return {
       available: true,
       message: data.message || '사용 가능한 닉네임입니다.',
@@ -69,7 +68,7 @@ export const updateNickName = async (
 ): Promise<UpdateNickNameResponse> => {
   if (!newNickName.trim()) throw new Error('새 닉네임을 입력해주세요.');
   try {
-    const { data } = await request.put('/users/update-nickName', {
+    const { data } = await request.put(API.AUTH.UPDATE_NICKNAME, {
       newNickName,
     });
     return data;
@@ -88,7 +87,7 @@ export const updatePassword = async (
     throw new Error('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 
   try {
-    const { data } = await request.put('/users/update-password', {
+    const { data } = await request.put(API.AUTH.UPDATE_PASSWORD, {
       newPassword,
       confirmPassword,
     });

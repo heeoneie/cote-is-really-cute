@@ -1,6 +1,7 @@
 import request from './axios';
 import { Rival } from '../@types/rival';
 import { handleApiError } from '@utils/apiError';
+import { API } from '@utils/endPoint';
 
 interface AddRivalRequest {
   userEmail: string;
@@ -25,7 +26,7 @@ export const addRival = async (
 
   try {
     const { data } = await request.post<OperationResponse>(
-      '/rival/register',
+      API.RIVAL.REGISTER,
       user,
     );
     return data;
@@ -43,7 +44,7 @@ export const deleteRival = async (
   }
 
   try {
-    const { data } = await request.delete<OperationResponse>('/rival/remove', {
+    const { data } = await request.delete<OperationResponse>(API.RIVAL.DELETE, {
       params: {
         userEmail: encodeURIComponent(userEmail),
         rivalNickName: encodeURIComponent(rivalNickName),
@@ -64,7 +65,7 @@ export const searchRival = async (
 
   try {
     const { data } = await request.get<SearchRivalResponse>(
-      `/rival/get-info?userEmail=${encodeURIComponent(userEmail)}`,
+      API.RIVAL.SEARCH(userEmail),
     );
     return data;
   } catch (error: unknown) {

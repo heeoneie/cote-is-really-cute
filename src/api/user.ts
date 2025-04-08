@@ -1,6 +1,7 @@
 import request from './axios';
 import { User } from '../@types/user';
 import { handleApiError } from '@utils/apiError';
+import { API } from '@utils/endPoint';
 
 export const searchUser = async (
   input: string,
@@ -9,9 +10,7 @@ export const searchUser = async (
   if (!input.trim()) throw new Error('검색어를 입력해주세요.');
 
   try {
-    const { data } = await request.get<User[]>(
-      `/users/search?type=nickName&value=${encodeURIComponent(input)}&userEmail=${encodeURIComponent(email)}`,
-    );
+    const { data } = await request.get<User[]>(API.USER.SEARCH(input, email));
     return data.filter((user) =>
       user.nickName.toLowerCase().includes(input.toLowerCase()),
     );
@@ -31,7 +30,7 @@ export const recordAttendance = async (
     return { success: true, message: '이미 오늘 출석을 완료했습니다.' };
 
   try {
-    await request.post('/users/attend', { userEmail, attendanceDate: today });
+    await request.post(API.USER.ATTEND, { userEmail, attendanceDate: today });
     localStorage.setItem('lastAttendance', today);
     return { success: true, message: '출석이 완료되었습니다!' };
   } catch (error: unknown) {
@@ -46,7 +45,7 @@ export const checkConsecutiveAttendance = async (
 
   try {
     const { data } = await request.get<{ consecutiveDays: number }>(
-      `/users/attend/${encodeURIComponent(userEmail)}`,
+      API.USER.CHECK_ATTEND(userEmail),
     );
     return data.consecutiveDays;
   } catch (error: unknown) {

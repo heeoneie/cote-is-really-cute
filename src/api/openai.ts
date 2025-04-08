@@ -1,5 +1,6 @@
 import request from './axios';
 import { handleApiError } from '@utils/apiError';
+import { API } from '@utils/endPoint';
 
 interface RecommendProblemsResponse {
   problems: string[];
@@ -22,7 +23,7 @@ export const getAlgorithmCourse = async (
 
   try {
     const response = await request.post<RecommendProblemsResponse>(
-      '/openai/recommendation',
+      API.OPENAI.GET_ALGORITHM_COURSE,
       { category },
     );
     return response?.data?.problems ?? [];
@@ -38,7 +39,7 @@ export const gradeCode = async (data: GradeCodeRequest): Promise<boolean> => {
     throw new Error('모든 필드를 입력해주세요.');
 
   try {
-    const response = await request.post<GradeCodeResponse>('/openai/grade', {
+    const response = await request.post<GradeCodeResponse>(API.OPENAI.GRADE, {
       ...data,
     });
     return response?.data?.isCorrect ?? false;
