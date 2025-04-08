@@ -1,5 +1,6 @@
 import request from './axios';
 import { Rival } from '../@types/rival';
+import { handleApiError } from '@utils/apiError';
 
 interface AddRivalRequest {
   userEmail: string;
@@ -34,8 +35,7 @@ export const addRival = async (
     );
     return data;
   } catch (error: any) {
-    console.error('📌 라이벌 등록 중 오류 발생:', error);
-    throw new Error(error.response?.data?.message || 'Error during rival add');
+    throw handleApiError(error, '라이벌 등록');
   }
 };
 
@@ -59,10 +59,7 @@ export const deleteRival = async (
     );
     return data;
   } catch (error: any) {
-    console.error('📌 라이벌 삭제 중 오류 발생:', error);
-    throw new Error(
-      error.response?.data?.message || 'Error during rival delete',
-    );
+    throw handleApiError(error, '라이벌 삭제');
   }
 };
 
@@ -79,9 +76,6 @@ export const searchRival = async (
     );
     return data;
   } catch (error: any) {
-    console.error('📌 라이벌 검색 중 오류 발생:', error);
-    throw new Error(
-      error.response?.data?.message || 'Error during rival search',
-    );
+    throw handleApiError(error, '라이벌 검색');
   }
 };

@@ -24,11 +24,13 @@ type UpdatePasswordResponse = ApiResponse<{ message: string }>;
 export const loginUser = async (
   credentials: LoginCredentials,
 ): Promise<LoginApiResponse> => {
+  if (!credentials.email.trim()) throw new Error('이메일을 입력해주세요.');
+  if (!credentials.password.trim()) throw new Error('비밀번호를 입력해주세요.');
   try {
     const response = await request.post('/auth/login', credentials);
     return response.data;
   } catch (error: any) {
-    return handleApiError(error, '로그인 실패');
+    throw handleApiError(error, '로그인 실패');
   }
 };
 
@@ -40,7 +42,7 @@ export const signUp = async (user: User): Promise<SignupApiResponse> => {
     const { data } = await request.post('/auth/signup', user);
     return data;
   } catch (error: any) {
-    return handleApiError(error, '회원가입');
+    throw handleApiError(error, '회원가입');
   }
 };
 
@@ -61,20 +63,21 @@ export const checkNickName = async (
     if (error.response?.status === 409)
       return { available: false, message: '이미 사용 중인 닉네임입니다.' };
 
-    return handleApiError(error, '닉네임 중복 확인');
+    throw handleApiError(error, '닉네임 중복 확인');
   }
 };
 
 export const updateNickName = async (
   newNickName: string,
 ): Promise<UpdateNickNameResponse> => {
+  if (!newNickName.trim()) throw new Error('새 닉네임을 입력해주세요.');
   try {
     const { data } = await request.put('/users/update-nickName', {
       newNickName,
     });
     return data;
   } catch (error: any) {
-    return handleApiError(error, '닉네임 변경');
+    throw handleApiError(error, '닉네임 변경');
   }
 };
 
@@ -94,6 +97,6 @@ export const updatePassword = async (
     });
     return data;
   } catch (error: any) {
-    return handleApiError(error, '비밀번호 변경');
+    throw handleApiError(error, '비밀번호 변경');
   }
 };

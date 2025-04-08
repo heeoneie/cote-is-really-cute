@@ -1,5 +1,6 @@
 import request from './axios';
 import { User } from '../@types/user';
+import { handleApiError } from '@utils/apiError';
 
 export const searchUser = async (
   input: string,
@@ -15,8 +16,7 @@ export const searchUser = async (
       user.nickName.toLowerCase().includes(input.toLowerCase()),
     );
   } catch (error: any) {
-    console.error('📌 사용자 검색 중 오류 발생:', error);
-    return [];
+    throw handleApiError(error, '사용자 검색');
   }
 };
 
@@ -35,8 +35,7 @@ export const recordAttendance = async (
     localStorage.setItem('lastAttendance', today);
     return { success: true, message: '출석이 완료되었습니다!' };
   } catch (error: any) {
-    console.error('📌 출석 기록 중 오류 발생:', error);
-    return { success: false, message: '출석 기록 중 오류가 발생했습니다.' };
+    throw handleApiError(error, '출석 체크');
   }
 };
 
@@ -51,7 +50,6 @@ export const checkConsecutiveAttendance = async (
     );
     return data.consecutiveDays;
   } catch (error: any) {
-    console.error('📌 출석 정보 가져오기 중 오류 발생:', error);
-    return null;
+    throw handleApiError(error, '연속 출석 체크');
   }
 };
