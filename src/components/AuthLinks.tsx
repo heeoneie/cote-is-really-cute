@@ -17,7 +17,7 @@ const AuthLinks = () => {
             </button>
             <button
                 type="button"
-                onClick={() => router.push('/signup')}
+                onClick={() => router.push('/join')}
                 className="w-[150px] px-5 py-2.5 border-4 border-[#82d21c] rounded-full bg-white text-black text-base font-bold hover:bg-[#83d21c71]"
             >
                 회원가입
