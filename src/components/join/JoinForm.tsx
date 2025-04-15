@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { joinSchema, JoinFormValues } from '@schema/joinSchema';
 import { useState } from 'react';
-import { checkNickName, signUp } from '@api/auth';
+import { checkNickName, join } from '@api/auth';
 import { useRouter } from 'next/navigation';
+import NickNameInput from '@components/join/NickNameInput';
+import TextInput from '@components/join/TextInput';
+import SubmitButton from '@components/join/SubmitButton';
 
 export default function JoinForm() {
     const router = useRouter();
@@ -32,7 +35,7 @@ export default function JoinForm() {
         }
 
         try {
-            await signUp(data);
+            await join(data);
             alert('회원가입이 완료되었습니다!');
             router.push('/login');
         } catch (err: any) {
@@ -64,64 +67,39 @@ export default function JoinForm() {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-6 w-full max-w-md px-4"
         >
-            <div>
-                <div className="flex gap-2">
-                    <input
-                        {...register('nickName')}
-                        type="text"
-                        placeholder="닉네임 입력"
-                        className="w-full border-b-2 border-lime-500 px-2 py-2 outline-none text-lg"
-                    />
-                    <button
-                        type="button"
-                        onClick={handleCheckNickName}
-                        className="whitespace-nowrap px-4 py-2 border-2 border-lime-500 rounded-full font-semibold text-sm hover:bg-lime-100 transition"
-                    >
-                        중복 확인
-                    </button>
-                </div>
-                <p className={`text-sm mt-1 ${nicknameAvailable ? 'text-cyan-500' : 'text-red-500'}`}>
-                    {nickNameMessage || errors.nickName?.message}
-                </p>
-            </div>
+            <NickNameInput
+                register={register}
+                errors={errors}
+                handleCheckNickName={handleCheckNickName}
+                nicknameMessage={nickNameMessage}
+                nicknameAvailable={nicknameAvailable}
+            />
 
-            {/* 이메일 */}
-            <div>
-                <input
-                    {...register('email')}
-                    type="email"
-                    placeholder="이메일 입력"
-                    className="w-full border-b-2 border-lime-500 px-2 py-2 outline-none text-lg"
-                />
-                <p className="text-sm text-red-500 mt-1">{errors.email?.message}</p>
-            </div>
+            <TextInput
+                label="email"
+                type="email"
+                placeholder="이메일 입력"
+                register={register}
+                errors={errors}
+            />
 
-            {/* 비밀번호 */}
-            <div>
-                <input
-                    {...register('password')}
-                    type="password"
-                    placeholder="비밀번호 입력"
-                    className="w-full border-b-2 border-lime-500 px-2 py-2 outline-none text-lg"
-                />
-                <p className="text-sm text-red-500 mt-1">{errors.password?.message}</p>
-            </div>
+            <TextInput
+                label="password"
+                type="password"
+                placeholder="비밀번호 입력"
+                register={register}
+                errors={errors}
+            />
 
-            <div>
-                <input
-                    {...register('confirmPassword')}
-                    type="password"
-                    placeholder="비밀번호 확인"
-                    className="w-full border-b-2 border-lime-500 px-2 py-2 outline-none text-lg"
-                />
-                <p className="text-sm text-red-500 mt-1">{errors.confirmPassword?.message}</p>
-            </div>
-            <button
-                type="submit"
-                className="w-full py-3 border-4 border-lime-500 rounded-full font-bold hover:bg-lime-100 transition"
-            >
-                회원가입
-            </button>
+            <TextInput
+                label="confirmPassword"
+                type="password"
+                placeholder="비밀번호 확인"
+                register={register}
+                errors={errors}
+            />
+
+            <SubmitButton text="회원가입" />
         </form>
     );
 }

@@ -2,6 +2,7 @@ import request from './axios';
 import { User } from "../types/user";
 import { handleApiError } from '@utils/apiError';
 import { API } from '@utils/endPoint';
+import {JoinFormValues} from "@schema/joinSchema";
 
 interface LoginCredentials {
     email: string;
@@ -35,7 +36,7 @@ export const loginUser = async (
     }
 };
 
-export const signUp = async (user: User): Promise<SignupApiResponse> => {
+export const join = async (user: JoinFormValues): Promise<SignupApiResponse> => {
     if (!user.email.trim()) throw new Error('이메일을 입력해주세요.');
     if (!user.nickName.trim()) throw new Error('닉네임을 입력해주세요.');
 
