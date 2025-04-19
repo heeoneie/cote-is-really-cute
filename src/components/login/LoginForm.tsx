@@ -20,7 +20,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>();
+  } = useForm<LoginFormValues>({ mode: 'onChange' });
   const [loginError, setLoginError] = useState('');
   const router = useRouter();
   const { setIsLoggedIn } = useAuthStore();
