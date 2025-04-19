@@ -29,6 +29,7 @@ export default function JoinForm() {
         handleCheckNickName,
         nickNameMessage,
         nickNameAvailable,
+        isCheckingNickName,
     } = useCheckNickName();
 
     const onSubmit = async (data: JoinFormValues) => {
@@ -43,8 +44,9 @@ export default function JoinForm() {
             await join(data);
             alert('회원가입이 완료되었습니다!');
             router.push('/login');
-        } catch (err: any) {
-            alert(err?.message || '회원가입 중 오류가 발생했습니다.');
+        } catch (err: unknown) {
+            if (err instanceof Error) alert(err.message);
+            else alert('회원가입 중 오류가 발생했습니다.');
         }
     };
 
@@ -56,6 +58,7 @@ export default function JoinForm() {
             >
                 <NickNameInput
                     register={register}
+                    isCheckingNickName={isCheckingNickName}
                     errors={errors}
                     nickNameMessage={nickNameMessage}
                     nickNameAvailable={nickNameAvailable}
