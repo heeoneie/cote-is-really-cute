@@ -13,6 +13,7 @@ export function useCheckNickName() {
             setNickNameMessage(response.message || '사용 가능한 닉네임입니다.');
             setNickNameAvailable(true);
         } catch (error: unknown) {
+            console.error('Nickname check error:', error);
             setNickNameMessage('닉네임 확인 중 오류가 발생했습니다.');
             setNickNameAvailable(false);
         } finally {
