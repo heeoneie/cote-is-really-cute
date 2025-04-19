@@ -24,8 +24,10 @@ export default function LoginForm() {
   const router = useRouter();
   const { setIsLoggedIn } = useAuthStore();
   const { setEmail } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true);
     try {
       const response = await loginUser(data);
       const { token } = response.data;
@@ -40,15 +42,21 @@ export default function LoginForm() {
     } catch (error: unknown) {
       console.log('로그인 에러' + error);
       setLoginError('이메일 또는 비밀번호가 틀렸습니다');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
+      aria-labelledby="login-heading"
       className="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
     >
-      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+      <h1
+        id="login-heading"
+        className="text-2xl font-bold mb-6 text-gray-900 dark:text-white"
+      >
         로그인
       </h1>
 
@@ -72,9 +80,11 @@ export default function LoginForm() {
 
       <button
         type="submit"
+        disabled={isLoading}
+        aria-label="로그인"
         className="w-full mt-6 bg-lime-500 hover:bg-lime-600 text-white font-semibold py-3 rounded-full transition"
       >
-        로그인
+        {isLoading ? '로그인 중...' : '로그인'}
       </button>
 
       <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-300">
