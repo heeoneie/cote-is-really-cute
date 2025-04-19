@@ -8,6 +8,7 @@ import ErrorText from '@components/login//ErrorText';
 import { loginUser } from '@api/auth';
 import useAuthStore from '@store/authStore';
 import useUserStore from '@store/userStore';
+import toast from 'react-hot-toast';
 
 interface LoginFormValues {
   email: string;
@@ -37,10 +38,12 @@ export default function LoginForm() {
 
       setEmail(data.email);
       setIsLoggedIn(true);
+      toast.success('로그인 성공!');
 
       router.push('/');
     } catch (error: unknown) {
       console.log('로그인 에러' + error);
+      toast.error('이메일 또는 비밀번호가 틀렸습니다');
       setLoginError('이메일 또는 비밀번호가 틀렸습니다');
     } finally {
       setIsLoading(false);
@@ -62,6 +65,7 @@ export default function LoginForm() {
 
       <TextInput
         label="이메일"
+        autoComplete="email"
         type="email"
         placeholder="이메일 입력"
         {...register('email', { required: '이메일은 필수입니다' })}
