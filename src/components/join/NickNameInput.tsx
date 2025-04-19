@@ -1,6 +1,7 @@
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+'use client';
+
+import { UseFormRegister, FieldErrors, useFormContext } from 'react-hook-form';
 import { JoinFormValues } from '@schema/joinSchema';
-import { useRef } from 'react';
 
 interface NickNameInputProps {
   register: UseFormRegister<JoinFormValues>;
@@ -19,7 +20,7 @@ export default function NickNameInput({
   handleCheckNickName,
   isCheckingNickName = false,
 }: NickNameInputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { getValues } = useFormContext();
 
   return (
     <div>
@@ -34,23 +35,23 @@ export default function NickNameInput({
           {...register('nickName')}
           name="nickName"
           type="text"
-          ref={inputRef}
           placeholder="닉네임 입력"
           className="flex-1 px-4 py-3 border rounded-md
-                               bg-white text-black placeholder-gray-400
-                               focus:outline-none focus:ring-2 focus:ring-lime-400
-                               transition
-                               dark:bg-neutral-800 dark:text-white dark:placeholder-gray-500 dark:border-gray-600"
+                     bg-white text-black placeholder-gray-400
+                     focus:outline-none focus:ring-2 focus:ring-lime-400
+                     transition
+                     dark:bg-neutral-800 dark:text-white dark:placeholder-gray-500 dark:border-gray-600"
         />
         <button
           type="button"
           className="px-3 py-2 text-sm font-medium border border-lime-500
-                               rounded-md hover:bg-lime-50
-                               dark:hover:bg-lime-900 dark:border-lime-400 dark:text-white
-                               transition"
+                     rounded-md hover:bg-lime-50
+                     dark:hover:bg-lime-900 dark:border-lime-400 dark:text-white
+                     transition"
           disabled={isCheckingNickName}
           onClick={() => {
-            if (inputRef.current) handleCheckNickName(inputRef.current.value);
+            const currentNickName = getValues('nickName');
+            handleCheckNickName(currentNickName);
           }}
         >
           {isCheckingNickName ? '확인 중...' : '중복 확인'}

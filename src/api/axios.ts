@@ -8,7 +8,7 @@ const BASE_URL = 'https://violent-lea-coteisreallycute-52210e1a.koyeb.app';
 const TOKEN_KEY = 'token';
 
 const request: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
   },
