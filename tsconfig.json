@@ -11,7 +11,7 @@
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
       "@styles/*": ["styles/*"],
-      "@types/*": ["types/*"],
+      "@types/*": ["types/*"]
     },
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -30,7 +30,7 @@
       {
         "name": "next"
       }
-    ],
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
