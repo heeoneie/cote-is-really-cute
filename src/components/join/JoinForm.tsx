@@ -54,7 +54,11 @@ export default function JoinForm() {
         <FormProvider {...methods}>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="space-y-6 w-full max-w-md px-6 py-10 bg-white rounded-xl shadow-md"
+                className="space-y-6 w-full max-w-md px-6 py-10
+                           bg-white text-black
+                           dark:bg-neutral-900 dark:text-white
+                           shadow-md dark:shadow-lg rounded-xl
+                           transition-colors duration-300"
             >
                 <NickNameInput
                     register={register}
