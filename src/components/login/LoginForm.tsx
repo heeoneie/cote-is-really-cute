@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import TextInput from '@components/login/TextInput';
 import ErrorText from '@components/login//ErrorText';
-import { loginUser } from '@api/auth';
+import { login } from '@api/auth';
 import useAuthStore from '@store/authStore';
 import useUserStore from '@store/userStore';
 import toast from 'react-hot-toast';
@@ -30,8 +30,8 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      const response = await loginUser(data);
-      const { token } = response;
+      const response = await login(data);
+      const { token } = response.data;
 
       localStorage.setItem('token', token);
       localStorage.setItem('email', data.email);
@@ -40,7 +40,7 @@ export default function LoginForm() {
       setIsLoggedIn(true);
       toast.success('로그인 성공!');
 
-      router.push('/');
+      router.push('/home');
     } catch (error: unknown) {
       console.log('로그인 에러' + error);
       toast.error('이메일 또는 비밀번호가 틀렸습니다');

@@ -8,12 +8,12 @@ import {
   LoginApiResponse,
   LoginCredentials,
   SignupApiResponse,
-  UpdateNickNameResponse,
-  UpdatePasswordResponse,
+  UpdateNickNameApiResponse,
+  UpdatePasswordApiResponse,
 } from '../types/api/auth';
 import { validateRequired } from '@utils/validateRequired';
 
-export const loginUser = async (
+export const login = async (
   credentials: LoginCredentials,
 ): Promise<LoginApiResponse> => {
   validateRequired(credentials.email, '이메일');
@@ -60,10 +60,10 @@ export const checkNickName = async (
 
 export const updateNickName = async (
   newNickName: string,
-): Promise<UpdateNickNameResponse> => {
+): Promise<UpdateNickNameApiResponse> => {
   validateRequired(newNickName, '닉네임');
   try {
-    const { data } = await request.put<UpdateNickNameResponse>(
+    const { data } = await request.put<UpdateNickNameApiResponse>(
       API.AUTH.UPDATE_NICKNAME,
       { newNickName },
     );
@@ -76,14 +76,14 @@ export const updateNickName = async (
 export const updatePassword = async (
   newPassword: string,
   confirmPassword: string,
-): Promise<UpdatePasswordResponse> => {
+): Promise<UpdatePasswordApiResponse> => {
   validateRequired(newPassword, '새 비밀번호');
   validateRequired(confirmPassword, '확인 비밀번호');
   if (newPassword !== confirmPassword)
     throw new Error('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 
   try {
-    const { data } = await request.put<UpdatePasswordResponse>(
+    const { data } = await request.put<UpdatePasswordApiResponse>(
       API.AUTH.UPDATE_PASSWORD,
       {
         newPassword,
