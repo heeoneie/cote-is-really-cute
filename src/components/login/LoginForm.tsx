@@ -31,7 +31,7 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       const response = await loginUser(data);
-      const { token } = response.data;
+      const { token } = response;
 
       localStorage.setItem('token', token);
       localStorage.setItem('email', data.email);
