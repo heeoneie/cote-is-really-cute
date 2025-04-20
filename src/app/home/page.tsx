@@ -1,7 +1,7 @@
 'use client';
 
 import SearchBar from '@components/home/SearchBar';
-import CategoryBtn from '@components/home/CategoryBtn';
+import CategoryBtn from '@components/category/CategoryBtn';
 import PetStatus from '@components/home/PetStatus';
 import LoginStreak from '@components/home/LoginStreak';
 import LandingPage from '@app/page';
