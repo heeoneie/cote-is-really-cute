@@ -1,6 +1,6 @@
 import JoinForm from '@components/join/JoinForm';
 
-export default function Join() {
+const JoinPage = () => {
   return (
     <main
       className="flex flex-col items-center justify-center min-h-screen p-4
@@ -12,4 +12,6 @@ export default function Join() {
       <JoinForm />
     </main>
   );
-}
+};
+
+export default JoinPage;

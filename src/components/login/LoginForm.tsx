@@ -6,8 +6,8 @@ import { useState } from 'react';
 import TextInput from '@components/login/TextInput';
 import ErrorText from '@components/login//ErrorText';
 import { login } from '@api/auth';
-import useAuthStore from '@store/authStore';
-import useUserStore from '@store/userStore';
+import useAuthStore from '../../stores/authStore';
+import useUserStore from '../../stores/userStore';
 import toast from 'react-hot-toast';
 
 interface LoginFormValues {
