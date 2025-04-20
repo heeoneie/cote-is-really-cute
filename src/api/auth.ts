@@ -11,12 +11,13 @@ import {
   UpdateNickNameResponse,
   UpdatePasswordResponse,
 } from '../types/api/auth';
+import { validateRequired } from '@utils/validateRequired';
 
 export const loginUser = async (
   credentials: LoginCredentials,
 ): Promise<LoginApiResponse> => {
-  if (!credentials.email.trim()) throw new Error('이메일을 입력해주세요.');
-  if (!credentials.password.trim()) throw new Error('비밀번호를 입력해주세요.');
+  validateRequired(credentials.email, '이메일');
+  validateRequired(credentials.password, '닉네임');
   try {
     const { data } = await request.post<LoginApiResponse>(
       API.AUTH.LOGIN,
@@ -31,8 +32,8 @@ export const loginUser = async (
 export const join = async (
   user: JoinFormValues,
 ): Promise<SignupApiResponse> => {
-  if (!user.email.trim()) throw new Error('이메일을 입력해주세요.');
-  if (!user.nickName.trim()) throw new Error('닉네임을 입력해주세요.');
+  validateRequired(user.email, '이메일');
+  validateRequired(user.nickName, '닉네임');
 
   try {
     const { data } = await request.post<JoinApiResponse>(API.AUTH.SIGNUP, user);
@@ -45,7 +46,7 @@ export const join = async (
 export const checkNickName = async (
   nickName: string,
 ): Promise<CheckNickNameApiResponse> => {
-  if (!nickName.trim()) throw new Error('닉네임을 입력해주세요.');
+  validateRequired(nickName, '닉네임');
 
   try {
     const { data } = await request.get<CheckNickNameApiResponse>(
@@ -60,13 +61,14 @@ export const checkNickName = async (
 export const updateNickName = async (
   newNickName: string,
 ): Promise<UpdateNickNameResponse> => {
+  validateRequired(newNickName, '닉네임');
   try {
     const { data } = await request.put<UpdateNickNameResponse>(
       API.AUTH.UPDATE_NICKNAME,
       { newNickName },
     );
     return data;
-  } catch (error) {
+  } catch (error: unknown) {
     throw handleApiError(error, '닉네임 변경');
   }
 };
@@ -75,6 +77,8 @@ export const updatePassword = async (
   newPassword: string,
   confirmPassword: string,
 ): Promise<UpdatePasswordResponse> => {
+  validateRequired(newPassword, '새 비밀번호');
+  validateRequired(confirmPassword, '확인 비밀번호');
   if (newPassword !== confirmPassword)
     throw new Error('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 
@@ -87,7 +91,7 @@ export const updatePassword = async (
       },
     );
     return data;
-  } catch (error) {
+  } catch (error: unknown) {
     throw handleApiError(error, '비밀번호 변경');
   }
 };
