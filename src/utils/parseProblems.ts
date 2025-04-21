@@ -36,8 +36,13 @@ const parseProblems = (data: string[]): Problems => {
       const problemNumber = numberPart.split(' ')[1]?.trim();
 
       if (problemNumber && title) {
+        const parsedNumber = parseInt(problemNumber, 10);
+        if (isNaN(parsedNumber)) {
+          console.warn(`Invalid problem number: ${problemNumber}`);
+          return;
+        }
         problems[currentLevel].push({
-          problemNumber: parseInt(problemNumber, 10),
+          problemNumber: parsedNumber,
           title,
           url: `https://www.acmicpc.net/problem/${problemNumber}`,
         });

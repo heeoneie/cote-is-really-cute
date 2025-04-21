@@ -46,8 +46,8 @@ export const deleteRival = async (
   try {
     const { data } = await request.delete<OperationResponse>(API.RIVAL.DELETE, {
       params: {
-        userEmail: encodeURIComponent(userEmail),
-        rivalNickName: encodeURIComponent(rivalNickName),
+        userEmail: userEmail,
+        rivalNickName: rivalNickName,
       },
     });
     return data;

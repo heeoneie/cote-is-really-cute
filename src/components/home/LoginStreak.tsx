@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkConsecutiveAttendance } from '@api/user';
 import useUserStore from '@stores/userStore';
 
-const PetStatus = () => {
+const LoginStreak = () => {
   const { email } = useUserStore();
   const [consecutiveDays, setConsecutiveDays] = useState<number>(0);
 
@@ -43,4 +43,4 @@ const PetStatus = () => {
   );
 };
 
-export default PetStatus;
+export default LoginStreak;
