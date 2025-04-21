@@ -73,7 +73,11 @@ const CategoryBtn = () => {
             ))}
           </div>
         )}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {error && (
+          <p className="mt-4 text-sm text-red-600 bg-red-100 px-3 py-2 rounded-md">
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );

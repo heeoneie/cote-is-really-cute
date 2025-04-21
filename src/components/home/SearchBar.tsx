@@ -89,7 +89,7 @@ const SearchBar = () => {
       <input
         type="text"
         placeholder="유저검색"
-        className="px-4 py-2 w-full border-4 border-[#82d21c] rounded-full focus:outline-none"
+        className="w-full px-4 py-2 rounded-full border-2 border-[#82d21c] focus:outline-none focus:ring-2 focus:ring-green-300"
         value={nickName}
         onChange={handleInputChange}
       />
@@ -118,7 +118,7 @@ const SearchBar = () => {
                 </button>
               ) : (
                 <button
-                  className="ml-auto px-4 py-1 bg-[#f28434] text-white rounded-full hover:bg-orange-600"
+                  className="ml-auto px-3 py-1 rounded-full text-white bg-[#f28434] hover:bg-orange-600 text-sm"
                   onClick={() => handleAddRival(user.nickName)}
                 >
                   라이벌 맺기
