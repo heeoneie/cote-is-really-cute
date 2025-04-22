@@ -25,16 +25,10 @@ const LoginStreak = () => {
       <p className="text-xl font-bold text-orange-500 animate-slideUp">
         Excellent!
       </p>
-      <img src="/fire.png" alt="Fire" className="w-12 animate-float" />
       <img
         src="/fire.png"
-        alt="Fire"
-        className="w-12 animate-float absolute top-4 left-6"
-      />
-      <img
-        src="/fire.png"
-        alt="Fire"
-        className="w-12 animate-float absolute bottom-4 right-6"
+        alt="연속 출석 불꽃 아이콘"
+        className="w-12 animate-float"
       />
       <h2 className="text-lg font-light mt-2 text-center text-gray-900 dark:text-white">
         {consecutiveDays}일 연속 공부 중!

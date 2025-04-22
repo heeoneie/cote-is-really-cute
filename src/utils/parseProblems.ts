@@ -31,9 +31,9 @@ const parseProblems = (data: string[]): Problems => {
       .filter(Boolean);
 
     problemsList.forEach((item) => {
-      const [numberPart, ...titleParts] = item.split(' - ');
-      const title = titleParts.join(' - ').trim();
-      const problemNumber = numberPart.split(' ')[1]?.trim();
+      const match = item.match(/문제\s+(\d+)\s+-\s+(.*)/);
+      const problemNumber = match?.[1];
+      const title = match?.[2]?.trim();
 
       if (problemNumber && title) {
         const parsedNumber = parseInt(problemNumber, 10);
