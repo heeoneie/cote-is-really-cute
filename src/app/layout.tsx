@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
       >
         <SideBarWrapper />
-        <main className="flex-1 ml-60">{children}</main>
+        <main className="flex-1">{children}</main>
         <ThemeInitializer />
         <Toaster position="top-center" reverseOrder={false} />
       </body>

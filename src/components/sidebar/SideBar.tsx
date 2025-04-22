@@ -24,7 +24,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-60 bg-white border-r border-gray-200 flex flex-col justify-between p-4 shadow-md z-50 overflow-y-auto">
+    <aside className="top-0 left-0 h-screen w-60 bg-white border-r border-gray-200 flex flex-col justify-between p-4 shadow-md z-50 overflow-y-auto">
       <div>
         <h1 className="text-center text-green-500 text-xl font-bold mb-6 font-bitbit">
           코테는 정말 귀여워
