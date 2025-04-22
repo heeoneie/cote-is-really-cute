@@ -1,7 +1,7 @@
 import AuthLinks from '@components/AuthLinks';
 import Spline from '@splinetool/react-spline';
 
-const Landing = () => {
+const LandingPage = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen text-center bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
       <p className="font-[DNFBitBitv2] text-4xl text-[#82d21c] dark:text-lime-400 mb-5">
@@ -23,4 +23,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingPage;

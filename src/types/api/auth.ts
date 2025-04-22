@@ -17,11 +17,11 @@ export interface CheckNickNameResponse {
   message: string;
 }
 
-export interface UpdateNickNameResponseData {
+export interface UpdateNickNameResponse {
   nickName: string;
 }
 
-export interface UpdatePasswordResponseData {
+export interface UpdatePasswordResponse {
   message: string;
 }
 
@@ -29,5 +29,5 @@ export type JoinApiResponse = ApiResponse<JoinResponse>;
 export type LoginApiResponse = ApiResponse<LoginResponse>;
 export type SignupApiResponse = ApiResponse<JoinResponse>;
 export type CheckNickNameApiResponse = ApiResponse<CheckNickNameResponse>;
-export type UpdateNickNameResponse = ApiResponse<UpdateNickNameResponseData>;
-export type UpdatePasswordResponse = ApiResponse<UpdatePasswordResponseData>;
+export type UpdateNickNameApiResponse = ApiResponse<UpdateNickNameResponse>;
+export type UpdatePasswordApiResponse = ApiResponse<UpdatePasswordResponse>;

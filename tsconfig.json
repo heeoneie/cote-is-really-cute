@@ -6,7 +6,7 @@
       "@api/*": ["api/*"],
       "@app/*": ["app/*"],
       "@schema/*": ["schema/*"],
-      "@store/*": ["store/*"],
+      "@stores/*": ["stores/*"],
       "@hooks/*": ["hooks/*"],
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],

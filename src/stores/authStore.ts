@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import useUserStore from '@store/userStore';
+import useUserStore from './userStore';
 
 const TOKEN_KEY = 'token';
 const EMAIL = 'email';
