@@ -30,7 +30,7 @@ const CategoryBtn = () => {
       const response = await getAlgorithmCourse(category);
       const parsed = parseProblems(response);
       setProblems(parsed);
-      router.push(`/solve/${category}/beginner/0`);
+      router.push(`/algo-practice/${category}/beginner/0`);
     } catch (err) {
       setError('문제를 불러오지 못했습니다.');
       console.error(err);

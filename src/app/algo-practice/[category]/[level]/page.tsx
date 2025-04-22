@@ -45,7 +45,9 @@ export default function ProblemSolvingPage({ params }: Props) {
         setShowAlert(true);
         setTimeout(() => {
           setShowAlert(false);
-          router.push(`/solve/${category}/${levelSequence[nextLevelIndex]}`);
+          router.push(
+            `/algo-practice/${category}/${levelSequence[nextLevelIndex]}`,
+          );
           setCurrentProblemIndex(0);
         }, 2000);
       } else {
@@ -97,7 +99,6 @@ export default function ProblemSolvingPage({ params }: Props) {
       <div
         className={`flex w-full ${showCodeEditor ? 'flex-row' : 'flex-col'} gap-6`}
       >
-        {/* 문제 정보 + 타이머 + 버튼 */}
         <div
           className={`flex flex-col items-center justify-center w-full md:max-w-xs p-4 border rounded-lg ${
             showCodeEditor ? 'border-l-4 border-black/20' : ''
@@ -136,7 +137,6 @@ export default function ProblemSolvingPage({ params }: Props) {
           )}
         </div>
 
-        {/* 코드 에디터 */}
         {showCodeEditor && (
           <div className="flex-1 min-w-0">
             <CodeEditor
