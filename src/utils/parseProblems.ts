@@ -1,48 +1,46 @@
-import { Problems } from '@stores//problemStore';
+import { Problems } from '@stores/problemStore';
 
-const parseProblems = (data: string[]): Problems => {
+const parseProblems = (data: string): Problems => {
   const problems: Problems = {
     beginner: [],
     intermediate: [],
     advanced: [],
   };
 
-  let currentLevel = '';
-  const sections = data
-    .join('\n')
+  const levelMap: Record<string, keyof Problems> = {
+    초급: 'beginner',
+    중급: 'intermediate',
+    고급: 'advanced',
+  };
+
+  const lines = data
     .split('\n')
-    .filter((line) => line.trim() !== '');
+    .map((line) => line.trim())
+    .filter(Boolean);
 
-  sections.forEach((line) => {
-    if (line.includes('초급:')) {
-      currentLevel = 'beginner';
-      line = line.replace('초급:', '').trim();
-    } else if (line.includes('중급:')) {
-      currentLevel = 'intermediate';
-      line = line.replace('중급:', '').trim();
-    } else if (line.includes('고급:')) {
-      currentLevel = 'advanced';
-      line = line.replace('고급:', '').trim();
-    }
+  lines.forEach((line) => {
+    const levelMatch = line.match(/^(초급|중급|고급):/);
 
-    const problemsList = line
-      .split('],')
-      .map((item) => item.replace(/[[\]]/g, '').trim())
-      .filter(Boolean);
+    if (!levelMatch) return;
 
-    problemsList.forEach((item) => {
-      const match = item.match(/문제\s+(\d+)\s+-\s+(.*)/);
-      const problemNumber = match?.[1];
-      const title = match?.[2]?.trim();
+    const levelKor = levelMatch[1];
+    const level = levelMap[levelKor];
+    const problemsPart = line.replace(`${levelKor}:`, '').trim();
 
-      if (problemNumber && title) {
-        const parsedNumber = parseInt(problemNumber, 10);
-        if (isNaN(parsedNumber)) {
-          console.warn(`Invalid problem number: ${problemNumber}`);
-          return;
-        }
-        problems[currentLevel].push({
-          problemNumber: parsedNumber,
+    const entries = problemsPart.split('],').map((entry) => {
+      return entry.replace(/[\[\]]/g, '').trim(); // [10809 - 알파벳 찾기] → 10809 - 알파벳 찾기
+    });
+
+    entries.forEach((entry) => {
+      const match = entry.match(/^(\d+)\s*-\s*(.+)$/);
+      if (!match) return;
+
+      const problemNumber = parseInt(match[1], 10);
+      const title = match[2].trim();
+
+      if (!isNaN(problemNumber)) {
+        problems[level].push({
+          problemNumber,
           title,
           url: `https://www.acmicpc.net/problem/${problemNumber}`,
         });

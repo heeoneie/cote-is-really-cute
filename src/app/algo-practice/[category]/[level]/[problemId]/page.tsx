@@ -1,21 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CodeEditor from '@components/CodeEditor';
 import Timer from '@components/Timer';
 import { gradeCode } from '@api/openai';
 import useProblemStore from '@stores/problemStore';
 
-type Props = {
-  params: {
-    category: string;
-    level: 'beginner' | 'intermediate' | 'advanced';
-  };
+type ParamsType = {
+  category: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  problemId: string;
 };
 
+interface Props {
+  params: Promise<ParamsType>;
+}
+
 export default function ProblemSolvingPage({ params }: Props) {
-  const { category, level } = params;
+  const { category, level, problemId } = use(params);
   const router = useRouter();
   const { problems, currentProblemIndex, setCurrentProblemIndex } =
     useProblemStore();

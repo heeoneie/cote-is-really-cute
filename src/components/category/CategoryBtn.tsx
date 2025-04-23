@@ -28,6 +28,7 @@ const CategoryBtn = () => {
     setError('');
     try {
       const response = await getAlgorithmCourse(category);
+      console.log(response);
       const parsed = parseProblems(response);
       setProblems(parsed);
       router.push(`/algo-practice/${category}/beginner/0`);
