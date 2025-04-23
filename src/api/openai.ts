@@ -3,7 +3,7 @@ import { handleApiError } from '@utils/apiError';
 import { API } from '@utils/endPoint';
 
 interface RecommendProblemsResponse {
-  problems: string[];
+  problems: string;
 }
 
 interface GradeCodeRequest {
@@ -16,17 +16,15 @@ interface GradeCodeResponse {
   isCorrect: boolean;
 }
 
-export const getAlgorithmCourse = async (
-  category: string,
-): Promise<string[]> => {
+export const getAlgorithmCourse = async (category: string): Promise<string> => {
   if (!category.trim()) throw new Error('유효한 카테고리를 입력해주세요.');
 
   try {
-    const response = await request.post<RecommendProblemsResponse>(
+    const { data } = await request.post<RecommendProblemsResponse>(
       API.OPENAI.GET_ALGORITHM_COURSE,
       { category },
     );
-    return response?.data?.problems ?? [];
+    return data.problems;
   } catch (error: unknown) {
     throw handleApiError(error, '문제 추천');
   }
