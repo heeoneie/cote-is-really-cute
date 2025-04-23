@@ -1,4 +1,7 @@
+'use client';
+
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type Problem = {
   title: string;
@@ -21,55 +24,43 @@ type ProblemStore = {
   resetProblemIndex: () => void;
 };
 
-const useProblemStore = create<ProblemStore>((set) => ({
-  problems: (() => {
-    try {
-      const storedProblems = localStorage.getItem('problems');
-      return storedProblems
-        ? JSON.parse(storedProblems)
-        : { beginner: [], intermediate: [], advanced: [] };
-    } catch (error) {
-      console.error('Failed to load problems from localStorage:', error);
-      return { beginner: [], intermediate: [], advanced: [] };
-    }
-  })(),
-  setProblems: (problems) => {
-    try {
-      localStorage.setItem('problems', JSON.stringify(problems));
-      set({ problems });
-    } catch (error) {
-      console.error('Failed to save problems to localStorage:', error);
-      set({ problems });
-    }
-  },
-  currentProblemIndex: (() => {
-    try {
-      const storedIndex = localStorage.getItem('currentProblemIndex');
-      return storedIndex ? JSON.parse(storedIndex) : 0;
-    } catch (error) {
-      console.error(
-        'Failed to load currentProblemIndex from localStorage:',
-        error,
-      );
-      return 0;
-    }
-  })(),
-  setCurrentProblemIndex: (index) => {
-    try {
-      localStorage.setItem('currentProblemIndex', JSON.stringify(index));
-      set({ currentProblemIndex: index });
-    } catch (error) {
-      console.error(
-        'Failed to save currentProblemIndex to localStorage:',
-        error,
-      );
-      set({ currentProblemIndex: index });
-    }
-  },
-  resetProblemIndex: () => {
-    localStorage.removeItem('currentProblemIndex');
-    set({ currentProblemIndex: 0 });
-  },
-}));
+// 🧠 SSR 환경에선 store 생성 X
+const useProblemStore =
+  typeof window !== 'undefined'
+    ? create<ProblemStore>()(
+        persist(
+          (set) => ({
+            problems: {
+              beginner: [],
+              intermediate: [],
+              advanced: [],
+            },
+            setProblems: (problems) => set({ problems }),
+            currentProblemIndex: 0,
+            setCurrentProblemIndex: (index) =>
+              set({ currentProblemIndex: index }),
+            resetProblemIndex: () => set({ currentProblemIndex: 0 }),
+          }),
+          {
+            name: 'problem-storage',
+            partialize: (state) => ({
+              problems: state.problems,
+              currentProblemIndex: state.currentProblemIndex,
+            }),
+          },
+        ),
+      )
+    : () =>
+        ({
+          problems: {
+            beginner: [],
+            intermediate: [],
+            advanced: [],
+          },
+          setProblems: () => {},
+          currentProblemIndex: 0,
+          setCurrentProblemIndex: () => {},
+          resetProblemIndex: () => {},
+        }) as ProblemStore;
 
 export default useProblemStore;

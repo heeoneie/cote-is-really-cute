@@ -1,4 +1,7 @@
+'use client';
+
 import { create } from 'zustand';
+import { useEffect } from 'react';
 
 const EMAIL_KEY = 'email';
 
@@ -9,32 +12,30 @@ type UserStore = {
 };
 
 const useUserStore = create<UserStore>((set) => ({
-  email: (() => {
-    try {
-      return localStorage.getItem(EMAIL_KEY) || '';
-    } catch (error) {
-      console.error('localStorage 접근 오류:', error);
-      return '';
-    }
-  })(),
+  email: '',
   setEmail: (email) => {
-    try {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(EMAIL_KEY, email);
-      set({ email });
-    } catch (error) {
-      console.error('이메일 저장 중 오류:', error);
-      set({ email });
     }
+    set({ email });
   },
   clearEmail: () => {
-    try {
+    if (typeof window !== 'undefined') {
       localStorage.removeItem(EMAIL_KEY);
-      set({ email: '' });
-    } catch (error) {
-      console.error('이메일 삭제 중 오류:', error);
-      set({ email: '' });
     }
+    set({ email: '' });
   },
 }));
+
+export const InitUserStore = () => {
+  const setEmail = useUserStore((s) => s.setEmail);
+
+  useEffect(() => {
+    const email = localStorage.getItem(EMAIL_KEY);
+    if (email) setEmail(email);
+  }, [setEmail]);
+
+  return null;
+};
 
 export default useUserStore;

@@ -4,6 +4,7 @@ import './globals.css';
 import ThemeInitializer from '@components/system/ThemeInitializer';
 import { Toaster } from 'react-hot-toast';
 import SideBarWrapper from '@components/layout/SideBarWrapper';
+import { InitUserStore } from '@stores/userStore';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
       >
         <SideBarWrapper />
+        <InitUserStore />
         <main className="flex-1">{children}</main>
         <ThemeInitializer />
         <Toaster position="top-center" reverseOrder={false} />

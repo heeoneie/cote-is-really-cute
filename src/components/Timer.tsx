@@ -14,6 +14,9 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
   const audioRef = useRef<HTMLAudioElement>(
     new Audio('/audio/iphone_alarm.mp3'),
   );
+  const MIN_TIMER_MINUTES = 10;
+  const MILLISECONDS_PER_MINUTE = 60 * 1000;
+  const MILLISECONDS_PER_HOUR = 60 * 60 * 1000;
 
   useEffect(() => {
     if (isAlarmActive) {
@@ -22,6 +25,10 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+    return () => {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    };
   }, [isAlarmActive]);
 
   const startTimer = () => {
@@ -38,7 +45,10 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
 
   const adjustTimer = (adjustment: number) => {
     setTimerMinutes((prev) =>
-      Math.max(10 * 60 * 1000, prev + adjustment * 60 * 1000),
+      Math.max(
+        MIN_TIMER_MINUTES * MILLISECONDS_PER_MINUTE,
+        prev + adjustment * MILLISECONDS_PER_MINUTE,
+      ),
     );
   };
 

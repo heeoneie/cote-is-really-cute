@@ -1,10 +1,15 @@
+'use client';
+
 import { create } from 'zustand';
 import useUserStore from './userStore';
 
 const TOKEN_KEY = 'token';
 const EMAIL = 'email';
 
+const isClient = typeof window !== 'undefined';
+
 const getTokenFromStorage = (): string | null => {
+  if (!isClient) return null;
   try {
     return localStorage.getItem(TOKEN_KEY);
   } catch (error) {
@@ -23,10 +28,12 @@ const useAuthStore = create<AuthStore>((set) => ({
   isLoggedIn: !!getTokenFromStorage(),
   setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
   logout: () => {
+    if (!isClient) return;
+
     try {
       localStorage.removeItem(EMAIL);
-      useUserStore.getState().clearEmail();
       localStorage.removeItem(TOKEN_KEY);
+      useUserStore.getState().clearEmail();
       set({ isLoggedIn: false });
     } catch (error) {
       console.error('로그아웃 중 오류:', error);
