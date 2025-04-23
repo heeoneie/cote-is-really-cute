@@ -16,7 +16,6 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
   );
   const MIN_TIMER_MINUTES = 10;
   const MILLISECONDS_PER_MINUTE = 60 * 1000;
-  const MILLISECONDS_PER_HOUR = 60 * 60 * 1000;
 
   useEffect(() => {
     if (isAlarmActive) {
@@ -71,9 +70,9 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
       <div className="flex gap-2 mb-3">
         <button
           onClick={() => adjustTimer(-10)}
-          disabled={timerMinutes <= 10 * 60 * 1000}
+          disabled={timerMinutes <= MIN_TIMER_MINUTES * MILLISECONDS_PER_MINUTE}
           className={`px-3 py-2 text-xs rounded-full font-medium transition ${
-            timerMinutes <= 10 * 60 * 1000
+            timerMinutes <= MIN_TIMER_MINUTES * MILLISECONDS_PER_MINUTE
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : 'bg-lime-300 hover:bg-lime-500 text-black'
           }`}
@@ -107,7 +106,6 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
         />
       )}
 
-      {/* 알람 상태일 때 STOP 버튼 */}
       {isAlarmActive && (
         <button
           onClick={stopTimer}

@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function ProblemSolvingPage({ params }: Props) {
-  const { category, level, problemId } = use(params);
+  const { category, level } = use(params);
   const router = useRouter();
   const { problems, currentProblemIndex, setCurrentProblemIndex } =
     useProblemStore();
