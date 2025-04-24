@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Spline from '@splinetool/react-spline';
-import BattleBtn from '@components/BattleBtn';
+import BattleButton from '@components/battle/BattleButton';
 import Timer from '@components/Timer';
 
 const BattlePage = () => {
@@ -11,7 +11,6 @@ const BattlePage = () => {
 
   return (
     <div className="flex flex-col md:flex-row w-full h-[90vh]">
-      {/* Main Section */}
       <div className="flex flex-col items-center justify-center flex-1 px-4 text-center">
         <h5 className="text-2xl md:text-3xl font-semibold mb-4">
           코딩 능력을 시험해볼 기회!
@@ -36,7 +35,7 @@ const BattlePage = () => {
           </div>
         </div>
 
-        <BattleBtn />
+        <BattleButton />
       </div>
 
       <div className="w-full md:w-[290px] flex justify-center items-center border-t md:border-t-0 md:border-l border-black/15">
