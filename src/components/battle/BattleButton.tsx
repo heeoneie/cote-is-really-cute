@@ -16,9 +16,12 @@ const BattleButton = () => {
   const { email: userEmail } = useUserStore();
 
   useEffect(() => {
+    if (!socket.connected) socket.connect();
+
     const handleMatchFound = ({ matchId, problem }: MatchFoundData) => {
       setIsWaiting(false);
-      router.push(`/battle/${matchId}?problem=${encodeURIComponent(problem)}`);
+      console.log('🔥 matchFound 수신:', { matchId, problem });
+      router.push(`/battle/${matchId}}`);
     };
 
     socket.on('matchFound', handleMatchFound);
