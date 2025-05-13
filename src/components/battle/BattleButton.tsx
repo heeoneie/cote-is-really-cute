@@ -18,6 +18,11 @@ const BattleButton = () => {
   useEffect(() => {
     if (!socket.connected) socket.connect();
 
+    const handleConnectError = (error: unknown) => {
+      console.error('소켓 연결 오류:', error);
+      alert('서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    };
+
     const handleMatchFound = ({ matchId, problem }: MatchFoundData) => {
       setIsWaiting(false);
       console.log('🔥 matchFound 수신:', { matchId, problem });
@@ -25,9 +30,11 @@ const BattleButton = () => {
     };
 
     socket.on('matchFound', handleMatchFound);
+    socket.on('connect_error', handleConnectError);
 
     return () => {
       socket.off('matchFound', handleMatchFound);
+      socket.off('connect_error', handleConnectError);
     };
   }, [router]);
 
