@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
@@ -10,18 +10,15 @@ import 'ace-builds/src-noconflict/theme-twilight';
 import { recordAttendance } from '@api/user';
 
 interface CodeEditorProps {
-  code: string;
-  onChange: (newCode: string) => void;
-  onSubmit: () => Promise<boolean | undefined>;
+  onSubmit: (code: string) => Promise<boolean | undefined>;
   onLanguageChange: (mode: string) => void;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
-  code,
-  onChange,
   onSubmit,
   onLanguageChange,
 }) => {
+  const codeRef = useRef<string>('');
   const languages = [
     { label: 'Python', mode: 'python' },
     { label: 'Java', mode: 'java' },
@@ -41,7 +38,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   const handleSubmit = async () => {
-    const isCorrect = await onSubmit();
+    const isCorrect = await onSubmit(codeRef.current);
     if (isCorrect) {
       const email = localStorage.getItem('email');
       if (email) await recordAttendance(email);
@@ -85,12 +82,13 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           mode={mode}
           theme={theme}
           name="code_editor"
-          onChange={onChange}
+          onChange={(newCode) => {
+            codeRef.current = newCode;
+          }}
           fontSize={14}
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          value={code}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
