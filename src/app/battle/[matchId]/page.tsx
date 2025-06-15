@@ -6,6 +6,7 @@ import CodeEditor from '@components/CodeEditor';
 import Timer from '@components/Timer';
 import socket from '@utils/socket';
 import { gradeCode } from '@api/openai';
+import toast from 'react-hot-toast';
 
 interface Problem {
   problemNumber: number;
@@ -26,6 +27,7 @@ export default function BattlePage() {
   const [language, setLanguage] = useState('python');
   const [showEditor, setShowEditor] = useState(false);
   const [problem, setProblem] = useState<Problem | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const problemParam = searchParams.get('problem');
 
@@ -36,6 +38,7 @@ export default function BattlePage() {
         setProblem(parsed);
       } catch (e) {
         console.error('문제 정보 파싱 오류:', e);
+        toast.error('문제를 불러오는 중 오류가 발생했습니다.');
       }
     }
   }, [problemParam]);
@@ -58,7 +61,7 @@ export default function BattlePage() {
 
   const handleCodeSubmit = useCallback(async () => {
     if (!problem) return;
-
+    setIsSubmitting(true);
     try {
       const result = await gradeCode({
         problemTitle: problem.problemTitle,
@@ -67,18 +70,20 @@ export default function BattlePage() {
       });
 
       if (result) {
-        alert('정답입니다!');
+        toast.success('정답입니다!');
         socket.emit('submitSolution', {
           problemNumber: problem.problemNumber,
           userEmail: localStorage.getItem('email'),
           isCorrect: true,
         });
       } else {
-        alert('틀렸습니다. 다시 시도해보세요.');
+        toast.error('틀렸습니다. 다시 시도해보세요.');
       }
     } catch (error) {
       console.error('채점 오류:', error);
-      alert('채점 중 오류가 발생했습니다.');
+      toast.error('채점 중 오류가 발생했습니다.');
+    } finally {
+      setIsSubmitting(false);
     }
   }, [problem, language, code]);
 
@@ -137,7 +142,13 @@ export default function BattlePage() {
             <h4 className="text-2xl m-2">{problem.problemTitle}</h4>
           </>
         )}
-        <Timer initialMinutes={30} />
+        <Timer
+          initialMinutes={30}
+          onTimerEnd={() => {
+            alert('시간이 종료되었습니다!');
+            handleCodeSubmit();
+          }}
+        />
       </div>
     </div>
   );

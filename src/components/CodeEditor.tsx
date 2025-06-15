@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-java';
@@ -10,22 +10,25 @@ import 'ace-builds/src-noconflict/theme-twilight';
 import { recordAttendance } from '@api/user';
 
 interface CodeEditorProps {
-  onSubmit: (code: string) => Promise<boolean | undefined>;
+  code: string;
+  onChange: (code: string) => void;
   onLanguageChange: (mode: string) => void;
+  onSubmit: () => Promise<void | undefined>;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
-  onSubmit,
+  code,
+  onChange,
   onLanguageChange,
+  onSubmit,
 }) => {
-  const codeRef = useRef<string>('');
   const languages = [
     { label: 'Python', mode: 'python' },
     { label: 'Java', mode: 'java' },
     { label: 'C++', mode: 'c_cpp' },
   ];
-  const [mode, setMode] = useState<string>(languages[0].mode);
-  const [theme, setTheme] = useState<string>('github');
+  const [mode, setMode] = React.useState(languages[0].mode);
+  const [theme, setTheme] = React.useState('github');
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newMode = e.target.value;
@@ -38,7 +41,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   const handleSubmit = async () => {
-    const isCorrect = await onSubmit(codeRef.current);
+    const isCorrect = await onSubmit();
     if (isCorrect) {
       const email = localStorage.getItem('email');
       if (email) await recordAttendance(email);
@@ -79,16 +82,15 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
       <div className="w-full">
         <AceEditor
+          value={code}
+          onChange={onChange}
           mode={mode}
           theme={theme}
           name="code_editor"
-          onChange={(newCode) => {
-            codeRef.current = newCode;
-          }}
           fontSize={14}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
+          showPrintMargin
+          showGutter
+          highlightActiveLine
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
