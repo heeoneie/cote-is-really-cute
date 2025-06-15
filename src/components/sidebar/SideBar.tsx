@@ -8,9 +8,9 @@ import { Swords, Book, Cat, Smile } from 'lucide-react';
 
 const items = [
   { href: '/', label: '학습', icon: <Book size={20} /> },
-  { href: '/pvp', label: '대결', icon: <Swords size={20} /> },
-  { href: '/mypage', label: '마이페이지', icon: <Smile size={20} /> },
-  { href: '/petroom', label: '고양이방', icon: <Cat size={20} /> },
+  { href: '/battle', label: '대결', icon: <Swords size={20} /> },
+  { href: '/my-page', label: '마이페이지', icon: <Smile size={20} /> },
+  { href: '/pet-room', label: '고양이방', icon: <Cat size={20} /> },
 ];
 
 const Sidebar = () => {

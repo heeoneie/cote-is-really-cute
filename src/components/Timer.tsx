@@ -5,9 +5,10 @@ import Countdown, { CountdownRenderProps } from 'react-countdown';
 
 interface TimerProps {
   initialMinutes: number;
+  onTimerEnd?: () => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
+const Timer: React.FC<TimerProps> = ({ initialMinutes, onTimerEnd }) => {
   const [timerMinutes, setTimerMinutes] = useState(initialMinutes * 60 * 1000);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [isAlarmActive, setIsAlarmActive] = useState(false);
@@ -102,7 +103,10 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes }) => {
         <Countdown
           date={Date.now() + timerMinutes}
           renderer={renderer}
-          onComplete={() => setIsAlarmActive(true)}
+          onComplete={() => {
+            setIsAlarmActive(true);
+            onTimerEnd?.();
+          }}
         />
       )}
 
