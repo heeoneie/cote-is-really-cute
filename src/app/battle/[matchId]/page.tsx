@@ -59,8 +59,8 @@ export default function BattlePage() {
     };
   }, [problem, router]);
 
-  const handleCodeSubmit = useCallback(async () => {
-    if (!problem) return;
+  const handleCodeSubmit = useCallback(async (): Promise<boolean> => {
+    if (!problem) return false;
     setIsSubmitting(true);
     try {
       const result = await gradeCode({
@@ -76,16 +76,19 @@ export default function BattlePage() {
           userEmail: localStorage.getItem('email'),
           isCorrect: true,
         });
+        return true;
       } else {
         toast.error('틀렸습니다. 다시 시도해보세요.');
+        return false;
       }
     } catch (error) {
       console.error('채점 오류:', error);
       toast.error('채점 중 오류가 발생했습니다.');
+      return false;
     } finally {
       setIsSubmitting(false);
     }
-  }, [problem, language, code]);
+  }, [problem, language, code, isSubmitting]);
 
   const handleSolve = () => {
     if (problem) {

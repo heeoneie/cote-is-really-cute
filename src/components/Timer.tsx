@@ -103,7 +103,10 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes, onTimerEnd }) => {
         <Countdown
           date={Date.now() + timerMinutes}
           renderer={renderer}
-          onComplete={() => setIsAlarmActive(true)}
+          onComplete={() => {
+            setIsAlarmActive(true);
+            onTimerEnd?.();
+          }}
         />
       )}
 

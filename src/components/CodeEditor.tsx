@@ -13,7 +13,7 @@ interface CodeEditorProps {
   code: string;
   onChange: (code: string) => void;
   onLanguageChange: (mode: string) => void;
-  onSubmit: () => Promise<void | undefined>;
+  onSubmit: () => Promise<boolean>;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
