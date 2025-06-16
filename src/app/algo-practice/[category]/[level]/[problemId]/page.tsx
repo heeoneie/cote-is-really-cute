@@ -87,7 +87,9 @@ export default function ProblemSolvingPage({ params }: Props) {
       }
     } catch (error) {
       console.error('채점 중 오류가 발생했습니다:', error);
+      setIsGrading(false);
       alert('채점 중 오류가 발생했습니다.');
+      return false;
     }
   };
 
