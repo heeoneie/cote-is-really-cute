@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Countdown, { CountdownRenderProps } from 'react-countdown';
+import dynamic from 'next/dynamic';
+import { CountdownRenderProps } from 'react-countdown';
+const Countdown = dynamic(() => import('react-countdown'), { ssr: false });
 
 interface TimerProps {
   initialMinutes: number;
