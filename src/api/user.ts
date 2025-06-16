@@ -52,3 +52,17 @@ export const checkConsecutiveAttendance = async (
     throw handleApiError(error, '연속 출석 체크');
   }
 };
+
+export const getUserLevel = async (
+  userEmail: string,
+): Promise<number | null> => {
+  if (!userEmail.trim()) throw new Error('이메일을 입력해주세요.');
+  try {
+    const { data } = await request.get<{ level: number }>(
+      API.USER.LEVEL(userEmail),
+    );
+    return data.level;
+  } catch (error) {
+    throw handleApiError(error, '레벨 조회');
+  }
+};
