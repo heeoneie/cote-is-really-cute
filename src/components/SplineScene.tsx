@@ -20,9 +20,16 @@ const SplineScene: React.FC<SplineSceneProps> = ({ level, type }) => {
         console.error('레벨은 0보다 커야 합니다');
         return '';
       }
-      if (type === 'item2') return items.item2[level - 4];
-      else if (type === 'item3') return items.item3[level - 6];
-      return items[type][level - 1];
+      const idx =
+        type === 'item2' ? level - 4 : type === 'item3' ? level - 6 : level - 1;
+      const scene = items[type][idx];
+      if (!scene) {
+        console.warn(
+          `레벨(${level})과 타입(${type})에 해당하는 씬이 없습니다.`,
+        );
+        return '';
+      }
+      return scene;
     } catch (error) {
       console.error('장면을 가져오는 중 오류 발생:', error);
       return '';

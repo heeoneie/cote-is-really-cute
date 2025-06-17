@@ -53,9 +53,7 @@ export const checkConsecutiveAttendance = async (
   }
 };
 
-export const getUserLevel = async (
-  userEmail: string,
-): Promise<number | null> => {
+export const getUserLevel = async (userEmail: string): Promise<number> => {
   if (!userEmail.trim()) throw new Error('이메일을 입력해주세요.');
   try {
     const { data } = await request.get<{ level: number }>(
