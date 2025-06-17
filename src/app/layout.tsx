@@ -29,11 +29,15 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SideBarWrapper />
+        <div className="flex h-screen">
+          <SideBarWrapper />
+          <div className="flex-1 overflow-hidden">
+            <main>{children}</main>
+          </div>
+        </div>
         <InitUserStore />
-        <main className="flex-1">{children}</main>
         <ThemeInitializer />
         <Toaster position="top-center" reverseOrder={false} />
       </body>
