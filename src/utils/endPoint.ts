@@ -13,6 +13,7 @@ export const API = {
     ATTEND: '/users/attend',
     CHECK_ATTEND: (userEmail: string) =>
       `/users/attend/${encodeURIComponent(userEmail)}`,
+    LEVEL: (email: string) => `/users/level/${email}`,
   },
   OPENAI: {
     GET_ALGORITHM_COURSE: '/openai/recommendation',
