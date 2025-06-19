@@ -1,7 +1,5 @@
 import SearchBar from './SearchBar';
-import PetStatus from './PetStatus';
 import CategoryBtn from '../category/CategoryBtn';
-import LoginStreak from './LoginStreak';
 
 export default function HomePage() {
   return (
@@ -9,9 +7,7 @@ export default function HomePage() {
       <SearchBar />
       <div className="grid grid-cols-2 gap-4">
         <CategoryBtn />
-        <LoginStreak />
       </div>
-      <PetStatus />
     </div>
   );
 }
