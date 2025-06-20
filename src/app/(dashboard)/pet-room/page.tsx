@@ -47,7 +47,7 @@ export default function PetRoom() {
   }
 
   return (
-    <div className="flex h-[90vh] w-full overflow-hidden flex-row items-center justify-between ml-0 md:ml-[290px] md:w-[calc(100vw-290px)]">
+    <div className="flex h-full w-full overflow-hidden flex-row items-center justify-between">
       <div className="flex-1 w-full h-full min-w-[300px] min-h-[300px]">
         <Suspense fallback={<div>Loading...</div>}>
           <Spline scene={rooms[level - 1]} />

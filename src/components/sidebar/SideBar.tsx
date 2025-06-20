@@ -7,7 +7,7 @@ import useAuthStore from '@stores/authStore';
 import { Swords, Book, Cat, Smile } from 'lucide-react';
 
 const items = [
-  { href: '/', label: '학습', icon: <Book size={20} /> },
+  { href: '/home', label: '학습', icon: <Book size={20} /> },
   { href: '/battle', label: '대결', icon: <Swords size={20} /> },
   { href: '/my-page', label: '마이페이지', icon: <Smile size={20} /> },
   { href: '/pet-room', label: '고양이방', icon: <Cat size={20} /> },
@@ -24,12 +24,12 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="top-0 left-0 h-screen w-60 bg-white border-r border-gray-200 flex flex-col justify-between p-4 shadow-md z-50 overflow-y-auto">
+    <aside className="top-0 left-0 h-screen w-65 bg-white border-r border-gray-200 flex flex-col justify-between p-4 shadow-md z-50 overflow-y-auto">
       <div>
-        <h1 className="text-center text-green-500 text-xl font-bold mb-6 font-bitbit">
+        <h1 className="text-center text-green-500 text-xl font-bold mt-3 mb-6 font-bitbit">
           코테는 정말 귀여워
         </h1>
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {items.map((item) => (
             <SidebarItem
               key={item.href}
