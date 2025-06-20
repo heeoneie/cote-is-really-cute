@@ -21,7 +21,7 @@ const LoginStreak = () => {
   }, [email]);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white dark:bg-gray-800 border-4 border-gray-300 rounded-full p-4 w-64 h-32 overflow-hidden">
+    <div className="flex flex-col items-center justify-center bg-white dark:bg-gray-800 border border-gray-300 rounded-xl p-4 w-64 h-32 overflow-hidden">
       <p className="text-xl font-bold text-orange-500 animate-slideUp">
         Excellent!
       </p>

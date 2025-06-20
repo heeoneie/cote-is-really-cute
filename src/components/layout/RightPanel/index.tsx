@@ -19,7 +19,7 @@ const RightPanel = () => {
   }, [pathname]);
 
   return (
-    <aside className="w-[300px] h-full border-l border-gray-200 bg-white px-4 py-6 shadow-inner">
+    <aside className="w-[350px] h-full border-l border-gray-200 bg-white px-4 py-6 shadow-inner">
       {PanelComponent}
     </aside>
   );

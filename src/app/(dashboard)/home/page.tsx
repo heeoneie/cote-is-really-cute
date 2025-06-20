@@ -1,7 +1,7 @@
 'use client';
 
 import HomeMain from '@components/home/HomeMain';
-import LandingPage from '@app/page';
+import LandingPage from '@app/(marketing)/page';
 import useAuthStore from '@stores/authStore';
 
 const HomePage = () => {

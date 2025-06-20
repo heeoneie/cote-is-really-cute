@@ -26,11 +26,11 @@ const PetStatus = () => {
   }, [email]);
 
   return (
-    <div className="w-64 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-300">
+    <div className="w-64 bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-300">
       <h2 className="text-center text-lg font-semibold text-gray-900 dark:text-white">
         고양이 상태창
       </h2>
-      <div className="w-full h-32 my-4">
+      <div className="w-full h-56 my-4">
         <Spline scene="https://prod.spline.design/QxlBuwJ2HLEZYiRN/scene.splinecode" />
       </div>
       <p className="text-center text-gray-700 dark:text-gray-300">
