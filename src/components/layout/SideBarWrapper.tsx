@@ -1,14 +1,10 @@
-'use client';
-import useHasMounted from '@hooks/useHasMounted';
-import useAuthStore from '@stores/authStore';
 import Sidebar from '@components/sidebar/SideBar';
+import AuthConditional from '@components/common/AuthConditional';
 
-const SideBarWrapper = () => {
-  const hasMounted = useHasMounted();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-
-  if (!hasMounted) return null;
-  return isLoggedIn ? <Sidebar /> : null;
-};
+const SideBarWrapper = () => (
+  <AuthConditional>
+    <Sidebar />
+  </AuthConditional>
+);
 
 export default SideBarWrapper;

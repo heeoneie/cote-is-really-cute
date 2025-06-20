@@ -5,7 +5,7 @@ import ThemeInitializer from '@components/system/ThemeInitializer';
 import { Toaster } from 'react-hot-toast';
 import SideBarWrapper from '@components/layout/SideBarWrapper';
 import { InitUserStore } from '@stores/userStore';
-import RightPanel from '@components/layout/RightPanel';
+import RightPanelWrapper from '@components/layout/RightPannelWrapper';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,7 +36,7 @@ export default function RootLayout({
           <SideBarWrapper />
           <div className="flex flex-1 overflow-hidden">
             <main className="flex-1 overflow-auto">{children}</main>
-            <RightPanel />
+            <RightPanelWrapper />
           </div>
         </div>
         <InitUserStore />
